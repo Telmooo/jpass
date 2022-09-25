@@ -33,6 +33,9 @@ local.properties
 # Eclipse Core
 .project
 
+# IntelliJ
+.idea
+
 # JDT-specific (Eclipse Java Development Tools)
 .classpath
 
