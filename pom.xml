@@ -241,6 +241,23 @@
                 <artifactId>spotbugs-maven-plugin</artifactId>
                 <version>4.7.2.0</version>
             </plugin>
+
+            <!-- Checkstyle -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <version>3.2.0</version>
+                <configuration>
+                    <configLocation>${basedir}/rulesets/checkstyle-rules.xml</configLocation>
+                </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>com.puppycrawl.tools</groupId>
+                        <artifactId>checkstyle</artifactId>
+                        <version>10.3.3</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
         </plugins>
     </build>
     <reporting>
@@ -292,6 +309,16 @@
                 <groupId>com.github.spotbugs</groupId>
                 <artifactId>spotbugs-maven-plugin</artifactId>
                 <version>4.7.2.0</version>
+            </plugin>
+
+            <!-- Checkstyle -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <version>3.2.0</version>
+                <configuration>
+                    <configLocation>${basedir}/rulesets/checkstyle-rules.xml</configLocation>
+                </configuration>
             </plugin>
         </plugins>
     </reporting>
