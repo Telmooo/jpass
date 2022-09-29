@@ -19,6 +19,22 @@ Features:
 
 The code repository has 3 folders (one of which - `docs` was added by us). In the `resources` folder, there are many `.png`, `.svg` and `.ico` files corresponding mostly to different JPass logotype dimensions and colors, as well as some other images regarding screenshots of the application itself. The `src` folder holds two sub-folders: `test` where some JUnit (not sure???) tests can be found and `main` where the code itself is present (`java` folder).
 
+### Package Structure
+#### Crypt (jpass.crypt)
+Package responsible for encryption of 
+**Aes256** implements the [**AES**](https://en.wikipedia.org/wiki/Advanced_Encryption_Standard) cipher algorithm with key size of 256 bits.
+
+#### Data (jpass.data)
+
+#### UI (jpass.ui)
+
+#### Util (jpass.util)
+
+#### XML (jpass.xml)
+
+
+### JPass (jpass.JPass)
+
 ---
 
 ## Static testing
