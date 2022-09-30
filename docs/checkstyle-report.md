@@ -2,7 +2,7 @@
 
 Checkstyle is a static testing tool that focuses on consistency regarding coding standards. It has a high degree of configurability, allowing the activation or deactivation of individual patterns, or even their customization by changing their properties.
 In this project, the configuration file (`rulesets/checkstyle-rules.xml`) was taken from the `jpacman` project of the [first recitation class](`https://paginas.fe.up.pt/~jcmc/tvvs/2022-2023/recitations/recitation-1.html`). In the end, 2 of the modules were deactivated and 1 was changed:
-- [JavadocParagraph](https://checkstyle.sourceforge.io/config_javadoc.html#JavadocParagraph) (line 324 of `checkstyle-rules.xml`) was deactivated because, in the project, after `<p>` , which contradicts the rule behavior of checking if "Each paragraph but the first has `<p>` immediately before the first word, with no space after."
+- [JavadocParagraph](https://checkstyle.sourceforge.io/config_javadoc.html#JavadocParagraph) (line 324 of `checkstyle-rules.xml`) was deactivated because, in the project, after `<p>` , which contradicts the rule behaviour of checking if "Each paragraph but the first has `<p>` immediately before the first word, with no space after."
 - [EmptyLineSeparator](https://checkstyle.sourceforge.io/config_whitespace.html#EmptyLineSeparator) (line 143-149 of `checkstyle-rules.xml`) was also deactivated. This rule implies the existence of an empty line in several places. It would flag dozens of violations in the project due to the fact that every file starts with a block of text regarding licensing of the app which is immediately followed (in most cases) by the `package` statement (without the existence of a line separating the two elements).
 - [LineLength](https://checkstyle.sourceforge.io/config_sizes.html#LineLength) (line 47 of `checkstyle-rules.xml`) property value was changed from 100 to 150 in order to correct warnings related to character line length. Further explanation is given later in this report (and in the respective [issue](https://github.com/Telmooo/jpass/issues/11)).
 - [customImportOrderRules](https://checkstyle.sourceforge.io/config_imports.html#CustomImportOrder_Properties) (line 277 of `checkstyle-rules.xml`) was changed from `<property name="customImportOrderRules" value="STATIC###THIRD_PARTY_PACKAGE"/>` to
@@ -63,8 +63,8 @@ A brief summary of the number of violations per file can be seen below:
 ## [WhitespaceAround] '{' not preceded with whitespace
 Go to [issue](https://github.com/Telmooo/jpass/issues/9).
 
-The violation reported ([WhitespaceAround](https://checkstyle.sourceforge.io/config_whitespace.html#WhitespaceAround)) was present in file `src/main/java/jpass/xml/bind/Entry.java`, in lines 50, 153, 162, and 171. It was related to the nonexistence of a whitespace before the token '{' in some function declarations.
-As it is just a visual detail, it does not interfere with the application execution, but it is important to address to keep the code consistent across the project. Therefore, the whitespaces missing were added.
+The violation reported ([WhitespaceAround](https://checkstyle.sourceforge.io/config_whitespace.html#WhitespaceAround)) was present in file `src/main/java/jpass/xml/bind/Entry.java`, in lines 50, 153, 162, and 171. It was related to the non-existence of a whitespace before the token '{' in some function declarations.
+As it is just a visual detail, it does not interfere with the application execution, but it is important to address to keep the code consistent across the project. Therefore, the white spaces missing were added.
 
 ```diff
 -    public Entry(){
@@ -145,7 +145,7 @@ Go to [issue](https://github.com/Telmooo/jpass/issues/12).
 
 The reported violations ([customImportOrderRules](https://checkstyle.sourceforge.io/config_imports.html#CustomImportOrder_Properties)) were related to inconsistency in the order of import statements: some files with alphabetically sorted imports, and others with the same prefix separated are some examples.
 
-In order to improve organization, the [customImportOrderRules](https://checkstyle.sourceforge.io/config_imports.html#CustomImportOrder_Properties) was changed, as detailed in the beggining of the Checkstyle section of this report.
+In order to improve organization, the [customImportOrderRules](https://checkstyle.sourceforge.io/config_imports.html#CustomImportOrder_Properties) was changed, as detailed in the beginning of the Checkstyle section of this report.
 
 The final outcome was an import section in each file that followed a structure in 3 groups: static imports, standard imports (`java`/`javax`) and other imports.
 The changes that, for example, file `jpass\src\main\java\jpass\ui\JPassFrame.java` went through can be seen below:
@@ -197,6 +197,6 @@ The changes that, for example, file `jpass\src\main\java\jpass\ui\JPassFrame.jav
 ```
 
 ## Report (0.1.22-SNAPSHOT)
-After the fixes aboves, the number of violations reported decreased to **85**.
+After the fixes above, the number of violations reported decreased to **85**.
 
 Go to [full report](./reports/checkstyle-0.1.22-SNAPSHOT.pdf).
