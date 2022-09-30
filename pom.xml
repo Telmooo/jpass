@@ -4,7 +4,7 @@
     <groupId>jpass</groupId>
     <artifactId>jpass</artifactId>
     <packaging>jar</packaging>
-    <version>0.1.21-SNAPSHOT</version>
+    <version>0.1.22-SNAPSHOT</version>
     <name>JPass</name>
     <properties>
         <!-- Maven Related -->
@@ -16,7 +16,6 @@
         <jxr.plugin.version>3.3.0</jxr.plugin.version>
         <shade.plugin.version>3.4.0</shade.plugin.version>
         <surefire.plugin.version>3.0.0-M7</surefire.plugin.version>
-
         <!-- Project related -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
