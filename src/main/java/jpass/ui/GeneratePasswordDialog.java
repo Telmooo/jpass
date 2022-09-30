@@ -122,7 +122,7 @@ public final class GeneratePasswordDialog extends JDialog implements ActionListe
      *
      * @param parent parent component
      * @param showAcceptButton if true then the dialog shows an "Accept" and "Cancel" button,
-     * otherwise only a "Close" button
+     *     otherwise only a "Close" button
      *
      */
     private void initDialog(final Component parent, final boolean showAcceptButton) {
