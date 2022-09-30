@@ -4,6 +4,7 @@ Checkstyle is a static testing tool that focuses on consistency regarding coding
 In this project, the configuration file (`rulesets/checkstyle-rules.xml`) was taken from the `jpacman` project of the [first recitation class](`https://paginas.fe.up.pt/~jcmc/tvvs/2022-2023/recitations/recitation-1.html`). In the end, 2 of the modules were deactivated and 1 was changed:
 - [JavadocParagraph](https://checkstyle.sourceforge.io/config_javadoc.html#JavadocParagraph) (line 324 of `checkstyle-rules.xml`) was deactivated because, in the project, after `<p>` , which contradicts the rule behavior of checking if "Each paragraph but the first has <p> immediately before the first word, with no space after."
 - [EmptyLineSeparator](https://checkstyle.sourceforge.io/config_whitespace.html#EmptyLineSeparator) (line 143-149 of `checkstyle-rules.xml`) was also deactivated. This rule implies the existence of an empty line in several places. It would flag dozens of violations in the project due to the fact that every file starts with a block of text regarding licensing of the app which is immediately followed (in most cases) by the `package` statement (without the existence of a line separating the two elements).
+- [LineLength](https://checkstyle.sourceforge.io/config_sizes.html#LineLength) (line 47 of `checkstyle-rules.xml`) property value was changed from 100 to 150 in order to correct warnings related to character line length. Further explanation is given later in this report (and in the respective [issue](https://github.com/Telmooo/jpass/issues/11)).
 - [customImportOrderRules](https://checkstyle.sourceforge.io/config_imports.html#CustomImportOrder_Properties) (line 277 of `checkstyle-rules.xml`) was changed from `<property name="customImportOrderRules" value="STATIC###THIRD_PARTY_PACKAGE"/>` to
 `<property name="customImportOrderRules" value="STATIC###STANDARD_JAVA_PACKAGE###THIRD_PARTY_PACKAGE"/>`, i.e., "STANDARD_JAVA_PACKAGE" was added in order to, in our opinion, improve visual clarity, by separating the imports into 3 groups: `static` imports, `java` and `javax`, and the other imports.
 
@@ -13,9 +14,9 @@ Go to [full_report](./reports/checkstyle-0.1.21-SNAPSHOT.pdf) for a detailed ove
 
 A brief summary of the number of violations per file can be seen below:  
 
-| **Files** | **Info** | **Warnings** | **Errors** |
-|:---------:|:--------:|:------------:|:------------------:|
-|    37     |    0     |     342      |         0          |
+| **Files** | **Info** | **Warnings** |    **Errors**    |
+|:---------:|:--------:|:------------:|:----------------:|
+|    37     |    0     |     342      |        0         |
 
 
 |                    **File**                    | **Warnings** |
