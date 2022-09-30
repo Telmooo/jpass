@@ -51,7 +51,7 @@ This bug denotes methods that return references to mutable objects, potentially 
 
 The following classes were affected by this bug:
 - `jpass.ui.JPassFrame` (5 occurrences; line 230, 239, 316, 349, 221);
-- `jpass.data.DataModel` (1 occurrences; line 123);
+- `jpass.data.DataModel` (1 occurrence; line 123);
 - `jpass.ui.action.MenuActionType` (1 occurrence; line 226);
 - `jpass.ui.action.TextComponentActionType` (1 occurrence; line 212);
 - `jpass.xml.bind.Entries` (1 occurrence; line 56).
@@ -206,7 +206,7 @@ Classes affected:
 
 However, similar to earlier, the bugs identified in class `jpass.crypt.Cbc` and `jpass.ui.action.Worker` are false positives, since on both instances, it's intentional to store a mutable object. On the first, it is stored an output stream to where Cbc will write content, and on the second, it is stored the parent frame of the `Worker` on which the worker will act upon.
 
-The bug identified on `jpass.data.DataModel` is a true positive, storing the external mutable object on the setter and potentially being vulnerable to password being changed after setter being invoked. To address this issue, it was changed to store a clone instead, as show in the diff below:
+The bug identified on `jpass.data.DataModel` is a true positive, storing the external mutable object on the setter and potentially being vulnerable to password being changed after the setter being invoked. To address this issue, it was changed to store a clone instead, as show in the diff below:
 ```diff
     public void setPassword(byte[] password) {
 -       this.password = password;
