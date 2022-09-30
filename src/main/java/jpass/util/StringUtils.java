@@ -42,16 +42,16 @@ public final class StringUtils {
 
     /**
      * This method ensures that the output String has only valid XML unicode characters as specified
-     * by the XML 1.0 standard. For reference, please see
-     * <a href="http://www.w3.org/TR/2000/REC-xml-20001006#NT-Char">the standard</a>. This method
-     * will return an empty String if the input is null or empty.
+     * by the XML 1.0 standard, except the surrogate pair characters (characters outside the UTF-16 BMP).
+     * For reference, please see <a href="http://www.w3.org/TR/2000/REC-xml-20001006#NT-Char">the standard</a>.
+     * This method will return an empty String if the input is null or empty.
      *
      * @param in The String whose non-valid characters we want to remove.
      * @return The in String, stripped of non-valid characters.
      */
     public static String stripNonValidXMLCharacters(final String in) {
         if (in == null || in.isEmpty()) {
-            return in;
+            return "";
         }
         StringBuilder out = new StringBuilder();
         char current;
@@ -59,8 +59,7 @@ public final class StringUtils {
             current = in.charAt(i);
             if ((current == 0x9) || (current == 0xA) || (current == 0xD)
                     || ((current >= 0x20) && (current <= 0xD7FF))
-                    || ((current >= 0xE000) && (current <= 0xFFFD))
-                    || ((current >= 0x10000) && (current <= 0x10FFFF))) {
+                    || ((current >= 0xE000) && (current <= 0xFFFD))) {
                 out.append(current);
             } else {
                 out.append('?');
