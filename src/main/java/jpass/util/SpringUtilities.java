@@ -55,10 +55,10 @@ public class SpringUtilities {
      * @param cols number of columns
      * @param initialX x location to start the grid at
      * @param initialY y location to start the grid at
-     * @param xPad x padding between cells
-     * @param yPad y padding between cells
+     * @param xpad x padding between cells
+     * @param ypad y padding between cells
      */
-    public static void makeGrid(Container parent, int rows, int cols, int initialX, int initialY, int xPad, int yPad) {
+    public static void makeGrid(Container parent, int rows, int cols, int initialX, int initialY, int xpad, int ypad) {
         SpringLayout layout;
         try {
             layout = (SpringLayout) parent.getLayout();
@@ -66,8 +66,8 @@ public class SpringUtilities {
             return;
         }
 
-        Spring xPadSpring = Spring.constant(xPad);
-        Spring yPadSpring = Spring.constant(yPad);
+        Spring xpadSpring = Spring.constant(xpad);
+        Spring ypadSpring = Spring.constant(ypad);
         Spring initialXSpring = Spring.constant(initialX);
         Spring initialYSpring = Spring.constant(initialY);
         int max = rows * cols;
@@ -102,23 +102,23 @@ public class SpringUtilities {
                 lastRowCons = lastCons;
                 cons.setX(initialXSpring);
             } else { // x position depends on previous component
-                cons.setX(Spring.sum(lastCons.getConstraint(SpringLayout.EAST), xPadSpring));
+                cons.setX(Spring.sum(lastCons.getConstraint(SpringLayout.EAST), xpadSpring));
             }
 
             if (i / cols == 0) { // first row
                 cons.setY(initialYSpring);
             } else { // y position depends on previous row
-                cons.setY(Spring.sum(lastRowCons.getConstraint(SpringLayout.SOUTH), yPadSpring));
+                cons.setY(Spring.sum(lastRowCons.getConstraint(SpringLayout.SOUTH), ypadSpring));
             }
             lastCons = cons;
         }
 
         // Set the parent's size.
-        SpringLayout.Constraints pCons = layout.getConstraints(parent);
-        pCons.setConstraint(SpringLayout.SOUTH,
-                Spring.sum(Spring.constant(yPad), lastCons.getConstraint(SpringLayout.SOUTH)));
-        pCons.setConstraint(SpringLayout.EAST,
-                Spring.sum(Spring.constant(xPad), lastCons.getConstraint(SpringLayout.EAST)));
+        SpringLayout.Constraints pcons = layout.getConstraints(parent);
+        pcons.setConstraint(SpringLayout.SOUTH,
+                Spring.sum(Spring.constant(ypad), lastCons.getConstraint(SpringLayout.SOUTH)));
+        pcons.setConstraint(SpringLayout.EAST,
+                Spring.sum(Spring.constant(xpad), lastCons.getConstraint(SpringLayout.EAST)));
     }
 
     /* Used by makeCompactGrid. */
@@ -139,11 +139,11 @@ public class SpringUtilities {
      * @param cols number of columns
      * @param initialX x location to start the grid at
      * @param initialY y location to start the grid at
-     * @param xPad x padding between cells
-     * @param yPad y padding between cells
+     * @param xpad x padding between cells
+     * @param ypad y padding between cells
      */
     public static void makeCompactGrid(Container parent, int rows, int cols, int initialX, int initialY,
-            int xPad, int yPad) {
+            int xpad, int ypad) {
         SpringLayout layout;
         try {
             layout = (SpringLayout) parent.getLayout();
@@ -163,7 +163,7 @@ public class SpringUtilities {
                 constraints.setX(x);
                 constraints.setWidth(width);
             }
-            x = Spring.sum(x, Spring.sum(width, Spring.constant(xPad)));
+            x = Spring.sum(x, Spring.sum(width, Spring.constant(xpad)));
         }
 
         // Align all cells in each row and make them the same height.
@@ -178,12 +178,12 @@ public class SpringUtilities {
                 constraints.setY(y);
                 constraints.setHeight(height);
             }
-            y = Spring.sum(y, Spring.sum(height, Spring.constant(yPad)));
+            y = Spring.sum(y, Spring.sum(height, Spring.constant(ypad)));
         }
 
         // Set the parent's size.
-        SpringLayout.Constraints pCons = layout.getConstraints(parent);
-        pCons.setConstraint(SpringLayout.SOUTH, y);
-        pCons.setConstraint(SpringLayout.EAST, x);
+        SpringLayout.Constraints pcons = layout.getConstraints(parent);
+        pcons.setConstraint(SpringLayout.SOUTH, y);
+        pcons.setConstraint(SpringLayout.EAST, x);
     }
 }
