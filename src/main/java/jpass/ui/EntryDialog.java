@@ -28,6 +28,8 @@
  */
 package jpass.ui;
 
+import static jpass.ui.helper.EntryHelper.copyEntryField;
+
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -36,7 +38,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.util.Arrays;
 import java.util.Optional;
-
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
@@ -53,8 +54,6 @@ import javax.swing.border.EmptyBorder;
 import jpass.util.SpringUtilities;
 import jpass.util.StringUtils;
 import jpass.xml.bind.Entry;
-
-import static jpass.ui.helper.EntryHelper.copyEntryField;
 
 /**
  * A dialog with the entry data.

@@ -28,9 +28,18 @@
  */
 package jpass.ui.action;
 
+import static java.awt.event.InputEvent.ALT_DOWN_MASK;
+import static java.awt.event.InputEvent.CTRL_DOWN_MASK;
+import static javax.swing.KeyStroke.getKeyStroke;
+import static jpass.ui.MessageDialog.getIcon;
+import static jpass.ui.helper.FileHelper.createNew;
+import static jpass.ui.helper.FileHelper.exportFile;
+import static jpass.ui.helper.FileHelper.importFile;
+import static jpass.ui.helper.FileHelper.openFile;
+import static jpass.ui.helper.FileHelper.saveFile;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
-
 import javax.swing.Action;
 import javax.swing.ActionMap;
 import javax.swing.InputMap;
@@ -42,16 +51,6 @@ import jpass.ui.JPassFrame;
 import jpass.ui.MessageDialog;
 import jpass.ui.helper.EntryHelper;
 import jpass.xml.bind.Entry;
-
-import static javax.swing.KeyStroke.getKeyStroke;
-import static jpass.ui.helper.FileHelper.exportFile;
-import static jpass.ui.helper.FileHelper.importFile;
-import static jpass.ui.helper.FileHelper.openFile;
-import static jpass.ui.helper.FileHelper.saveFile;
-import static jpass.ui.helper.FileHelper.createNew;
-import static jpass.ui.MessageDialog.getIcon;
-import static java.awt.event.InputEvent.CTRL_DOWN_MASK;
-import static java.awt.event.InputEvent.ALT_DOWN_MASK;
 
 /**
  * Enumeration which holds menu actions and related data.

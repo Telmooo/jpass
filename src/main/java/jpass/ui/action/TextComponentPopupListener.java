@@ -28,6 +28,13 @@
  */
 package jpass.ui.action;
 
+import static jpass.ui.action.TextComponentActionType.CLEAR_ALL;
+import static jpass.ui.action.TextComponentActionType.COPY;
+import static jpass.ui.action.TextComponentActionType.CUT;
+import static jpass.ui.action.TextComponentActionType.DELETE;
+import static jpass.ui.action.TextComponentActionType.PASTE;
+import static jpass.ui.action.TextComponentActionType.SELECT_ALL;
+
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.LinkedHashMap;
@@ -35,17 +42,9 @@ import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 import javax.swing.text.JTextComponent;
-
-import static jpass.ui.action.TextComponentActionType.CUT;
-import static jpass.ui.action.TextComponentActionType.COPY;
-import static jpass.ui.action.TextComponentActionType.PASTE;
-import static jpass.ui.action.TextComponentActionType.DELETE;
-import static jpass.ui.action.TextComponentActionType.CLEAR_ALL;
-import static jpass.ui.action.TextComponentActionType.SELECT_ALL;
 
 /**
  * A listener which adds context menu capability to text components.

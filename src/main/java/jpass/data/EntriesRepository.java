@@ -28,6 +28,8 @@
  */
 package jpass.data;
 
+import static jpass.util.StringUtils.stripString;
+
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.FileInputStream;
@@ -43,8 +45,6 @@ import jpass.crypt.io.CryptInputStream;
 import jpass.crypt.io.CryptOutputStream;
 import jpass.xml.bind.Entries;
 import jpass.xml.converter.XmlConverter;
-
-import static jpass.util.StringUtils.stripString;
 
 /**
  * Repository class for reading and writing (encrypted) XML documents.

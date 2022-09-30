@@ -28,9 +28,11 @@
  */
 package jpass.ui.action;
 
+import static java.awt.event.InputEvent.CTRL_DOWN_MASK;
+import static javax.swing.KeyStroke.getKeyStroke;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
-
 import javax.swing.Action;
 import javax.swing.ActionMap;
 import javax.swing.InputMap;
@@ -41,9 +43,6 @@ import javax.swing.text.JTextComponent;
 
 import jpass.ui.CopiablePasswordField;
 import jpass.util.ClipboardUtils;
-
-import static javax.swing.KeyStroke.getKeyStroke;
-import static java.awt.event.InputEvent.CTRL_DOWN_MASK;
 
 /**
  * Enumeration which holds text actions and related data.

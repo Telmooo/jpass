@@ -28,18 +28,18 @@
  */
 package jpass;
 
-import com.formdev.flatlaf.FlatDarkLaf;
-import com.formdev.flatlaf.FlatLaf;
-import com.formdev.flatlaf.FlatLightLaf;
-import javax.swing.SwingUtilities;
-import javax.swing.UIManager;
-
-import jpass.ui.JPassFrame;
-import jpass.util.Configuration;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
+
+import com.formdev.flatlaf.FlatDarkLaf;
+import com.formdev.flatlaf.FlatLaf;
+import com.formdev.flatlaf.FlatLightLaf;
+import jpass.ui.JPassFrame;
+import jpass.util.Configuration;
 
 /**
  * Entry point of JPass.

@@ -28,27 +28,25 @@
  */
 package jpass.ui.helper;
 
+import static java.lang.String.format;
+import static jpass.ui.MessageDialog.NO_OPTION;
+import static jpass.ui.MessageDialog.YES_NO_CANCEL_OPTION;
+import static jpass.ui.MessageDialog.YES_NO_OPTION;
+import static jpass.ui.MessageDialog.YES_OPTION;
+import static jpass.ui.MessageDialog.showPasswordDialog;
+import static jpass.ui.MessageDialog.showQuestionMessage;
+import static jpass.ui.MessageDialog.showWarningMessage;
+import static jpass.util.StringUtils.stripString;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileFilter;
 
 import jpass.data.EntriesRepository;
 import jpass.ui.JPassFrame;
 import jpass.ui.action.Worker;
-
-import static jpass.ui.MessageDialog.showPasswordDialog;
-import static jpass.ui.MessageDialog.showWarningMessage;
-import static jpass.ui.MessageDialog.showQuestionMessage;
-import static jpass.ui.MessageDialog.YES_NO_OPTION;
-import static jpass.ui.MessageDialog.YES_OPTION;
-import static jpass.ui.MessageDialog.YES_NO_CANCEL_OPTION;
-import static jpass.ui.MessageDialog.NO_OPTION;
-import static jpass.util.StringUtils.stripString;
-
-import static java.lang.String.format;
 
 /**
  * Helper utils for file operations.
