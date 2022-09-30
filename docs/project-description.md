@@ -13,7 +13,7 @@ Features:
 
 ## Source code structure
 
-In the `resources` folder, various assets files are present corresponding mostly to different JPass logotype dimensions and colors, as well as some other images regarding screenshots of the application itself. The `src` folder holds two sub-folders: `test` where tests are located and `main` where the code itself is present (`java` folder).
+In the `resources` folder, various assets files are present corresponding mostly to different JPass logotype dimensions and colours, as well as some other images regarding screenshots of the application itself. The `src` folder holds two sub-folders: `test` where tests are located and `main` where the code itself is present (`java` folder).
 
 ### Package Structure
 #### Crypt (jpass.crypt)
@@ -58,7 +58,7 @@ While simple, static testing helps with the early detection of faults and thus a
 
 ## Chosen static testing tools
 
-For this assignment we picked Checkstyle and Spotbugs as the static testing tools.
+For this assignment, we picked Checkstyle and Spotbugs as the static testing tools.
 
 ## Reports
 
