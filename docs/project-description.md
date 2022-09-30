@@ -12,12 +12,40 @@ Features:
 
 ![JPass](https://raw.githubusercontent.com/gaborbata/jpass/master/resources/jpass-capture.png)
 
-## How to use
-
-
 ## Source code structure
 
-The code repository has 3 folders (one of which - `docs` was added by us). In the `resources` folder, there are many `.png`, `.svg` and `.ico` files corresponding mostly to different JPass logotype dimensions and colors, as well as some other images regarding screenshots of the application itself. The `src` folder holds two sub-folders: `test` where some JUnit (not sure???) tests can be found and `main` where the code itself is present (`java` folder).
+In the `resources` folder, various assets files are present corresponding mostly to different JPass logotype dimensions and colors, as well as some other images regarding screenshots of the application itself. The `src` folder holds two sub-folders: `test` where some JUnit (not sure???) tests can be found and `main` where the code itself is present (`java` folder).
+
+### Package Structure
+#### Crypt (jpass.crypt)
+Package responsible for encryption of blocks being written and read by the program.
+**Aes256** implements the [**AES**](https://en.wikipedia.org/wiki/Advanced_Encryption_Standard) cipher algorithm with key size of 256 bits.
+**Cbc** implements [**Cipher Block Chaining**](https://www.techtarget.com/searchsecurity/definition/cipher-block-chaining) to operate on blocks written and read by the program. It uses AES256 as its cipher.
+
+Contains a subpack `jpass.crypt.io` that implements encrypted streams for input and output of data.
+
+#### Data (jpass.data)
+Package implements the data model of the application that is responsible for storing entries and information about the configuration of the save file (name, password).
+
+#### UI (jpass.ui)
+Package that contains all classes responsible for handling the rendering of the UI and handling user actions on the UI.
+
+#### Util (jpass.util)
+Compilation of utility methods.
+- `ClipboardUtils` - Functions to handle content of system clipboard;
+- `Configuration` - Handles configuration for JPass application (configuration file located in `src/main/config`;
+- `CryptUtils` - Provides methods to create RNG and hashing methods;
+- `DateUtils` - Handles parsing of dates;
+- `SpringUtilities` - Handles layout creation for Spring.
+- `StringUtils` - Handles parsing of strings.
+
+#### XML (jpass.xml)
+Contains two packages:
+- `jpass.xml.bind`: implements the data representation of each entry for the password manager;
+- `jpass.xml.converter`: implements I/O operations for XML format.
+
+### JPass (jpass.JPass)
+Program main entry point. Initializes the UI and its configurations.
 
 ---
 
