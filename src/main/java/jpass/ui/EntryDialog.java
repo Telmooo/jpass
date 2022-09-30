@@ -279,7 +279,7 @@ public class EntryDialog extends JDialog implements ActionListener {
      * Checks the entry title.
      *
      * @return if the entry title already exists in the data model then returns {@code false},
-     * otherwise {@code true}
+     *     otherwise {@code true}
      */
     private boolean checkEntryTitle() {
         boolean titleIsOk = true;

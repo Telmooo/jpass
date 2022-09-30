@@ -113,7 +113,7 @@ public class CryptOutputStream extends OutputStream {
      * Finalizes the encryption and closes the underlying stream.
      *
      * @throws IOException if the encryption fails or the encrypted data can't be written to the
-     * underlying stream
+     *     underlying stream
      */
     @Override
     public void close() throws IOException {

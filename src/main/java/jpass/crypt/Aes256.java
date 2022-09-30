@@ -205,7 +205,7 @@ public final class Aes256 {
      * Substitutes all {@code byte}s in a word. The word array will be changed.
      *
      * @param value array in which the first {@code WORD_SIZE} {@code byte}s will be substituted.
-     * This array will be modified.
+     *     This array will be modified.
      * @return returns the modified {@code value}
      */
     private byte[] substituteWord(byte[] value) {
@@ -221,7 +221,7 @@ public final class Aes256 {
      * the method invocation.
      *
      * @param value Array in which the first {@code WORD_SIZE} {@code byte}'s will be changed due to
-     * the rotation. The contents of this array is changed by this invocation.
+     *     the rotation. The contents of this array is changed by this invocation.
      */
     private byte[] rotate(byte[] value) {
         byte tmp = value[0];
