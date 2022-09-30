@@ -28,11 +28,13 @@
  */
 package jpass.ui;
 
+import static java.awt.event.KeyEvent.VK_ESCAPE;
+import static javax.swing.KeyStroke.getKeyStroke;
+
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.function.Consumer;
-
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.JButton;
@@ -43,9 +45,6 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
-
-import static javax.swing.KeyStroke.getKeyStroke;
-import static java.awt.event.KeyEvent.VK_ESCAPE;
 
 /**
  * Class for representing search panel. Search panel is hidden by default.

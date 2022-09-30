@@ -28,16 +28,16 @@
  */
 package jpass.ui.helper;
 
+import static jpass.ui.MessageDialog.YES_NO_OPTION;
+import static jpass.ui.MessageDialog.YES_OPTION;
+import static jpass.ui.MessageDialog.showErrorMessage;
+import static jpass.ui.MessageDialog.showQuestionMessage;
+import static jpass.ui.MessageDialog.showWarningMessage;
+
 import jpass.ui.EntryDialog;
 import jpass.ui.JPassFrame;
 import jpass.util.ClipboardUtils;
 import jpass.xml.bind.Entry;
-
-import static jpass.ui.MessageDialog.showErrorMessage;
-import static jpass.ui.MessageDialog.showWarningMessage;
-import static jpass.ui.MessageDialog.showQuestionMessage;
-import static jpass.ui.MessageDialog.YES_NO_OPTION;
-import static jpass.ui.MessageDialog.YES_OPTION;
 
 /**
  * Helper class for entry operations.

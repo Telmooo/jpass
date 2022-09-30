@@ -28,13 +28,11 @@
  */
 package jpass.ui;
 
-import jpass.data.DataModel;
-import jpass.ui.action.CloseListener;
-import jpass.ui.action.MenuActionType;
-import jpass.ui.helper.EntryHelper;
-import jpass.ui.helper.FileHelper;
-import jpass.util.Configuration;
-import jpass.xml.bind.Entry;
+import static jpass.ui.MessageDialog.NO_OPTION;
+import static jpass.ui.MessageDialog.YES_NO_CANCEL_OPTION;
+import static jpass.ui.MessageDialog.YES_OPTION;
+import static jpass.ui.MessageDialog.getIcon;
+import static jpass.ui.MessageDialog.showQuestionMessage;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -45,22 +43,23 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import javax.swing.JFrame;
-import javax.swing.JTable;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.JToolBar;
 import javax.swing.WindowConstants;
 
-import static jpass.ui.MessageDialog.NO_OPTION;
-import static jpass.ui.MessageDialog.YES_NO_CANCEL_OPTION;
-import static jpass.ui.MessageDialog.YES_OPTION;
-import static jpass.ui.MessageDialog.getIcon;
-import static jpass.ui.MessageDialog.showQuestionMessage;
+import jpass.data.DataModel;
+import jpass.ui.action.CloseListener;
+import jpass.ui.action.MenuActionType;
+import jpass.ui.helper.EntryHelper;
+import jpass.ui.helper.FileHelper;
+import jpass.util.Configuration;
+import jpass.xml.bind.Entry;
 
 /**
  * The main frame for JPass.
