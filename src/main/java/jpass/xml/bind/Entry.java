@@ -47,7 +47,7 @@ public class Entry {
     protected String lastModification;
     protected String creationDate;
 
-    public Entry(){
+    public Entry() {
         String now = LocalDateTime.now()
             .truncatedTo(ChronoUnit.SECONDS)
             .format(DateTimeFormatter.ISO_DATE_TIME);
@@ -150,7 +150,7 @@ public class Entry {
      *
      * @return the creation date
      */
-    public String getCreationDate(){
+    public String getCreationDate() {
         return creationDate;
     }
 
@@ -159,7 +159,7 @@ public class Entry {
      *
      * @param date the creation date
      */
-    public void setCreationDate(String date){
+    public void setCreationDate(String date) {
         this.creationDate = date;
     }
 
@@ -168,7 +168,7 @@ public class Entry {
      *
      * @return the last modification date
      */
-    public String getLastModification(){
+    public String getLastModification() {
         return lastModification;
     }
 
