@@ -1,4 +1,3 @@
-<!-- Brief description of your project. For example, What is it? How is the source-code organized? -->
 # JPass
 JPass is a simple, small, portable password manager application with strong encryption. It allows you to store user names, passwords, URLs and generic notes in an encrypted file protected by one master password.
 
@@ -14,7 +13,7 @@ Features:
 
 ## Source code structure
 
-In the `resources` folder, various assets files are present corresponding mostly to different JPass logotype dimensions and colors, as well as some other images regarding screenshots of the application itself. The `src` folder holds two sub-folders: `test` where some JUnit (not sure???) tests can be found and `main` where the code itself is present (`java` folder).
+In the `resources` folder, various assets files are present corresponding mostly to different JPass logotype dimensions and colors, as well as some other images regarding screenshots of the application itself. The `src` folder holds two sub-folders: `test` where tests are located and `main` where the code itself is present (`java` folder).
 
 ### Package Structure
 #### Crypt (jpass.crypt)
@@ -51,28 +50,20 @@ Program main entry point. Initializes the UI and its configurations.
 
 ## Static testing
 
-Static testing is a way to assess whether the software was build right or not, i.e., if the system actually behaves according to the specification provided. It is utilized in order to check for existing faults in the software but, as the name implies, without executing the source code, being, for this reason, a key instrument in producing better quality software. 
-There are 2 types of static testing techniques: the reviews (manual procedures) and the ones in focus in this assignment: automated analysis tools.
+Static testing is a testing technique used to perform an analysis on a software application without executing it. It exists in two types, code reviews (manual procedures) and automated analysis via usage of tools such as Checkstyle and Spotbugs, for example.
+
+The main concern of static testing is to detect faults, suspicious code or design that may result in faults, inconsistencies in the software and improve maintainability of code and design of the software application.
+
+While simple, static testing helps with the early detection of faults and thus allows developers to build software with higher quality, and waste less resources later on fixing faults that could be prevented.
 
 ## Chosen static testing tools
 
 For this assignment we picked Checkstyle and Spotbugs as the static testing tools.
 
-TODO after:
-- how they were configured for the project: reason for enabling/disabling configurations
-
 ## Reports
 
 ### Checkstyle
-
-TODO
+Go to [report](checkstyle-report.md).
 
 ### Spotbugs
-
-TODO
-
-### Selected bugs
-
-TODO: 5 bugs x 2 tools.
-- brief description of each.
-- fixes with before and after.
+Go to [report](spotbugs-report.md).
