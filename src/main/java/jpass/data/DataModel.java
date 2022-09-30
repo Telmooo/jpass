@@ -124,7 +124,7 @@ public class DataModel {
     }
 
     public void setPassword(byte[] password) {
-        this.password = password;
+        this.password = password.clone();
     }
 
     /**
