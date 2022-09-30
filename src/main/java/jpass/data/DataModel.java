@@ -120,7 +120,7 @@ public class DataModel {
     }
 
     public byte[] getPassword() {
-        return this.password;
+        return this.password.clone();
     }
 
     public void setPassword(byte[] password) {
