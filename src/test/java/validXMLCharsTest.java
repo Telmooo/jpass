@@ -3,6 +3,7 @@ import static jpass.util.StringUtils.stripNonValidXMLCharacters;
 import java.util.Random;
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
 
 
@@ -26,9 +27,7 @@ public class validXMLCharsTest {
 
     @Test
     public void testNull() {
-        String nullStr = null;
-
-        String nullOutput = stripNonValidXMLCharacters(nullStr);
+        String nullOutput = stripNonValidXMLCharacters(null);
 
         Assertions.assertEquals("", nullOutput);
     }
@@ -42,12 +41,11 @@ public class validXMLCharsTest {
         Assertions.assertEquals("", emptyOutput);
     }
 
-    @Test
+    @RepeatedTest(10)
     public void testValidInput() {
         String alphaNumeric = generateAlphanumeric();
-        String output;
 
-        output = stripNonValidXMLCharacters(alphaNumeric);
+        String output = stripNonValidXMLCharacters(alphaNumeric);
 
         Assertions.assertEquals(alphaNumeric, output);
     }
