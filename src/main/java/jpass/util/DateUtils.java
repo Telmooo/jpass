@@ -66,6 +66,10 @@ public class DateUtils {
                 dateTime = LocalDateTime.ofInstant(Instant.ofEpochMilli(0), ZoneId.systemDefault());
             }
         }
+        if (formatter == null) {
+            return DateTimeFormatter.ISO_LOCAL_DATE_TIME.format(dateTime.truncatedTo(ChronoUnit.SECONDS));
+        }
+
         return formatter.format(dateTime.truncatedTo(ChronoUnit.SECONDS));
     }
 }
