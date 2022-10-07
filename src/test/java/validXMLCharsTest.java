@@ -1,5 +1,6 @@
 import static jpass.util.StringUtils.stripNonValidXMLCharacters;
 
+import java.lang.annotation.Repeatable;
 import java.nio.charset.Charset;
 import java.util.Random;
 import java.util.UUID;
@@ -48,18 +49,28 @@ public class validXMLCharsTest {
         for (int i = 0; i < nTries; i++) {
             alphaNumeric = generateAlphanumeric();
             output = stripNonValidXMLCharacters(alphaNumeric);
-            System.out.println(alphaNumeric);
+            // System.out.println(alphaNumeric);
             Assert.assertEquals(alphaNumeric, output);
         }
     }
 
     @Test
-    public void idk() {
-        byte[] array = new byte[7]; // length is bounded by 7
-        new Random().nextBytes(array);
-        String generatedString = new String(array, Charset.forName("UTF-8"));
-        String output = stripNonValidXMLCharacters(generatedString);
+    public void testingInvalid() {
+        String invalidChar = "\uD800\uDC00"; // Unicode Character 'LINEAR B SYLLABLE B008 A' (U+10000)
+        String output = stripNonValidXMLCharacters(invalidChar);
 
-        Assert.assertEquals(generatedString, output);
+        Assert.assertNotEquals(invalidChar, output);
+    }
+
+    @Test
+    public void testingValidAndInvalid() {
+        for (int i = 0; i < 10; i++) {
+            String str = generateAlphanumeric();
+            str += "-\uD806\uDE00";
+
+            String output = stripNonValidXMLCharacters(str);
+
+            Assert.assertNotEquals(str, output);
+        }
     }
 }
