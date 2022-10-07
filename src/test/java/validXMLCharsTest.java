@@ -9,19 +9,16 @@ import org.junit.jupiter.api.Test;
 
 public class validXMLCharsTest {
 
-    String generateAlphanumeric() {
-        int leftLimit = 48; // numeral '0'
-        int rightLimit = 122; // letter 'z'
-        int targetStringLength = 20;
+    String generateValidString() {
+        int lowerBound = 32;     // Space
+        int upperBound = 126;   // '~'
+        int stringLength = 25;
         Random random = new Random();
 
-        String generatedString = random.ints(leftLimit, rightLimit + 1)
-                .filter(i -> (i <= 57 || i >= 65) && (i <= 90 || i >= 97))
-                .limit(targetStringLength)
+        return random.ints(lowerBound, upperBound + 1)
+                .limit(stringLength)
                 .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
                 .toString();
-
-        return generatedString;
     }
 
 
@@ -43,7 +40,7 @@ public class validXMLCharsTest {
 
     @RepeatedTest(10)
     public void testValidInput() {
-        String alphaNumeric = generateAlphanumeric();
+        String alphaNumeric = generateValidString();
 
         String output = stripNonValidXMLCharacters(alphaNumeric);
 
