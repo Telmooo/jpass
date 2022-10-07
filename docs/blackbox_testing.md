@@ -38,7 +38,7 @@ Test cases for the partitions described above were developed in this PR as follo
 All tests yielded the expected results (all passed):
 1. an empty string `""` was returned;
 2. an empty string `""` was returned;
-3. the equality comparison between the input and output strings return `true`;
+3. the equality comparison between the input and output strings returns `true`;
 5. the inequality comparison between the input and output returned `true`. The invalid characters of the input were in fact changed to question marks and, therefore, printing the output would show `?` characters.
 
 Note regarding the 3rd case: even though it was most likely not necessary (due to the fact that it is usually expected that if an "a" is valid, a "b" will also be), test repetition was implemented for learning purposes (with a value of 10) as it didn't represent a relevant impact on performance (a few milliseconds, according to IntelliJ).
