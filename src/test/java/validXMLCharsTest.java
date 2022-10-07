@@ -1,16 +1,11 @@
 import static jpass.util.StringUtils.stripNonValidXMLCharacters;
 
-import java.lang.annotation.Repeatable;
-import java.nio.charset.Charset;
 import java.util.Random;
-import java.util.UUID;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
-/**
- * Input: string
- */
+
 public class validXMLCharsTest {
 
     String generateAlphanumeric() {
@@ -30,47 +25,40 @@ public class validXMLCharsTest {
 
 
     @Test
-    public void testingNullAndEmpty() {
+    public void testNull() {
         String nullStr = null;
-        String emptyStr = "";
 
         String nullOutput = stripNonValidXMLCharacters(nullStr);
+
+        Assertions.assertEquals("", nullOutput);
+    }
+
+    @Test
+    public void testEmptyStr() {
+        String emptyStr = "";
+
         String emptyOutput = stripNonValidXMLCharacters(emptyStr);
 
-        Assert.assertEquals("", nullOutput);
-        Assert.assertEquals("", emptyOutput);
+        Assertions.assertEquals("", emptyOutput);
     }
 
     @Test
-    public void testingAlphanumeric() {
-        String alphaNumeric, output;
-        int nTries = 50;
+    public void testValidInput() {
+        String alphaNumeric = generateAlphanumeric();
+        String output;
 
-        for (int i = 0; i < nTries; i++) {
-            alphaNumeric = generateAlphanumeric();
-            output = stripNonValidXMLCharacters(alphaNumeric);
-            // System.out.println(alphaNumeric);
-            Assert.assertEquals(alphaNumeric, output);
-        }
+        output = stripNonValidXMLCharacters(alphaNumeric);
+
+        Assertions.assertEquals(alphaNumeric, output);
     }
 
     @Test
-    public void testingInvalid() {
+    public void testInvalidInput() {
         String invalidChar = "\uD800\uDC00"; // Unicode Character 'LINEAR B SYLLABLE B008 A' (U+10000)
+
         String output = stripNonValidXMLCharacters(invalidChar);
 
-        Assert.assertNotEquals(invalidChar, output);
+        Assertions.assertNotEquals(invalidChar, output);
     }
 
-    @Test
-    public void testingValidAndInvalid() {
-        for (int i = 0; i < 10; i++) {
-            String str = generateAlphanumeric();
-            str += "-\uD806\uDE00";
-
-            String output = stripNonValidXMLCharacters(str);
-
-            Assert.assertNotEquals(str, output);
-        }
-    }
 }
