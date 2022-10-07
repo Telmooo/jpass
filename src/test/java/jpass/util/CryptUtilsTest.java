@@ -22,9 +22,7 @@ class CryptUtilsTest {
 
     @Test
     void testGetNullPKCS5Sha256Hash() {
-        Assertions.assertThrows(Exception.class, () -> {
-            CryptUtils.getPKCS5Sha256Hash(null);
-        });
+        Assertions.assertThrows(Exception.class, () -> CryptUtils.getPKCS5Sha256Hash(null));
     }
 
     @Test
