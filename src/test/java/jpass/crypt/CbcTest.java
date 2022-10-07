@@ -5,9 +5,9 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.Random;
 
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * Unit test for the CBC encryption. The test data will be encrypted and decrypted. The results will
@@ -50,7 +50,7 @@ public class CbcTest {
     /**
      * Sets the encryption and decryption instances up.
      */
-    @Before
+    @BeforeEach
     public void setUp() {
         byte[] iv = {(byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00,
             (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00,
@@ -80,7 +80,7 @@ public class CbcTest {
         _decrypt.decrypt(_encrypted.toByteArray());
         _decrypt.finishDecryption();
 
-        Assert.assertTrue(Arrays.equals(source, _decrypted.toByteArray()));
+        Assertions.assertTrue(Arrays.equals(source, _decrypted.toByteArray()));
     }
 
     /**
@@ -99,9 +99,9 @@ public class CbcTest {
         _decrypt.finishDecryption();
 
         byte[] d = _decrypted.toByteArray();
-        Assert.assertEquals(3000, d.length);
+        Assertions.assertEquals(3000, d.length);
         for (int i = 0; i < d.length; ++i) {
-            Assert.assertEquals(0x81, d[i] & 0xff);
+            Assertions.assertEquals(0x81, d[i] & 0xff);
         }
     }
 
@@ -144,13 +144,13 @@ public class CbcTest {
         encrypt.encrypt(plain);
         encrypt.finishEncryption();
 
-        Assert.assertEquals(expected.length, _encrypted.toByteArray().length);
-        Assert.assertTrue(Arrays.equals(expected, _encrypted.toByteArray()));
+        Assertions.assertEquals(expected.length, _encrypted.toByteArray().length);
+        Assertions.assertTrue(Arrays.equals(expected, _encrypted.toByteArray()));
 
         decrypt.decrypt(_encrypted.toByteArray());
         decrypt.finishDecryption();
 
-        Assert.assertTrue(Arrays.equals(plain, _decrypted.toByteArray()));
+        Assertions.assertTrue(Arrays.equals(plain, _decrypted.toByteArray()));
     }
 
     /**
@@ -176,6 +176,6 @@ public class CbcTest {
         _decrypt.decrypt(_encrypted.toByteArray());
         _decrypt.finishDecryption();
 
-        Assert.assertTrue(Arrays.equals(data, _decrypted.toByteArray()));
+        Assertions.assertTrue(Arrays.equals(data, _decrypted.toByteArray()));
     }
 }
