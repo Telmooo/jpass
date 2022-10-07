@@ -1,3 +1,5 @@
+package jpass.util;
+
 import static jpass.util.StringUtils.stripNonValidXMLCharacters;
 
 import java.util.Random;
@@ -7,7 +9,7 @@ import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
 
 
-public class validXMLCharsTest {
+public class StringUtilsTest {
 
     String generateValidString() {
         int lowerBound = 32;     // Space
@@ -23,14 +25,14 @@ public class validXMLCharsTest {
 
 
     @Test
-    public void testNull() {
+    public void testNullStripNonValidXMLCharacters() {
         String nullOutput = stripNonValidXMLCharacters(null);
 
         Assertions.assertEquals("", nullOutput);
     }
 
     @Test
-    public void testEmptyStr() {
+    public void testEmptyStringStripNonValidXMLCharacters() {
         String emptyStr = "";
 
         String emptyOutput = stripNonValidXMLCharacters(emptyStr);
@@ -39,7 +41,7 @@ public class validXMLCharsTest {
     }
 
     @RepeatedTest(10)
-    public void testValidInput() {
+    public void testValidInputStripNonValidXMLCharacters() {
         String alphaNumeric = generateValidString();
 
         String output = stripNonValidXMLCharacters(alphaNumeric);
@@ -48,7 +50,7 @@ public class validXMLCharsTest {
     }
 
     @Test
-    public void testInvalidInput() {
+    public void testInvalidInputStripNonValidXMLCharacters() {
         String invalidChar = "\uD800\uDC00"; // Unicode Character 'LINEAR B SYLLABLE B008 A' (U+10000)
 
         String output = stripNonValidXMLCharacters(invalidChar);
