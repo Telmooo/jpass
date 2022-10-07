@@ -10,13 +10,11 @@ public class formatIsoDateTimeTest {
 
     @Test
     public void testNullDateString() {
-        DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE;
-        String input = LocalDateTime.now().format(formatter);
+        DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
 
-        String expected = formatIsoDateTime(input, formatter);
-        String output = formatIsoDateTime(null, formatter);
-
-        Assertions.assertEquals(expected, output);
+        Assertions.assertDoesNotThrow( () -> {
+            formatIsoDateTime(null, formatter);
+        });
     }
 
     @Test
