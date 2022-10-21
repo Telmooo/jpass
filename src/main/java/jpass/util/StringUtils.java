@@ -72,7 +72,7 @@ public final class StringUtils {
         return stripString(text, 80);
     }
 
-    public static String stripString(String text, int length) {
+    public static String stripString(String text, int length) throws IndexOutOfBoundsException {
         String result = text;
         if (text != null && text.length() > length) {
             result = text.substring(0, length) + "...";

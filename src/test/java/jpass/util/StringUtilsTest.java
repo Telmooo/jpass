@@ -7,6 +7,8 @@ import java.util.Random;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 
 public class StringUtilsTest {
@@ -58,4 +60,35 @@ public class StringUtilsTest {
         Assertions.assertNotEquals(invalidChar, output);
     }
 
+    @ParameterizedTest
+    @ValueSource(ints = {-1, 0, 1})
+    public void testStripStringNull(int length) {
+        Assertions.assertNull(StringUtils.stripString(null, length));
+    }
+
+    @ParameterizedTest
+    @ValueSource(ints = {0, 1})
+    public void testStripStringEmpty(int length) {
+        Assertions.assertEquals("", StringUtils.stripString("", length));
+    }
+
+    @Test
+    public void testStripStringLength0() {
+        Assertions.assertEquals("...", StringUtils.stripString("a", 0));
+    }
+
+    @Test
+    public void testStripStringEqualLengths() {
+        Assertions.assertEquals("a", StringUtils.stripString("a", 1));
+    }
+
+    @Test
+    public void testStripStringGreaterLength() {
+        Assertions.assertEquals("a...", StringUtils.stripString("ab", 1));
+    }
+
+    @Test
+    public void testStripStringException() {
+        Assertions.assertThrows(IndexOutOfBoundsException.class, () -> StringUtils.stripString("", -1));
+    }
 }
