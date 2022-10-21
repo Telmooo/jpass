@@ -209,7 +209,9 @@ The input `int` length, _L_, can take negative (< 0), zero (0), or positive (> 0
 Noting that case E4 is practically impossible, since it's impossible to have a string with length lower or equal to L, given that L is a negative value, and so boundaries involving E4 don't exist (E1-E4, E4-E5, E4-E7). Therefore, we can derive the following boundaries from the partitions above:
 #### Boundary E1-E2
 Fixed values: S=null (value stays fixed on this boundary)
+
 Condition: L<0
+
 On-points:
 - L - `0` (makes condition false).
 
@@ -217,12 +219,15 @@ Off-points:
 - L - `-1` (makes condition true).
 
 Generates 2 test cases:
-T1. S=null, L=-1 (E1)
-T2. S=null, L=0 (E2)
+
+- T1. S=null, L=-1 (E1)
+- T2. S=null, L=0 (E2)
 
 #### Boundary E2-E3
 Fixed values: S=null (value stays fixed on this boundary)
+
 Condition: L>0
+
 On-points:
 - L - `0` (makes condition false).
 
@@ -230,12 +235,15 @@ Off-points:
 - L - `1` (makes condition true).
 
 Generates 2 test cases:
-T3. S=null, L=0 (E2) (same test as T2)
-T4. S=null, L=1 (E3)
+
+- T3. S=null, L=0 (E2) (same test as T2)
+- T4. S=null, L=1 (E3)
 
 #### Boundary E2-E5
 Fixed values: L=0 (value stays fixed on this boundary)
+
 Condition: S=null
+
 On-points:
 - S - null (makes condition true).
 
@@ -243,12 +251,15 @@ Off-points:
 - S - `""` (makes condition true).
 
 Generates 2 test cases:
-T5. S=null, L=0 (E2) (same test as T2 and T3)
-T6. S="", L=0 (E5)
+
+- T5. S=null, L=0 (E2) (same test as T2 and T3)
+- T6. S="", L=0 (E5)
 
 #### Boundary E3-E6
 Fixed values: L>0 (value stays fixed on this boundary) (L=1)
+
 Condition: S=null
+
 On-points:
 - S - null (makes condition true).
 
@@ -256,12 +267,15 @@ Off-points:
 - S - `""` (makes condition true).
 
 Generates 2 test cases:
-T7. S=null, L=1 (E3) (same test as T4)
-T8. S="", L=1 (E6)
+
+- T7. S=null, L=1 (E3) (same test as T4)
+- T8. S="", L=1 (E6)
 
 #### Boundary E5-E6
 Fixed values: S with length <= L (value stays fixed on this boundary) (S=`""`)
+
 Condition: L>0
+
 On-points:
 - L - `0` (makes condition false).
 
@@ -269,58 +283,71 @@ Off-points:
 - L - `1` (makes condition true).
 
 Generates 2 test cases:
-T9. S="", L=0 (E5) (same test as T6)
-T10. S="", L=1 (E6) (same test as T8)
+
+- T9. S="", L=0 (E5) (same test as T6)
+- T10. S="", L=1 (E6) (same test as T8)
 
 #### Boundary E5-E8
 Fixed values: L=0 (value stays fixed on this boundary)
+
 Condition: S with length <= L
-On-point:
+
+On-points:
 - S - `""` (makes condition true).
 Off-points:
 - S - `"a"` (makes condition false).
 
 Generates 2 test cases:
-T11. S="", L=0 (E5) (same test as T6 and T9)
-T12. S="a", L=0 (E8)
+
+- T11. S="", L=0 (E5) (same test as T6 and T9)
+- T12. S="a", L=0 (E8)
 
 #### Boundary E6-E9
 Fixed values: L>0 (value stays fixed on this boundary) (L=1)
+
 Condition: S with length <= L
-On-point:
+
+On-points:
 - S - `"a"` (makes condition true).
 
 Off-points:
 - S - `"ab"` (makes condition false).
 
 Generates 2 test cases:
-T13. S="a", L=1 (E6)
-T14. S="ab", L=1 (E9)
+
+- T13. S="a", L=1 (E6)
+- T14. S="ab", L=1 (E9)
 
 #### Boundary E8-E9
 Fixed values: S with length > L (value stays fixed on this boundary) (S="ab")
+
 Condition: L>0
-On-point:
+
+On-points:
 - L - `0` (makes condition false).
 Off-point:
 - L - `1` (makes condition true).
 
 Generates two test cases:
-T15. S="ab", L=0 (E8) (same test, in behaviour, to test T12)
-T16. S="ab", L=1 (E9) (same test as T14)
+
+- T15. S="ab", L=0 (E8) (same test, in behaviour, to test T12)
+- T16. S="ab", L=1 (E9) (same test as T14)
 
 #### Boundary E7-E8
 Fixed values: S with length > L (value stays fixed on this boundary) (S="")
+
 Condition: L<0
-On-point:
+
+On-points:
 - L - `0` (makes condition false).
 
 Off-point:
 - L - `-1` (makes condition true).
 
-Generate two test cases:
-T17. S="", L=-1 (E7)
-T18. S="", L=0 (E8) (same as test T6, T9 and T11)
+Generates two test cases:
+
+- T17. S="", L=-1 (E7)
+- T18. S="", L=0 (E8) (same as test T6, T9 and T11)
 
 ### Implemented Tests
 From the tests derived above, only the following tests need to be implemented, as others are redundant.
@@ -401,6 +428,7 @@ As specified above in category partition, it can be resumed as:
 From these partitions we can derive the following boundaries:
 #### Boundary E1-E2
 Condition: S=null
+
 On-points:
 - S - `null` (makes condition true).
 
@@ -408,12 +436,14 @@ Off-points:
 - S - `""`, or any non-null string (makes condition false).
 
 Generates 3 test cases:
-T1. S=null
-T2. S=""
-T3. S=(any non-null non-empty string)
+
+- T1. S=null
+- T2. S=""
+- T3. S=(any non-null non-empty string)
 
 #### Boundary E2-E3
 Condition: S=""
+
 On-points:
 - S - `""` (makes condition true).
 
@@ -421,11 +451,197 @@ Off-points:
 - S - `null`, or any non-empty string (makes condition false).
 
 Generates 3 test cases:
-T4. S=""
-T5. S=null
-T6. S=(any non-null non-empty string)
+
+- T4. S=""
+- T5. S=null
+- T6. S=(any non-null non-empty string)
 
 ### Implemented Tests
 Note that boundaries resolve to the same tests, and, furthermore, the same tests already implemented in the category-partition phase.
 
 Therefore, we didn't have to implemented or change any tests already developed for this method, and the outcomes stayed the same as before.
+
+## Method `jpass.util.StringUtils.stripNonValidXMLCharacters`
+For category partition refer [here](#method-jpassutilstringutilsstripnonvalidxmlcharacters).
+
+### Boundary-Value Analysis
+
+The input string `S` can be null, empty or made up by a wide variety of characters, which can be or not valid in XML, resulting in 4 categories:
+- E1 - null
+- E2 - empty
+- E3 - valid
+- E4 - invalid
+
+as illustrated below:
+![partitions](./assets/stripNonValidXML-partitions.png)
+
+
+#### Boundary E1-E2
+Condition: S = null
+
+On-points:
+- S = null (makes the condition true)
+
+Off-points:
+- S = empty or any non-null string
+
+Generates 3 test cases:
+
+- T1. S =  null (E1)
+- T2. S = "" (non-null) (E2)
+- T3. S = any non-empty, non-null string (E3)
+
+
+#### Boundary E2-E3
+Condition: S = ""
+parameterizOn-points:ed
+- S = "" (makes the condition true)
+
+Off-points:
+- S = null or any non-empty sequence of characters
+
+Generates 3 test cases:
+
+- T4. S =  "" (redudant with T2) (E2)
+- T5. S = null (non-empty, redudant with T1)  (E1)
+- T6. S = any non-empty, non-null string (E3) - redudant with T3
+
+Note: in the remaning boundaries, the off-points null and empty will be omitted due to redundancy reasons.
+
+#### Boundary E3-E4
+
+This boundary is subdivided in many sub-boundaris. 
+
+### Sub-boundary 1
+Condition: S >= "0x9"
+
+On-points:
+- S = "0x9"
+
+Off-points:
+- S = "0x8"
+
+Generates 2 test cases:
+
+- S = "0x8" (E4)
+- S = "0x9" (E3)
+
+### Sub-boundary 2
+Condition: S <= "0xa"
+
+On-points:
+- S = "0xa"
+
+Off-points:
+- S = "0xb"
+
+Generates 2 test cases:
+
+- S = "0xa" (E3)
+- S = "0xb" (E4)
+
+### Sub-boundary 3
+Condition: S = "0xd"
+
+On-points:
+- S = "0xd"
+
+Off-points:
+- S = "0xc"
+- S = "0xe"
+
+Generates 3 test cases:
+
+- S = "0xc" (E4)
+- S = "0xd" (E3)
+- S = "0xe" (E4)
+
+### Sub-boundary 4
+Condition: S >= "0x20"
+
+On-points:
+- S = "0x20"
+
+Off-points:
+- S = "0x1f"
+
+Generates 2 test cases:
+
+- S = "0x20" (E3)
+- S = "0x1f" (E4)
+
+### Sub-boundary 5
+Condition: S <= "0xd7ff"
+
+On-points:
+- S = "0xd7ff"
+
+Off-points:
+- S = "0xd800"
+
+Generates 2 test cases:
+
+- S = "0xd7ff" (E3)
+- S = "0xd800" (E4)
+
+### Sub-boundary 6
+Condition: S >= "0xe000"
+
+On-points:
+- S = "0xe000"
+
+Off-points:
+- S = "0xdfff"
+
+Generates 2 test cases:
+
+- S = "0xe000" (E3)
+- S = "0xdfff" (E4)
+
+### Sub-boundary 7
+Condition: S <= "0xfffd"
+
+On-points:
+- S = "0xe000"
+
+Off-points:
+- S = "0xfffe"
+
+Generates 2 test cases:
+
+- S = "0xfffd" (E3)
+- S = "0xfffe" (E4)
+
+# Implemented tests
+
+The tests for E1 and E2 (i.e., null and empty string) were not changed, and therefore were already implemented. Tests for E3 (valid) and E4 (invalid) were implemented using Parameterized tests, testing equality and inequality between the input and the output, respectively, on each of the strings above.
+Parameterized tests for E3:
+
+```java
+@ParameterizedTest
+@ValueSource(strings = { "09", "0A", "0D", "20", "D7FF", "E000", "FFFD"})
+public void testValidBytesStripNonValidXMLCharacters(String toTest) {
+    String input = String.valueOf((char)Integer.parseInt(toTest, 16));
+
+    Assertions.assertEquals(input, StringUtils.stripNonValidXMLCharacters(input));
+}
+```
+
+All tests had the expected outcome without any failures, i.e, the output string had the same value as the input string.
+
+Parameterized tests for E4:
+
+```java
+@ParameterizedTest
+@ValueSource(strings = { "08", "0B", "0C", "0E", "1F", "D800", "DFFF", "FFFE" })
+public void testNonValidBytesStripNonValidXMLCharacters(String toTest) {
+    String input = String.valueOf((char)Integer.parseInt(toTest, 16));
+
+    Assertions.assertNotEquals(input, StringUtils.stripNonValidXMLCharacters(input));
+}
+```
+
+All tests had the expected outcome without any failures, i.e, the output string had a different value from the input string.
+
+
+
