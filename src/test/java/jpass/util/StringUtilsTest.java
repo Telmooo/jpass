@@ -61,7 +61,7 @@ public class StringUtilsTest {
     }
 
     @ParameterizedTest
-    @ValueSource(strings = { "09", "0A", "0D", "20", "D7FF", "E000", "FFFD", "A000", "F000" })
+    @ValueSource(strings = { "09", "0A", "0D", "20", "D7FF", "E000", "FFFD" })
     public void testValidBytesStripNonValidXMLCharacters(String toTest) {
         String input = String.valueOf((char)Integer.parseInt(toTest, 16));
 
