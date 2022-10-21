@@ -203,7 +203,7 @@ For category partition refer [here](#method-jpassutilstringutilsstripstring).
 #### Boundary-Value Analysis
 
 The input `int` length, _L_, can take negative (< 0), zero (0), or positive (> 0). By consequence, the input `String`, _S_, can take the values `null`, `""`, any string with length greater than L, and any string with length less or equal to L, as illustrated below:
-![partitions](https://user-images.githubusercontent.com/44447503/197277583-17f9a5ad-80e9-4c7f-92b4-0be1b89603a2.png)
+![partitions](./assets/stripString-partitions.png)
 
 
 Noting that case E4 is practically impossible, since it's impossible to have a string with length lower or equal to L, given that L is a negative value, and so boundaries involving E4 don't exist (E1-E4, E4-E5, E4-E7). Therefore, we can derive the following boundaries from the partitions above:
@@ -386,3 +386,46 @@ public void testStripStringException() {
 }
 ```
 The test had the expected outcome without any failure.
+
+## Method `jpass.util.CryptUtils.getPKCS5Sha256Hash`
+For category-partition refer [here](#method-jpassutilcryptutilsgetpkcs5sha256hash)
+
+### Boundary-Value Analysis
+The input string `S` can take one of three following values/set of values:
+- Null string;
+- Empty string;
+- Non-null non-empty string.
+As specified above in category partition, it can be resumed as:
+![partitions](./assets/sha256-partitions.png).
+
+From these partitions we can derive the following boundaries:
+#### Boundary E1-E2
+Condition: S=null
+On-points:
+- S - `null` (makes condition true).
+
+Off-points:
+- S - `""`, or any non-null string (makes condition false).
+
+Generates 3 test cases:
+T1. S=null
+T2. S=""
+T3. S=(any non-null non-empty string)
+
+#### Boundary E2-E3
+Condition: S=""
+On-points:
+- S - `""` (makes condition true).
+
+Off-points:
+- S - `null`, or any non-empty string (makes condition false).
+
+Generates 3 test cases:
+T4. S=""
+T5. S=null
+T6. S=(any non-null non-empty string)
+
+### Implemented Tests
+Note that boundaries resolve to the same tests, and, furthermore, the same tests already implemented in the category-partition phase.
+
+Therefore, we didn't have to implemented or change any tests already developed for this method, and the outcomes stayed the same as before.
