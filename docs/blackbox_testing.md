@@ -198,16 +198,16 @@ The output of the function is, therefore, the trimmed version of the input strin
 # Boundary-Value Analysis Testing
 
 ## Method `jpass.util.StringUtils.stripString`
-For category partition refer [here]()
+For category partition refer [here](#method-jpassutilstringutilsstripstring).
 
-# Boundary-Value Analysis
+#### Boundary-Value Analysis
 
 The input `int` length, _L_, can take negative (< 0), zero (0), or positive (> 0). By consequence, the input `String`, _S_, can take the values `null`, `""`, any string with length greater than L, and any string with length less or equal to L, as illustrated below:
 ![partitions](https://user-images.githubusercontent.com/44447503/197277583-17f9a5ad-80e9-4c7f-92b4-0be1b89603a2.png)
 
 
 Noting that case E4 is practically impossible, since it's impossible to have a string with length lower or equal to L, given that L is a negative value, and so boundaries involving E4 don't exist (E1-E4, E4-E5, E4-E7). Therefore, we can derive the following boundaries from the partitions above:
-## Boundary E1-E2
+#### Boundary E1-E2
 Fixed values: S=null (value stays fixed on this boundary)
 Condition: L<0
 On-points:
@@ -220,7 +220,7 @@ Generates 2 test cases:
 T1. S=null, L=-1 (E1)
 T2. S=null, L=0 (E2)
 
-## Boundary E2-E3
+#### Boundary E2-E3
 Fixed values: S=null (value stays fixed on this boundary)
 Condition: L>0
 On-points:
@@ -233,7 +233,7 @@ Generates 2 test cases:
 T3. S=null, L=0 (E2) (same test as T2)
 T4. S=null, L=1 (E3)
 
-## Boundary E2-E5
+#### Boundary E2-E5
 Fixed values: L=0 (value stays fixed on this boundary)
 Condition: S=null
 On-points:
@@ -246,7 +246,7 @@ Generates 2 test cases:
 T5. S=null, L=0 (E2) (same test as T2 and T3)
 T6. S="", L=0 (E5)
 
-## Boundary E3-E6
+#### Boundary E3-E6
 Fixed values: L>0 (value stays fixed on this boundary) (L=1)
 Condition: S=null
 On-points:
@@ -259,7 +259,7 @@ Generates 2 test cases:
 T7. S=null, L=1 (E3) (same test as T4)
 T8. S="", L=1 (E6)
 
-## Boundary E5-E6
+#### Boundary E5-E6
 Fixed values: S with length <= L (value stays fixed on this boundary) (S=`""`)
 Condition: L>0
 On-points:
@@ -272,7 +272,7 @@ Generates 2 test cases:
 T9. S="", L=0 (E5) (same test as T6)
 T10. S="", L=1 (E6) (same test as T8)
 
-## Boundary E5-E8
+#### Boundary E5-E8
 Fixed values: L=0 (value stays fixed on this boundary)
 Condition: S with length <= L
 On-point:
@@ -284,7 +284,7 @@ Generates 2 test cases:
 T11. S="", L=0 (E5) (same test as T6 and T9)
 T12. S="a", L=0 (E8)
 
-## Boundary E6-E9
+#### Boundary E6-E9
 Fixed values: L>0 (value stays fixed on this boundary) (L=1)
 Condition: S with length <= L
 On-point:
@@ -297,7 +297,7 @@ Generates 2 test cases:
 T13. S="a", L=1 (E6)
 T14. S="ab", L=1 (E9)
 
-## Boundary E8-E9
+#### Boundary E8-E9
 Fixed values: S with length > L (value stays fixed on this boundary) (S="ab")
 Condition: L>0
 On-point:
@@ -309,7 +309,7 @@ Generates two test cases:
 T15. S="ab", L=0 (E8) (same test, in behaviour, to test T12)
 T16. S="ab", L=1 (E9) (same test as T14)
 
-## Boundary E7-E8
+#### Boundary E7-E8
 Fixed values: S with length > L (value stays fixed on this boundary) (S="")
 Condition: L<0
 On-point:
@@ -322,10 +322,10 @@ Generate two test cases:
 T17. S="", L=-1 (E7)
 T18. S="", L=0 (E8) (same as test T6, T9 and T11)
 
-# Implemented Tests
+### Implemented Tests
 From the tests derived above, only the following tests need to be implemented, as others are redundant.
 
-## Test T1, T2, T4
+#### Test T1, T2, T4
 Test is implemented with a parametrized test for testing the various lengths values on the null string, as the expected output for all these tests is the null string itself.
 ```java
 @ParameterizedTest
@@ -336,7 +336,7 @@ public void testStripStringNull(int length) {
 ```
 All tests had the expected outcome without any failures.
 
-## Test T6, T8
+#### Test T6, T8
 Test is implemented with a parametrized test for testing the various lengths values on the string whose length is less or equal to the length specified. This can be done by using the empty string and testing the two lengths `0` and `1`. The expected output for all these tests is an empty string.
 ```java
 @ParameterizedTest
@@ -347,7 +347,7 @@ public void testStripStringEmpty(int length) {
 ```
 All tests had the expected outcome without any failures.
 
-## Test T12
+#### Test T12
 Test is implemented to assert the output for any non-null and non-empty string with the length parameter equal to 0 is the string `...`.
 ```java
 @Test
@@ -357,7 +357,7 @@ public void testStripStringLength0() {
 ```
 The test had the expected outcome without any failure.
 
-## Test T13
+#### Test T13
 Test is implemented to assert the output is the same as the input string, since the length of the input string is equal to the length parameter specified.
 ```java
 @Test
@@ -367,7 +367,7 @@ public void testStripStringEqualLengths() {
 ```
 The test had the expected outcome without any failure.
 
-## Test T14
+#### Test T14
 The test is implemented to assert the input string is correctly trimmed, since the length of the input string is greater than the length parameter specified.
 ```java
 @Test
@@ -377,7 +377,7 @@ public void testStripStringGreaterLength() {
 ```
 The test had the expected outcome without any failure.
 
-## Test T17
+#### Test T17
 The test is implemented to assert the exceptional behaviour when passing a negative value on the length parameter with a non-null string as input.
 ```java
 @Test
