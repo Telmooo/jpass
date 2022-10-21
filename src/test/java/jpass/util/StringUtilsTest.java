@@ -196,7 +196,7 @@ public class StringUtilsTest {
     }
 
     // testCase 16 and 17 (null and empty string) are already present
-    // (testNullStripNonValidXMLCharacters
-    // and
-    // testEmptyStringStripNonValidXMLCharacters, respectively)
+    // (testNullStripNonValidXMLCharacters and testEmptyStringStripNonValidXMLCharacters)
+    // and the same is true for #18 and #19
+    // (testValidInputStripNonValidXMLCharacters and testInvalidInputStripNonValidXMLCharacters)
 }
