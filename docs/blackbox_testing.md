@@ -326,7 +326,7 @@ T18. S="", L=0 (E8) (same as test T6, T9 and T11)
 From the tests derived above, only the following tests need to be implemented, as others are redundant.
 
 #### Test T1, T2, T4
-Test is implemented with a parametrized test for testing the various lengths values on the null string, as the expected output for all these tests is the null string itself.
+Test is implemented with a parameterized test for testing the various lengths values on the null string, as the expected output for all these tests is the null string itself.
 ```java
 @ParameterizedTest
 @ValueSource(ints = {-1, 0, 1})
@@ -337,7 +337,7 @@ public void testStripStringNull(int length) {
 All tests had the expected outcome without any failures.
 
 #### Test T6, T8
-Test is implemented with a parametrized test for testing the various lengths values on the string whose length is less or equal to the length specified. This can be done by using the empty string and testing the two lengths `0` and `1`. The expected output for all these tests is an empty string.
+Test is implemented with a parameterized test for testing the various lengths values on the string whose length is less or equal to the length specified. This can be done by using the empty string and testing the two lengths `0` and `1`. The expected output for all these tests is an empty string.
 ```java
 @ParameterizedTest
 @ValueSource(ints = {0, 1})
