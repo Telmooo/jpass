@@ -7,6 +7,8 @@ import java.util.Random;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 
 public class StringUtilsTest {
@@ -58,144 +60,19 @@ public class StringUtilsTest {
         Assertions.assertNotEquals(invalidChar, output);
     }
 
+    @ParameterizedTest
+    @ValueSource(strings = { "09", "0A", "0D", "20", "D7FF", "E000", "FFFD", "A000", "F000" })
+    public void testValidBytesStripNonValidXMLCharacters(String toTest) {
+        String input = String.valueOf((char)Integer.parseInt(toTest, 16));
 
-    // Boundary Value Analysis Tests
-    @Test
-    public void testCase1() { // 0x9
-        String input = ""+(char)Integer.parseInt("9",16);
-
-        String output = stripNonValidXMLCharacters(input);
-
-        Assertions.assertEquals("\t", output);
-    }
-    @Test
-    public void testCase2() { // 0xA
-        String input = ""+(char)Integer.parseInt("A",16);
-
-        String output = stripNonValidXMLCharacters(input);
-
-        Assertions.assertEquals("\n", output);
+        Assertions.assertEquals(input, StringUtils.stripNonValidXMLCharacters(input));
     }
 
-    @Test
-    public void testCase3() { // 0xD
-        String input = ""+(char)Integer.parseInt("D",16);
+    @ParameterizedTest
+    @ValueSource(strings = { "08", "0B", "0C", "0E", "1F", "D800", "DFFF", "FFFE" })
+    public void testNonValidBytesStripNonValidXMLCharacters(String toTest) {
+        String input = String.valueOf((char)Integer.parseInt(toTest, 16));
 
-        String output = stripNonValidXMLCharacters(input);
-
-        Assertions.assertEquals("\r", output);
+        Assertions.assertNotEquals(input, StringUtils.stripNonValidXMLCharacters(input));
     }
-
-    @Test
-    public void testCase4() { // 0x20
-        String input = ""+(char)Integer.parseInt("20",16);
-
-        String output = stripNonValidXMLCharacters(input);
-
-        Assertions.assertEquals(" ", output);
-    }
-
-    @Test
-    public void testCase5() { // 0xD7FF
-        String input = ""+(char)Integer.parseInt("D7FF",16);
-
-        String output = stripNonValidXMLCharacters(input);
-
-        Assertions.assertEquals(input, output);
-    }
-
-    @Test
-    public void testCase6() { // 0xE000
-        String input = ""+(char)Integer.parseInt("E000",16);
-
-        String output = stripNonValidXMLCharacters(input);
-
-        Assertions.assertEquals(input, output);
-    }
-
-    @Test
-    public void testCase7() { // 0xFFFD
-        String input = ""+(char)Integer.parseInt("FFFD",16);
-
-        String output = stripNonValidXMLCharacters(input);
-
-        Assertions.assertEquals(input, output);
-    }
-
-    @Test
-    public void testCase8() { // 0x8
-        String input = ""+(char)Integer.parseInt("8",16);
-
-        String output = stripNonValidXMLCharacters(input);
-
-        Assertions.assertNotEquals(input, output);
-    }
-
-    @Test
-    public void testCase9() { // 0xB
-        String input = ""+(char)Integer.parseInt("B",16);
-
-        String output = stripNonValidXMLCharacters(input);
-
-        Assertions.assertNotEquals(input, output);
-    }
-
-    @Test
-    public void testCase10() { // 0xC
-        String input = ""+(char)Integer.parseInt("C",16);
-
-        String output = stripNonValidXMLCharacters(input);
-
-        Assertions.assertNotEquals(input, output);
-    }
-
-    @Test
-    public void testCase11() { // 0xE
-        String input = ""+(char)Integer.parseInt("E",16);
-
-        String output = stripNonValidXMLCharacters(input);
-
-        Assertions.assertNotEquals(input, output);
-    }
-
-    @Test
-    public void testCase12() { // 0x1F
-        String input = ""+(char)Integer.parseInt("1F",16);
-
-        String output = stripNonValidXMLCharacters(input);
-
-        Assertions.assertNotEquals(input, output);
-    }
-
-    @Test
-    public void testCase13() { // 0xD800
-        String input = ""+(char)Integer.parseInt("D800",16);
-
-        String output = stripNonValidXMLCharacters(input);
-
-        Assertions.assertNotEquals(input, output);
-    }
-
-    @Test
-    public void testCase14() { // 0xDFFF
-        String input = ""+(char)Integer.parseInt("DFFF",16);
-
-        String output = stripNonValidXMLCharacters(input);
-
-        Assertions.assertNotEquals(input, output);
-    }
-
-    @Test
-    public void testCase15() { // 0xFFFE
-        String input = ""+(char)Integer.parseInt("FFFE",16);
-
-        String output = stripNonValidXMLCharacters(input);
-
-        Assertions.assertNotEquals(input, output);
-    }
-
-    // testCase 16 and 17 (null and empty string) are already present
-    // (testNullStripNonValidXMLCharacters and testEmptyStringStripNonValidXMLCharacters)
-    // and the same is true for #18 and #19
-    // (testValidInputStripNonValidXMLCharacters and testInvalidInputStripNonValidXMLCharacters)
 }
