@@ -61,6 +61,20 @@ public class StringUtilsTest {
     }
 
     @ParameterizedTest
+    @ValueSource(strings = { "09", "0A", "0D", "20", "D7FF", "E000", "FFFD" })
+    public void testValidBytesStripNonValidXMLCharacters(String toTest) {
+        String input = String.valueOf((char)Integer.parseInt(toTest, 16));
+
+        Assertions.assertEquals(input, StringUtils.stripNonValidXMLCharacters(input));
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = { "08", "0B", "0C", "0E", "1F", "D800", "DFFF", "FFFE" })
+    public void testNonValidBytesStripNonValidXMLCharacters(String toTest) {
+        String input = String.valueOf((char)Integer.parseInt(toTest, 16));
+
+        Assertions.assertNotEquals(input, StringUtils.stripNonValidXMLCharacters(input));
+    }
     @ValueSource(ints = {-1, 0, 1})
     public void testStripStringNull(int length) {
         Assertions.assertNull(StringUtils.stripString(null, length));
