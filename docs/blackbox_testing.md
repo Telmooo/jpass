@@ -1,6 +1,6 @@
 # Black-box Testing
 
-## Category Parition Testing
+# Category Parition Testing
 
 The project contains the following packages as candidates for black-box testing:
 - `crypt` - This package was already tested in the original repository, and therefore was excluded from the possiblities;
@@ -168,3 +168,264 @@ The code changed can be seen in the diff below:
 ```
 
 With this change, the same test developed above succeeds, as expected.
+
+## Method `jpass.util.StringUtils.stripString`
+See [issue](https://github.com/Telmooo/jpass/issues/28).
+
+### Quick-fix
+The method got a quick-fix on its behaviour, as the exceptional behaviour of the method wasn't properly marked as such. Instead of changing conditions it was decided to just mark the method with exceptional behaviour, as such:
+```diff
+- public static String stripString(String text, int length) {
++ public static String stripString(String text, int length) throws IndexOutOfBoundsException {
+```
+
+### Method Purpose
+`stripString` is a method that makes use of the Java `substring` string procedure to reduce a string to the desired size, appending an ellipsis to it, if necessary. There are two inputs: an object of type `String` - the string to be trimmed -, and an `int` that corresponds to the maximum number of characters of the original string to keep.
+
+### Category-Partition
+There are two parameters - `String text` - which denotes the input string to be trimmed, and -- `int length` -- that denotes the maximum length the input string can have without being trimmed. Additionally, there is an exceptional behaviour, `IndexOutOfBoundsException`, if the length parameter is negative.
+The output of the function is, therefore, the trimmed version of the input string. This leads to the following divisions in the following format [text case, length case]:
+**NoC** = number of characters
+1. null case, negative case - where the output should be null itself;
+2. null case, zero case - where the output should be null itself;
+3. null case, positive case - where the output should be null itself;
+4. non-null NoC above the length parameter case, negative case - where an exceptional behaviour occurs;
+5. non-null NoC below or equal the length parameter, zero case - where the output is the input string itself;
+6. non-null NoC above the length parameter, zero case - where the output is `...`;
+7. non-null NoC below or equal the length parameter, positive case - where the output is the input string itself;
+8. non-null NoC above the length parameter, positive case - where the output is a string with N (N being the number passed in length parameter) characters from the input string followed by ellipsis.
+
+# Boundary-Value Analysis Testing
+
+## Method `jpass.util.StringUtils.stripString`
+For category partition refer [here](#method-jpassutilstringutilsstripstring).
+
+#### Boundary-Value Analysis
+
+The input `int` length, _L_, can take negative (< 0), zero (0), or positive (> 0). By consequence, the input `String`, _S_, can take the values `null`, `""`, any string with length greater than L, and any string with length less or equal to L, as illustrated below:
+![partitions](./assets/stripString-partitions.png)
+
+
+Noting that case E4 is practically impossible, since it's impossible to have a string with length lower or equal to L, given that L is a negative value, and so boundaries involving E4 don't exist (E1-E4, E4-E5, E4-E7). Therefore, we can derive the following boundaries from the partitions above:
+#### Boundary E1-E2
+Fixed values: S=null (value stays fixed on this boundary)
+Condition: L<0
+On-points:
+- L - `0` (makes condition false).
+
+Off-points:
+- L - `-1` (makes condition true).
+
+Generates 2 test cases:
+T1. S=null, L=-1 (E1)
+T2. S=null, L=0 (E2)
+
+#### Boundary E2-E3
+Fixed values: S=null (value stays fixed on this boundary)
+Condition: L>0
+On-points:
+- L - `0` (makes condition false).
+
+Off-points:
+- L - `1` (makes condition true).
+
+Generates 2 test cases:
+T3. S=null, L=0 (E2) (same test as T2)
+T4. S=null, L=1 (E3)
+
+#### Boundary E2-E5
+Fixed values: L=0 (value stays fixed on this boundary)
+Condition: S=null
+On-points:
+- S - null (makes condition true).
+
+Off-points:
+- S - `""` (makes condition true).
+
+Generates 2 test cases:
+T5. S=null, L=0 (E2) (same test as T2 and T3)
+T6. S="", L=0 (E5)
+
+#### Boundary E3-E6
+Fixed values: L>0 (value stays fixed on this boundary) (L=1)
+Condition: S=null
+On-points:
+- S - null (makes condition true).
+
+Off-points:
+- S - `""` (makes condition true).
+
+Generates 2 test cases:
+T7. S=null, L=1 (E3) (same test as T4)
+T8. S="", L=1 (E6)
+
+#### Boundary E5-E6
+Fixed values: S with length <= L (value stays fixed on this boundary) (S=`""`)
+Condition: L>0
+On-points:
+- L - `0` (makes condition false).
+
+Off-points:
+- L - `1` (makes condition true).
+
+Generates 2 test cases:
+T9. S="", L=0 (E5) (same test as T6)
+T10. S="", L=1 (E6) (same test as T8)
+
+#### Boundary E5-E8
+Fixed values: L=0 (value stays fixed on this boundary)
+Condition: S with length <= L
+On-point:
+- S - `""` (makes condition true).
+Off-points:
+- S - `"a"` (makes condition false).
+
+Generates 2 test cases:
+T11. S="", L=0 (E5) (same test as T6 and T9)
+T12. S="a", L=0 (E8)
+
+#### Boundary E6-E9
+Fixed values: L>0 (value stays fixed on this boundary) (L=1)
+Condition: S with length <= L
+On-point:
+- S - `"a"` (makes condition true).
+
+Off-points:
+- S - `"ab"` (makes condition false).
+
+Generates 2 test cases:
+T13. S="a", L=1 (E6)
+T14. S="ab", L=1 (E9)
+
+#### Boundary E8-E9
+Fixed values: S with length > L (value stays fixed on this boundary) (S="ab")
+Condition: L>0
+On-point:
+- L - `0` (makes condition false).
+Off-point:
+- L - `1` (makes condition true).
+
+Generates two test cases:
+T15. S="ab", L=0 (E8) (same test, in behaviour, to test T12)
+T16. S="ab", L=1 (E9) (same test as T14)
+
+#### Boundary E7-E8
+Fixed values: S with length > L (value stays fixed on this boundary) (S="")
+Condition: L<0
+On-point:
+- L - `0` (makes condition false).
+
+Off-point:
+- L - `-1` (makes condition true).
+
+Generate two test cases:
+T17. S="", L=-1 (E7)
+T18. S="", L=0 (E8) (same as test T6, T9 and T11)
+
+### Implemented Tests
+From the tests derived above, only the following tests need to be implemented, as others are redundant.
+
+#### Test T1, T2, T4
+Test is implemented with a parametrized test for testing the various lengths values on the null string, as the expected output for all these tests is the null string itself.
+```java
+@ParameterizedTest
+@ValueSource(ints = {-1, 0, 1})
+public void testStripStringNull(int length) {
+    Assertions.assertNull(StringUtils.stripString(null, length));
+}
+```
+All tests had the expected outcome without any failures.
+
+#### Test T6, T8
+Test is implemented with a parametrized test for testing the various lengths values on the string whose length is less or equal to the length specified. This can be done by using the empty string and testing the two lengths `0` and `1`. The expected output for all these tests is an empty string.
+```java
+@ParameterizedTest
+@ValueSource(ints = {0, 1})
+public void testStripStringEmpty(int length) {
+    Assertions.assertEquals("", StringUtils.stripString("", length));
+}
+```
+All tests had the expected outcome without any failures.
+
+#### Test T12
+Test is implemented to assert the output for any non-null and non-empty string with the length parameter equal to 0 is the string `...`.
+```java
+@Test
+public void testStripStringLength0() {
+    Assertions.assertEquals("...", StringUtils.stripString("a", 0));
+}
+```
+The test had the expected outcome without any failure.
+
+#### Test T13
+Test is implemented to assert the output is the same as the input string, since the length of the input string is equal to the length parameter specified.
+```java
+@Test
+public void testStripStringEqualLengths() {
+    Assertions.assertEquals("a", StringUtils.stripString("a", 1));
+}
+```
+The test had the expected outcome without any failure.
+
+#### Test T14
+The test is implemented to assert the input string is correctly trimmed, since the length of the input string is greater than the length parameter specified.
+```java
+@Test
+public void testStripStringGreaterLength() {
+    Assertions.assertEquals("a...", StringUtils.stripString("ab", 1));
+}
+```
+The test had the expected outcome without any failure.
+
+#### Test T17
+The test is implemented to assert the exceptional behaviour when passing a negative value on the length parameter with a non-null string as input.
+```java
+@Test
+public void testStripStringException() {
+    Assertions.assertThrows(IndexOutOfBoundsException.class, () -> StringUtils.stripString("", -1));
+}
+```
+The test had the expected outcome without any failure.
+
+## Method `jpass.util.CryptUtils.getPKCS5Sha256Hash`
+For category-partition refer [here](#method-jpassutilcryptutilsgetpkcs5sha256hash)
+
+### Boundary-Value Analysis
+The input string `S` can take one of three following values/set of values:
+- Null string;
+- Empty string;
+- Non-null non-empty string.
+As specified above in category partition, it can be resumed as:
+![partitions](./assets/sha256-partitions.png).
+
+From these partitions we can derive the following boundaries:
+#### Boundary E1-E2
+Condition: S=null
+On-points:
+- S - `null` (makes condition true).
+
+Off-points:
+- S - `""`, or any non-null string (makes condition false).
+
+Generates 3 test cases:
+T1. S=null
+T2. S=""
+T3. S=(any non-null non-empty string)
+
+#### Boundary E2-E3
+Condition: S=""
+On-points:
+- S - `""` (makes condition true).
+
+Off-points:
+- S - `null`, or any non-empty string (makes condition false).
+
+Generates 3 test cases:
+T4. S=""
+T5. S=null
+T6. S=(any non-null non-empty string)
+
+### Implemented Tests
+Note that boundaries resolve to the same tests, and, furthermore, the same tests already implemented in the category-partition phase.
+
+Therefore, we didn't have to implemented or change any tests already developed for this method, and the outcomes stayed the same as before.
