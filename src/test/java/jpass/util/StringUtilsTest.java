@@ -62,7 +62,6 @@ public class StringUtilsTest {
     // Boundary Value Analysis Tests
     @Test
     public void testCase1() { // 0x9
-        // String input = "\u0009";
         String input = ""+(char)Integer.parseInt("9",16);
 
         String output = stripNonValidXMLCharacters(input);
