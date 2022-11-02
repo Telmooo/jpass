@@ -1,5 +1,7 @@
 # Created by http://www.gitignore.io
 
+qf-test/**/*.qft
+
 ### Maven ###
 target/
 pom.xml.tag
