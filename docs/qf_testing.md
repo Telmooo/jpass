@@ -9,6 +9,8 @@ This use case corresponds to one of the core functionalities of JPass, allowing 
 
 ## State Machine
 
+### States
+
 Consists of 6 states, of which 3 are "normal" states, 2 can be considered error states, and 1 transitional.
 - **JPass Dashboard (idle state)**: JPass main screen;
 - **JPass Dashboard (saving state)**: Transitional state. Represents an intermediary internal state where the changes are being saved;
@@ -19,7 +21,18 @@ Consists of 6 states, of which 3 are "normal" states, 2 can be considered error 
 - **Generate Password**: Screen for generating a random password;
 - **Generate Password (warning poup)**: Error state. Appears a warning popup when it's attempted to `Accept` the generated password while the generated password field is empty;
 
-Respective State Diagram:
+### Events
+
+The events that allow state transitions are present in the next diagram, being sometimes associated with conditions (between `[]`) and actions (after `/`):
+- **Ok Button [invalid form]** and **Ok Button [valid form]** - transition occurs when the edit entry form is incomplete or invalid, and valid, respectively. An invalid form can be identified by one of two characteristics (or both):
+  - Empty title field;
+  - Non-matching passwords in password and repeat password field (where both can be empty);
+- **Show Button / Reveals Password** - transition executes an action of revealing or hiding the password in the form, i.e., password is either show as raw text (revealed) or with asterisks (hidden);
+- **Copy Button / Copies Password to Clipboard** - transition executes an action of copying the password on the password field to the system clipboard;
+- **Accept Button [empty generated password]** and **Accept Button [non-empty generated password]** - transition occurs when the generated password field is empty, resulting in an error state, or non-empty respectively.
+- **Generates Button** - transition happens when the `Generate` button in the "Generate Password" Window is pressed, resulting in the generation of a random password (based on the criteria selected) that replaces the contents of the text box above the button.
+
+State Diagram:
 
 ![Add New Entry State Machine](assets/AddEntryStateMachine.png)
 
@@ -36,9 +49,36 @@ Respective State Diagram:
 | **Generate Password**                 |                          | Add New Entry          |                            |                                |                          |                   |                 |                 | Generate Password   | Add New Entry                                    |                                             |
 | **Generate Password (warning popup)** |                          |                        |                            |                                |                          | Generate Password |                 |                 |                     |                                                  | Generate Password (warning popup)           |
 
+The left column and the first row represent, respectively, the starting states and the possible Events that allow transition of states. Each cell value represents the resulting state after applying the 
 
+## Tests Implemented
 
+From the Transition Tree Diagram, is it possible to identify 9 paths, each from the root to every leaf.
+From top to bottom and from the left to the right:
 
+- **Copy Password** - Testing the `Copy`password button (to the clipboard) in the `Add New Entry` window. From the main screen, the test starts by opening the New Entry Form (by pressing the `Add Entry...` button), fills some of the fields (in the implemented test the exact values were `test` for the `Title` and `12345` for both the `Password` and `Repeat` fields), then clicks on the `Copy` button in order to copy the password value to the clipboard and then pastes it in the `Notes` text box, checking if that value is indeed `12345`. The test ends with a cleanup that cancels the entry that was being created and takes JPass back to the initial dashboard (via the existing `Cancel` buttons).
+
+- **Show Password** - Attempts to test the visibility toggle of the `Password` field, being similar to the previous one. The state sequence, was identical, difering only the event that leads to the last transition. Instead of clicking on the `Copy` button, the `Show` button of the `Add New Entry` form is the target, being the button checked before and after the click.
+
+- **Cancel New Entry Creation** - From the main screen (no existent entries), `Add New Entry` opens the New Entry (dialog) Form, and the `Cancel` button goes back to the JPass Dashboard, where then it is checked that there are no entries.
+
+- **Create Warning** - From the main screen, `Add New Entry` opens the New Entry Form, and a click on the `Ok` button brings up the Warning dialog Window, hinting at the fact that the provided information (in the specific case of the test, none of the fields have any contents) results in an invalid form.
+
+- **Create entry** - From the main screen, `Add New Entry` opens the New Entry Form. After populating fields in order to have a valid form (details on what makes a form valid or note were mentioned previously; in this test, `Youtube` is the `Title`, `youtube.com` the `URL`, `Zote` is the `Username`, the password is `princecharming` and the `My main Youtube account` is text in the `Notes` field). After clicking on the `Ok` button, in the JPass Dashboard should be possible to see an entry entitled `Youtube`.
+
+- **Generate Password** - From the main screen, `Add New Entry` opens the New Entry Form. The `Generate` button is clicked which should lead to a new window (`Generate Password`), where, by pressing the button `Generate`, a random generated password should appear in the text box above. The `Accept` button is pressed and the field `Password`(and `Repeat`) are filled with that string, being its length verified (equality check for 14 characters as can be seen in one of the settings of that `Generate Password` window).
+
+- **Generate Generate** - From the main screen, `Add New Entry` opens the New Entry Form, and the `Generate` button should open the `Generate Password` dialog window. As the previous test case, the length (14) of the generated password is checked, and afterwards the contents of the box containing that string are deleted, and the `Generate` button is once again clicked as well as the check for the newly created string length.
+
+- **Generate Warning** - From the main screen, `Add New Entry` opens the New Entry Form (as before, no fields are filled here), and the `Generate` button should open the `Generate Password` dialog window. A click on the `Accept` button should result in the appearance of a `Warning` window informing that the generated password field is empty.
+
+- **Generate Cancel** - From the main screen, `Add New Entry` opens the New Entry Form (as before, no fields are filled here), and the `Generate` button should open the `Generate Password` dialog window. The `Cancel` button is clicked and a check is performed in which is detected that the `Password`(/`Repeat`) field is still empty.
+
+- **(Sneak Path) Force Save Empty entry** - From the `Generate Password` window (reachable from the JPass Dashbord -> `Add Entry...` button -> `Generate` button), attempt to click on the `Ok` button in the `Add New Entry` dialog window, and therefore, save a totally empty entry.
+ 
+All 10 tests executed and finished without errors or expections, as expected, being the sneak path test the only one where the intended behavior was the raise of an exception (`ModalDialogException`), due to being unable to click on the wanted button, which was handled via a try and catch block followed by a `wait for absence` of the `dialogWarning` window component with a 3000ms timeout.
+
+To note that in cases of copying and pasting in the tests, the keys recorded in the QF-test Tool for that effect were `control` + `c` and `control` + `v`. Therefore, and also due to not being able to simulate such alternative keypresses, there might be errors when trying to run those tests in operating systems other than Windows (e.g., MacOS, where the `Command` key has the functions of `Control` in Windows).
 
 # Use Case: Edit Entry
 
