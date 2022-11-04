@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <!DOCTYPE RootStep>
 <RootStep id="_0" name="root"
-          signature="7666BC55F175986B0A5A58CBED94CAC31E0EF0DC"
+          signature="78A56F43D53B546E1F89251FFF159AB68D9F2DAA"
           version="6.0.3">
   <include>qfs.qft</include>
   <TestSet id="_1" name="JPass UI Tests">
@@ -423,7 +423,7 @@
     </TestCase>
   </TestSet>
   <PackageRoot id="_3">
-    <Dependency forcedcleanup="true" id="_At" name="sutStarted">
+    <Dependency id="_At" name="sutStarted">
       <SetupSequence id="_6" name="Launch jpass-0.1.24">
         <SetGlobalStep id="_7" varname="client">
           <default>jpass-0.1.24</default>
@@ -435,10 +435,10 @@
         <IfSequence id="_9" name="Launch SUT if not running"
                     test="not $(isSUTRunning)">
           <JavaClientStarter client="$(client)"
-                             directory="C:\Users\joaos\Documents\GitHub\jpass"
+                             directory="{YOUR_PATH_HERE}\jpass"
                              executable="${qftest:java}" id="_A">
             <parameter>-jar</parameter>
-            <parameter>C:\Users\joaos\Documents\GitHub\jpass\target\jpass-0.1.24-SNAPSHOT.jar</parameter>
+            <parameter>{YOUR_PATH_HERE}\jpass\target\jpass-0.1.24-SNAPSHOT.jar</parameter>
           </JavaClientStarter>
           <ClientWaiter client="$(client)" id="_B"/>
         </IfSequence>
