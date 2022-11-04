@@ -1,5 +1,55 @@
 # QF-Test
 
+To run the `.qft` tests in QF-Test tool, please ensure to modify the paths to your specific path.
+
+1. Go to the `.qft` files;
+2. Search for `{YOUR_PATH_HERE}`
+3. Replace it with your path to `jpass` root directory parent directory.
+
+Example, if JPass is in your desktop, replace `{YOUR_PATH_HERE}` with `C:\Users\your_username\Desktop\`, for Windows case.
+
+Note, those tests were developed on Windows platform and might not run correctly on other OS like Linux or MacOS.
+
+# Use Case: Add New Entry
+> As a user, I want to be able to add a new entry to the dashboard, so that I can save a password in JPass.
+
+As referred in the user story, the use case comprises of adding a new entry to the system, which can be achieved by the following sequence of actions: click on the `Add Entry...` button, filling the fields of the form that appears, and afterwards clicking on the `Ok` button. To note that, for an entry to be added successfully (valid entry), at least the field `Title` must be non-empty, and if the one of the password fields is non-empty, the other must have the same contents.
+
+This use case corresponds to one of the core functionalities of JPass, allowing the user to save a password in the application, reason why we chose this use case.
+
+## State Machine
+
+Consists of 6 states, of which 3 are "normal" states, 2 can be considered error states, and 1 transitional.
+- **JPass Dashboard (idle state)**: JPass main screen;
+- **JPass Dashboard (saving state)**: Transitional state. Represents an intermediary internal state where the changes are being saved;
+- **Add New Entry**: Screen with the form to fill in the to-be-created entry
+- **Add New Entry (warning popup)**: what we consider an Error state, in which a warning popup appears when it is attempted to create an entry with an invalid form. An invalid form can be one of the following:
+  - Title field is empty;
+  - Password and repeated password fields do not match (note: can be both empty).
+- **Generate Password**: Screen for generating a random password;
+- **Generate Password (warning popup)**: Error state. Appears a warning popup when it's attempted to `Accept` the generated password while the generated password field is empty;
+
+Respective State Diagram:
+
+![Add New Entry State Machine](assets/AddEntryStateMachine.png)
+
+## Transition Tree
+![Add New Entry Transition Tree](assets/AddEntryTree.png)
+
+## Transition table
+| **States\Events**                     | **Add New Entry Button** | **Cancel Button**      | **Ok Button [valid form]** | **Ok Button [invalid form]**   | **Automatic Transition** | **Ok Button**     | **Copy Button** | **Show Button** | **Generate Button** | **Accept Button [non-empty generated password]** | **Accept Button [empty generated password]** |
+|---------------------------------------|--------------------------|------------------------|----------------------------|--------------------------------|--------------------------|-------------------|-----------------|-----------------|---------------------|--------------------------------------------------|---------------------------------------------|
+| **JPass Dashboard (idle)**            | Add New Entry            |                        |                            |                                |                          |                   |                 |                 |                     |                                                  |                                             |
+| **JPass Dashboard (saving)**          |                          |                        |                            |                                | JPass Dashboard (idle)   |                   |                 |                 |                     |                                                  |                                             |
+| **Add New Entry**                     |                          | JPass Dashboard (idle) | JPass Dashboard (saving)   | Add New Entry (warning popup)  |                          |                   | Add New Entry   | Add New Entry   | Generate Password   |                                                  |                                             |
+| **Add New Entry (warning popup)**     |                          |                        |                            |                                |                          | Add New Entry     |                 |                 |                     |                                                  |                                             |
+| **Generate Password**                 |                          | Add New Entry          |                            |                                |                          |                   |                 |                 | Generate Password   | Add New Entry                                    |                                             |
+| **Generate Password (warning popup)** |                          |                        |                            |                                |                          | Generate Password |                 |                 |                     |                                                  | Generate Password (warning popup)           |
+
+
+
+
+
 # Use Case: Edit Entry
 
 > As a user, I want to be able to edit an existing entry on the dashboard, so that I can update its information.
@@ -42,6 +92,7 @@ Each event present in the diagram corresponds to the name of the button to click
 ![Edit Entry State Machine](assets/EditEntryStateMachine.png)
 
 ## Transition Tree
+It can be seen paths leading from a parent state to a child state which is the "same" as the parent state, or a parent state leading to two children states that are the "same". This is due to the conditons on the transitions above. For example, from the path of `JPass Dashboard (idle) 0` to `JPass Dashboard (idle) 2` must happen because it is needed for an entry to be selected in order to proceed to the `Edit Entry` state. Additionally, the state `Edit Entry 0` leads to two "copies" of its own state, `Edit Entry 1` and `Edit Entry 2`, this is to represent the `Show` button and `Copy` button, which lead to the same state but have different actions. Similar situation can be seen on other states with this behaviour.
 
 ![Edit Entry Transition Tree](assets/EditEntryTree.png)
 
@@ -56,3 +107,74 @@ Each event present in the diagram corresponds to the name of the button to click
 |      **Edit Entry (warning)**      |                          |                                            |       Edit Entry       |                              |                            |                                    |                                                |                        |                                            |                                        |                                              |                                                  |                                                 |
 |        **Generate Password**       |                          |                                            |                        |                              |                            |                                    |                                                |       Edit Entry       |                                            |                                        |          Generate Password (warning)         |                    Edit Entry                    |                Generate Password                |
 |   **Generate Password (warning)**  |                          |                                            |    Generate Password   |                              |                            |                                    |                                                |                        |                                            |                                        |                                              |                                                  |                                                 |
+
+As can be seen on the transition tree above, it will be developed 10 test cases, and an additional sneak-path of the 75 total sneak paths possible, which can be seen on the transition table above.
+
+Note that some of the tests, such as the one that leads to the `Copy` button, the `Generate` button and its subtrees, and `Show` button are the exact same as the ones developed in the `Add Entry` use case, and therefore will be omitted in this use case. This leads to 4 tests plus the additional sneak path test.
+
+- **Edit Entry No Selected** - From the main screen, and having no entry selected (or no entries at all in the database), click on `Edit Entry` button, and it should trigger a warning popup regarding not having an entry selected.
+  - The test developed executes as expected.
+- **Edit Entry Cancel** - From the main screen, select an entry and click on the `Edit Entry` button to open the edit entry form. Afterwards, click on the Cancel button 
+  - The test developed executes as expected.
+- **Change Password Normal** - From the main screen, it is clicked on the `File` button to open the dropdown menu, and then the `Change Password...` button on the dropdown menu. It should open a dialog for changing the password, in which, you should input a password on both fields, matching, and then click on the `Ok` button, which should lead to a information popup saying the password has been changed and saved.
+  - The test developed executes as expected.
+- **(Sneak Path) Force Save Password** - From the main screen, attempt to force an event of clicking on the `Ok` button in the change password dialog to force either a successful save or a warning.
+  - The test developed executes as expected, this is, the event doesn't result in anything, meaning the program behaves as expected.
+
+# Use Case: Change Password
+
+> As a user, I want to be able to edit the master password of the entries database file, so that I can save and keep my passwords safe.
+
+Being also part of the core functionalities, the choice for this use case was due to testing the functionality of being able to change the master password that locks the saved file so that it can be loaded and unlocked later by the user.
+
+## State Machine
+
+Consists of 7 states: 3 "normal" states, 2 error states and 1 transitional state.
+
+- **JPass Dashboard (idle state)**: JPass main screen, including its dropdown menus;
+- **Enter Password**: Screen to change master password of the database;
+- **Enter Password (warning popup)**: Error state. Occurs when it's attempted to change password to an empty one or when password and repeated password don't match;
+- **Enter Password (information popup)**: Popup screen indicating the changes were saved;
+
+### Events
+Each event present in the diagram corresponds to the name of the button to click while on that state. Some of the events contain conditions or actions, such as:
+
+- **File Button / Open File dropdown menu** - transition occurs when `File` button is clicked, executing an action of opening a dropdown menu on the main screen;
+- **Change Password Button [File dropdown menu open]** - transition occurs if it's clicked on change password button while the file dropdown menu is open, i.e. the file button has been clicked previously and not clicked anywhere else or in the file button again;
+- **Ok Button [invalid form]** and **Ok Button [valid form]** - transition occurs when the change password form is incomplete or invalid, and valid, respectively. An invalid form consists of:
+  - Empty password;
+  - Non-matching passwords in password and repeat password field;
+
+![Change Password State Machine](assets/ChangePasswordStateMachine.png)
+
+## Transition Tree
+It can be seen paths leading from a parent state to a child state which is the "same" as the parent state, or a parent state leading to two children states that are the "same". This is due to the conditons on the transitions above. For example, from the path of `JPass Dashboard (idle) 0` to `JPass Dashboard (idle) 1` must happen because it is needed to open the dropdown menu to fulfill the condition. Additionally, the state `Enter Password` leads to two "copies" of the state `Enter Password (information)`, but one reprents an information after cancelling the operation (via cancel button), and the other represents a successful change of password.
+
+![Change Password Transition Tree](assets/ChangePasswordTree.png)
+
+## Transition Table
+
+|         **State / Event**        |     **File Button**    | **Change Password Button** |      **Ok Button**     | **Ok Button [invalid form]** |  **Ok Button [valid form]**  |       **Cancel Button**      |
+|:--------------------------------:|:----------------------:|:--------------------------:|:----------------------:|:----------------------------:|:----------------------------:|:----------------------------:|
+|    **JPass Dashboard (idle)**    | JPass Dashboard (idle) |       Enter Password       |                        |                              |                              |                              |
+|        **Enter Password**        |                        |                            |                        |   Enter Password (warning)   | Enter Password (information) | Enter Password (information) |
+|   **Enter Password (warning)**   |                        |                            |     Enter Password     |                              |                              |                              |
+| **Enter Password (information)** |                        |                            | JPass Dashboard (idle) |                              |                              |                              |
+
+As can be seen on the transition tree above, it will be developed 3 test cases, and an additional sneak-path of the 17 total sneak paths possible, which can be seen on the transition table above.
+
+- **Change Password Warning** - From the main screen, it is clicked on the `File` button to open the dropdown menu, and then the `Change Password...` button on the dropdown menu. It should open a dialog for changing the password, in which, to trigger a warning you can input different passwords on the password and repeat password fields or leave it empty. Any of those cases should trigger the warning popup. To verify the test works, it is verified if the warning popup is open.
+  - The test developed executes as expected.
+- **Change Password Cancel** - From the main screen, it is clicked on the `File` button to open the dropdown menu, and then the `Change Password...` button on the dropdown menu. It should open a dialog for changing the password, in which, click on the `Cancel` button and it should lead to a information popup saying that there were no changes to the password. To verify the test works, it is verified if the information popup is open and contains the expected description.
+  - The test developed executes as expected.
+- **Change Password Normal** - From the main screen, it is clicked on the `File` button to open the dropdown menu, and then the `Change Password...` button on the dropdown menu. It should open a dialog for changing the password, in which, you should input a password on both fields, matching, and then click on the `Ok` button, which should lead to a information popup saying the password has been changed and saved. To verify the test works, it is verified if the information popup is open and contains the expected description.
+  - The test developed executes as expected.
+- **(Sneak Path) Force Save Password** - From the main screen, attempt to force an event of clicking on the `Ok` button in the change password dialog to force either a successful save or a warning. To verify if the test is working, it is expected for the test to throw an exception, and then it is also verified if the information/warning popup isn't open.
+  - The test developed executes as expected, this is, the event doesn't result in anything, meaning the program behaves as expected.
+
+
+# Feedback on QF-Test
+While the tool seems interesting for developing UI testing, it also comes with some difficulties for developers, such as:
+- Outdated interface, which leads to confusing methodologies on implementation of methods, for example, lack of checking options and inability to navigate when in checking mode (i.e. opening dropdown menus).
+- While there's ***best practices*** for organisation of test-suites, it provides little to no version control, making the development in pairs or in team not friendly, and also requires manual management of paths.
+- Poor documentation/tutorial on how dependencies works, their order of execution and how to setup multi-step dependency trees, each with their own `Setup` and `Cleanup` processes.
