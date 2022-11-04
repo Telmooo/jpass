@@ -1,5 +1,43 @@
 # QF-Test
 
+# Use Case: Add New Entry
+> As a user, I want to be able to add a new entry to the dashboard, so that I can save a password in JPass.
+
+As referred in the user story, the use case comprises of adding a new entry to the system, which can be achieved by the following sequence of actions: click on the `Add Entry...` button, filling the fields of the form that appears, and afterwards clicking on the `Ok` button. To note that, for an entry to be added successfully (valid entry), at least the field `Title` must be non-empty, and if the one of the password fields is non-empty, the other must have the same contents.
+
+This use case corresponds to one of the core functionalities of JPass, allowing the user to save a password in the application, reason why we chose this use case.
+
+## State Machine
+
+Consists of 6 states, of which 3 are "normal" states, 2 can be considered error states, and 1 transitional.
+- **JPass Dashboard (idle state)**: JPass main screen;
+- **JPass Dashboard (saving state)**: Transitional state. Represents an intermediary internal state where the changes are being saved;
+- **Add New Entry**: Screen with the form to fill in the to-be-created entry
+- **Add New Entry (warning popup)**: what we consider an Error state, in which a warning popup appears when it is attempted to create an entry with an invalid form. An invalid form can be one of the following:
+  - Title field is empty;
+  - Password and repeated password fields do not match (note: can be both empty).
+- **Generate Password**: Screen for generating a random password;
+- **Generate Password (warning poup)**: Error state. Appears a warning popup when it's attempted to `Accept` the generated password while the generated password field is empty;
+
+![AddEntry_v2 drawio](https://user-images.githubusercontent.com/45333685/199986546-ff23e199-9079-4101-8d6c-d76f6b2a9a7f.png)
+
+## Transition Tree
+![addEntryTree drawio](https://user-images.githubusercontent.com/45333685/199987362-073746b8-4309-45ef-943b-f210d099bd39.png)
+
+## Transition table
+| **States\Events**                     | **Add New Entry Button** | **Cancel Button**      | **Ok Button [valid form]** | **Ok Button [invalid form]**   | **Automatic Transition** | **Ok Button**     | **Copy Button** | **Show Button** | **Generate Button** | **Accept Button [non-empty generated password]** | **Accept Button [empty generated password]** |
+|---------------------------------------|--------------------------|------------------------|----------------------------|--------------------------------|--------------------------|-------------------|-----------------|-----------------|---------------------|--------------------------------------------------|---------------------------------------------|
+| **JPass Dashboard (idle)**            | Add New Entry            |                        |                            |                                |                          |                   |                 |                 |                     |                                                  |                                             |
+| **JPass Dashboard (saving)**          |                          |                        |                            |                                | JPass Dashboard (idle)   |                   |                 |                 |                     |                                                  |                                             |
+| **Add New Entry**                     |                          | JPass Dashboard (idle) | JPass Dashboard (saving)   | Add New Entry (warning popup)  |                          |                   | Add New Entry   | Add New Entry   | Generate Password   |                                                  |                                             |
+| **Add New Entry (warning popup)**     |                          |                        |                            |                                |                          | Add New Entry     |                 |                 |                     |                                                  |                                             |
+| **Generate Password**                 |                          | Add New Entry          |                            |                                |                          |                   |                 |                 | Generate Password   | Add New Entry                                    |                                             |
+| **Generate Password (warning popup)** |                          |                        |                            |                                |                          | Generate Password |                 |                 |                     |                                                  | Generate Password (warning popup)           |
+
+
+
+
+
 # Use Case: Edit Entry
 
 > As a user, I want to be able to edit an existing entry on the dashboard, so that I can update its information.
