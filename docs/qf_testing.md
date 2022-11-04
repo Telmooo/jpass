@@ -24,7 +24,7 @@ Respective State Diagram:
 ![Add New Entry State Machine](assets/AddEntryStateMachine.png)
 
 ## Transition Tree
-![Edit Entry Transition Tree](assets/AddEntryTree.png)
+![Add New Entry Transition Tree](assets/AddEntryTree.png)
 
 ## Transition table
 | **States\Events**                     | **Add New Entry Button** | **Cancel Button**      | **Ok Button [valid form]** | **Ok Button [invalid form]**   | **Automatic Transition** | **Ok Button**     | **Copy Button** | **Show Button** | **Generate Button** | **Accept Button [non-empty generated password]** | **Accept Button [empty generated password]** |
