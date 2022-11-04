@@ -430,10 +430,10 @@
         <IfSequence id="_9" name="Launch SUT if not running"
                     test="not $(isSUTRunning)">
           <JavaClientStarter client="$(client)"
-                             directory="C:\Users\joaos\Documents\GitHub\jpass"
+                             directory="{YOUR_PATH_HERE}\jpass"
                              executable="${qftest:java}" id="_A">
             <parameter>-jar</parameter>
-            <parameter>C:\Users\joaos\Documents\GitHub\jpass\target\jpass-0.1.24-SNAPSHOT.jar</parameter>
+            <parameter>{YOUR_PATH_HERE}\jpass\target\jpass-0.1.24-SNAPSHOT.jar</parameter>
           </JavaClientStarter>
           <ClientWaiter client="$(client)" id="_B"/>
         </IfSequence>
