@@ -1,0 +1,1034 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE RootStep>
+<RootStep id="_0" name="root"
+          signature="78A56F43D53B546E1F89251FFF159AB68D9F2DAA"
+          version="6.0.3">
+  <include>qfs.qft</include>
+  <TestSet id="_1" name="JPass UI Tests">
+    <TestCase id="_6+" name="test-1_copy">
+      <DependencyReference id="_A+" reference="sutStarted"/>
+      <TestStep id="_77" name="Open Form">
+        <MouseEventStep clicks="1" client="$(client)"
+                        component="buttonTipAdd_Entry..." event="MOUSE_MPRC"
+                        id="_7W" modifiers="16"/>
+        <ComponentWaiter client="$(client)" component="dialogAdd_New_Entry"
+                         id="_7X"/>
+      </TestStep>
+      <TestStep id="_B5" name="Fill Form">
+        <TextInputStep clear="true" client="$(client)"
+                       component="dialogAdd_New_Entry.textTitle:" id="_7Y">
+          <text>test</text>
+        </TextInputStep>
+        <MouseEventStep clicks="1" client="$(client)"
+                        component="dialogAdd_New_Entry.passwdPassword:"
+                        event="MOUSE_MPRC" id="_7Z" modifiers="16" x="37"
+                        y="9"/>
+        <TextInputStep clear="true" client="$(client)"
+                       component="dialogAdd_New_Entry.passwdPassword:"
+                       id="_7a">
+          <text>12345</text>
+        </TextInputStep>
+        <MouseEventStep clicks="1" client="$(client)"
+                        component="dialogAdd_New_Entry.passwdRepeat:"
+                        event="MOUSE_MPRC" id="_7b" modifiers="16" x="35"
+                        y="9"/>
+        <TextInputStep clear="true" client="$(client)"
+                       component="dialogAdd_New_Entry.passwdRepeat:" id="_7c">
+          <text>12345</text>
+        </TextInputStep>
+      </TestStep>
+      <TestStep id="_B7" name="Copy Password">
+        <MouseEventStep clicks="1" client="$(client)" component="buttonCopy"
+                        event="MOUSE_MPRC" id="_7d" modifiers="16"/>
+      </TestStep>
+      <TestStep id="_B8" name="Check Copied Password">
+        <MouseEventStep clicks="1" client="$(client)"
+                        component="dialogAdd_New_Entry.textNotes:&amp;0"
+                        event="MOUSE_MPRC" id="_7e" modifiers="16" x="182"
+                        y="4"/>
+        <KeyEventStep client="$(client)"
+                      component="dialogAdd_New_Entry.textNotes:"
+                      event="KEY_PRESSED" id="_7f" keychar="65535"
+                      keycode="17" modifiers="2"/>
+        <KeyEventStep client="$(client)"
+                      component="dialogAdd_New_Entry.textNotes:"
+                      event="KEY_PTR" id="_7g" keychar="22" keycode="86"
+                      modifiers="2"/>
+        <KeyEventStep client="$(client)"
+                      component="dialogAdd_New_Entry.textNotes:"
+                      event="KEY_RELEASED" id="_7h" keychar="65535"
+                      keycode="17" modifiers="0"/>
+        <CheckStringStep client="$(client)"
+                         component="dialogAdd_New_Entry.textNotes:" id="_7m">
+          <text>12345</text>
+        </CheckStringStep>
+      </TestStep>
+      <CleanupSequence id="_6-" name="Back to Dashboard">
+        <MouseEventStep clicks="1" client="$(client)"
+                        component="buttonCancel2" event="MOUSE_MPRC" id="_7o"
+                        modifiers="16"/>
+      </CleanupSequence>
+    </TestCase>
+    <TestCase id="_7t" name="test-2_show" postdelay="200">
+      <DependencyReference id="_A-" reference="sutStarted"/>
+      <TestStep id="_B9" name="Open Form">
+        <MouseEventStep clicks="1" client="$(client)"
+                        component="buttonTipAdd_Entry..." event="MOUSE_MPRC"
+                        id="_BA" modifiers="16"/>
+        <ComponentWaiter client="$(client)" component="dialogAdd_New_Entry"
+                         id="_BB"/>
+      </TestStep>
+      <TestStep id="_BC" name="Fill Form">
+        <TextInputStep clear="true" client="$(client)"
+                       component="dialogAdd_New_Entry.textTitle:" id="_BD">
+          <text>test</text>
+        </TextInputStep>
+        <MouseEventStep clicks="1" client="$(client)"
+                        component="dialogAdd_New_Entry.passwdPassword:"
+                        event="MOUSE_MPRC" id="_BE" modifiers="16" x="37"
+                        y="9"/>
+        <TextInputStep clear="true" client="$(client)"
+                       component="dialogAdd_New_Entry.passwdPassword:"
+                       id="_BF">
+          <text>12345</text>
+        </TextInputStep>
+        <MouseEventStep clicks="1" client="$(client)"
+                        component="dialogAdd_New_Entry.passwdRepeat:"
+                        event="MOUSE_MPRC" id="_BG" modifiers="16" x="35"
+                        y="9"/>
+        <TextInputStep clear="true" client="$(client)"
+                       component="dialogAdd_New_Entry.passwdRepeat:" id="_BH">
+          <text>12345</text>
+        </TextInputStep>
+      </TestStep>
+      <TestStep id="_7u" name="Check Password Visibility (before and after)">
+        <CheckBooleanStep checktype="checked" client="$(client)"
+                          component="toggleShow" id="_8T" state="false"/>
+        <MouseEventStep clicks="1" client="$(client)" component="toggleShow"
+                        event="MOUSE_MPRC" id="_8b" modifiers="16"/>
+        <CheckBooleanStep checktype="checked" client="$(client)"
+                          component="toggleShow" id="_8V"/>
+      </TestStep>
+      <CleanupSequence id="_BI" name="Back to Dashboard">
+        <MouseEventStep clicks="1" client="$(client)"
+                        component="buttonCancel2" event="MOUSE_MPRC" id="_BJ"
+                        modifiers="16"/>
+      </CleanupSequence>
+    </TestCase>
+    <TestCase id="_8d" name="test-3_cancel">
+      <DependencyReference id="_B0" reference="sutStarted"/>
+      <TestStep id="_Bg" name="Open Form">
+        <MouseEventStep clicks="1" client="$(client)"
+                        component="buttonTipAdd_Entry..." event="MOUSE_MPRC"
+                        id="_Bh" modifiers="16"/>
+        <ComponentWaiter client="$(client)" component="dialogAdd_New_Entry"
+                         id="_Bi"/>
+      </TestStep>
+      <TestStep id="_Dq" name="Close Form">
+        <MouseEventStep clicks="1" client="$(client)"
+                        component="buttonCancel2" event="MOUSE_MPRC" id="_Bk"
+                        modifiers="16"/>
+      </TestStep>
+      <TestStep id="_Dt" name="Check entry list">
+        <CheckItemsStep checktype="column" client="$(client)"
+                        component="frame*Untitled_-_JPass_Password_Manager.table*Untitled_-_JPass_Password_Manager@Title"
+                        id="_Di"/>
+      </TestStep>
+    </TestCase>
+    <TestCase id="_6J" name="test-4_create_warning">
+      <DependencyReference id="_B1" reference="sutStarted"/>
+      <TestStep id="_Bl" name="Open Form">
+        <MouseEventStep clicks="1" client="$(client)"
+                        component="buttonTipAdd_Entry..." event="MOUSE_MPRC"
+                        id="_Bm" modifiers="16"/>
+        <ComponentWaiter client="$(client)" component="dialogAdd_New_Entry"
+                         id="_Bn"/>
+      </TestStep>
+      <TestStep id="_Bq" name="Check Empty fields warning">
+        <MouseEventStep clicks="1" client="$(client)" component="buttonOK"
+                        event="MOUSE_MPRC" id="_6u" modifiers="16"/>
+        <ComponentWaiter client="$(client)" component="dialogWarning"
+                         id="_6v"/>
+        <MouseEventStep clicks="1" client="$(client)" component="buttonOK2"
+                        event="MOUSE_MPRC" id="_6w" modifiers="16"/>
+      </TestStep>
+      <CleanupSequence id="_Br" name="Back to Dashboard">
+        <MouseEventStep clicks="1" client="$(client)"
+                        component="buttonCancel2" event="MOUSE_MPRC" id="_Bs"
+                        modifiers="16"/>
+      </CleanupSequence>
+    </TestCase>
+    <TestCase id="_2" name="test-5_create_entry">
+      <DependencyReference id="_B2" reference="sutStarted"/>
+      <TestStep id="_Bt" name="Open Form">
+        <MouseEventStep clicks="1" client="$(client)"
+                        component="buttonTipAdd_Entry..." event="MOUSE_MPRC"
+                        id="_Bu" modifiers="16"/>
+        <ComponentWaiter client="$(client)" component="dialogAdd_New_Entry"
+                         id="_Bv"/>
+      </TestStep>
+      <TestStep id="_By" name="Fill Form (and Confirm Entry)">
+        <MouseEventStep clicks="1" client="$(client)"
+                        component="dialogAdd_New_Entry.textTitle:"
+                        event="MOUSE_MPRC" id="_e" modifiers="16" x="26"
+                        y="10"/>
+        <TextInputStep clear="true" client="$(client)"
+                       component="dialogAdd_New_Entry.textTitle:" id="_f">
+          <text>Youtube</text>
+        </TextInputStep>
+        <MouseEventStep clicks="1" client="$(client)"
+                        component="dialogAdd_New_Entry.textURL:"
+                        event="MOUSE_MPRC" id="_g" modifiers="16" x="35"
+                        y="12"/>
+        <TextInputStep clear="true" client="$(client)"
+                       component="dialogAdd_New_Entry.textURL:" id="_h">
+          <text>youtube.com</text>
+        </TextInputStep>
+        <MouseEventStep clicks="1" client="$(client)"
+                        component="dialogAdd_New_Entry.textUser_name:"
+                        event="MOUSE_MPRC" id="_i" modifiers="16" x="40"
+                        y="10"/>
+        <TextInputStep clear="true" client="$(client)"
+                       component="dialogAdd_New_Entry.textUser_name:" id="_j">
+          <text>Zote</text>
+        </TextInputStep>
+        <MouseEventStep clicks="1" client="$(client)"
+                        component="dialogAdd_New_Entry.passwdPassword:"
+                        event="MOUSE_MPRC" id="_k" modifiers="16" x="45"
+                        y="6"/>
+        <TextInputStep clear="true" client="$(client)"
+                       component="dialogAdd_New_Entry.passwdPassword:"
+                       id="_l">
+          <text>princecharming</text>
+        </TextInputStep>
+        <MouseEventStep clicks="1" client="$(client)"
+                        component="dialogAdd_New_Entry.passwdRepeat:"
+                        event="MOUSE_MPRC" id="_m" modifiers="16" x="57"
+                        y="10"/>
+        <TextInputStep clear="true" client="$(client)"
+                       component="dialogAdd_New_Entry.passwdRepeat:" id="_n">
+          <text>princecharming</text>
+        </TextInputStep>
+        <MouseEventStep clicks="1" client="$(client)"
+                        component="dialogAdd_New_Entry.textNotes:&amp;0"
+                        event="MOUSE_MPRC" id="_o" modifiers="16" x="117"
+                        y="14"/>
+        <TextInputStep clear="true" client="$(client)"
+                       component="dialogAdd_New_Entry.textNotes:" id="_p">
+          <text>My main Youtube account</text>
+        </TextInputStep>
+        <MouseEventStep clicks="1" client="$(client)" component="buttonOK"
+                        event="MOUSE_MPRC" id="_q" modifiers="16"/>
+      </TestStep>
+      <TestStep id="_Cr" name="Check Entry Title">
+        <CheckStringStep checktype="item" client="$(client)"
+                         component="frame*Untitled_-_JPass_Password_Manager.table*Untitled_-_JPass_Password_Manager@Title&amp;0"
+                         id="_Ct">
+          <text>Youtube</text>
+        </CheckStringStep>
+      </TestStep>
+    </TestCase>
+    <TestCase id="_94" name="test-6_generate_pass">
+      <DependencyReference id="_C6" reference="sutStarted"/>
+      <TestStep id="_Bz" name="Open Form">
+        <MouseEventStep clicks="1" client="$(client)"
+                        component="buttonTipAdd_Entry..." event="MOUSE_MPRC"
+                        id="_B+" modifiers="16"/>
+        <ComponentWaiter client="$(client)" component="dialogAdd_New_Entry"
+                         id="_B-"/>
+      </TestStep>
+      <TestStep id="_9S" name="Open Generate Password Prompt">
+        <MouseEventStep clicks="1" client="$(client)"
+                        component="buttonGenerate" event="MOUSE_MPRC" id="_9E"
+                        modifiers="16"/>
+        <ComponentWaiter client="$(client)"
+                         component="dialogGenerate_Password" id="_9F"/>
+      </TestStep>
+      <TestStep id="_C0" name="Generate Password">
+        <MouseEventStep clicks="1" client="$(client)"
+                        component="buttonGenerate2" event="MOUSE_MPRC"
+                        id="_9G" modifiers="16"/>
+        <MouseEventStep clicks="1" client="$(client)" component="buttonAccept"
+                        event="MOUSE_MPRC" id="_9H" modifiers="16"/>
+      </TestStep>
+      <TestStep id="_C1" name="Check Password length">
+        <CheckStringStep client="$(client)"
+                         component="dialogAdd_New_Entry.passwdPassword:"
+                         id="_9P" regexp="true">
+          <text>\w{14}</text>
+        </CheckStringStep>
+      </TestStep>
+      <CleanupSequence id="_C4" name="Back to Dashboard">
+        <MouseEventStep clicks="1" client="$(client)"
+                        component="buttonCancel2" event="MOUSE_MPRC" id="_C5"
+                        modifiers="16"/>
+      </CleanupSequence>
+    </TestCase>
+    <TestCase id="_9g" name="test-7_generate_generate">
+      <DependencyReference id="_C9" reference="sutStarted"/>
+      <TestStep id="_CA" name="Open Form">
+        <MouseEventStep clicks="1" client="$(client)"
+                        component="buttonTipAdd_Entry..." event="MOUSE_MPRC"
+                        id="_CB" modifiers="16"/>
+        <ComponentWaiter client="$(client)" component="dialogAdd_New_Entry"
+                         id="_CC"/>
+      </TestStep>
+      <TestStep id="_CD" name="Open Generate Password Prompt">
+        <MouseEventStep clicks="1" client="$(client)"
+                        component="buttonGenerate" event="MOUSE_MPRC" id="_CE"
+                        modifiers="16"/>
+        <ComponentWaiter client="$(client)"
+                         component="dialogGenerate_Password" id="_CF"/>
+      </TestStep>
+      <TestStep id="_CI" name="Generate Password">
+        <MouseEventStep clicks="1" client="$(client)"
+                        component="buttonGenerate2" event="MOUSE_MPRC"
+                        id="_9n" modifiers="16"/>
+      </TestStep>
+      <TestStep id="_CJ" name="Check Password length">
+        <CheckStringStep client="$(client)"
+                         component="panelGenerated_password.text" id="_9-"
+                         regexp="true">
+          <text>\w{14}</text>
+        </CheckStringStep>
+      </TestStep>
+      <TestStep id="_CN" name="Delete Generated Password">
+        <MouseEventStep clicks="2" client="$(client)"
+                        component="panelGenerated_password.text"
+                        event="MOUSE_DBLCLK" id="_AK" modifiers="16" x="124"
+                        y="11"/>
+        <KeyEventStep client="$(client)"
+                      component="panelGenerated_password.text" event="KEY_PTR"
+                      id="_AL" keychar="8" keycode="8" modifiers="0"/>
+      </TestStep>
+      <TestStep id="_CS" name="Generate Again and Accept">
+        <MouseEventStep clicks="1" client="$(client)"
+                        component="buttonGenerate2" event="MOUSE_MPRC"
+                        id="_AM" modifiers="16"/>
+        <MouseEventStep clicks="1" client="$(client)" component="buttonAccept"
+                        event="MOUSE_MPRC" id="_AN" modifiers="16"/>
+      </TestStep>
+      <TestStep id="_CO" name="Check Password length">
+        <CheckStringStep client="$(client)"
+                         component="dialogAdd_New_Entry.passwdPassword:"
+                         id="_AO" regexp="true">
+          <text>\w{14}</text>
+        </CheckStringStep>
+      </TestStep>
+      <CleanupSequence id="_C7" name="Back to Dashboard">
+        <MouseEventStep clicks="1" client="$(client)"
+                        component="buttonCancel2" event="MOUSE_MPRC" id="_C8"
+                        modifiers="16"/>
+      </CleanupSequence>
+    </TestCase>
+    <TestCase id="_AP" name="test-8_generate_warning">
+      <DependencyReference id="_BT" reference="sutStarted"/>
+      <TestStep id="_BU" name="Open Form">
+        <MouseEventStep clicks="1" client="$(client)"
+                        component="buttonTipAdd_Entry..." event="MOUSE_MPRC"
+                        id="_BV" modifiers="16"/>
+        <ComponentWaiter client="$(client)" component="dialogAdd_New_Entry"
+                         id="_BW"/>
+      </TestStep>
+      <TestStep id="_BZ" name="Generate Password">
+        <MouseEventStep clicks="1" client="$(client)"
+                        component="buttonGenerate" event="MOUSE_MPRC" id="_AT"
+                        modifiers="16"/>
+        <ComponentWaiter client="$(client)"
+                         component="dialogGenerate_Password" id="_AU"/>
+      </TestStep>
+      <TestStep id="_Bc" name="Check Warning ">
+        <MouseEventStep clicks="1" client="$(client)" component="buttonAccept"
+                        event="MOUSE_MPRC" id="_Ak" modifiers="16"/>
+        <ComponentWaiter client="$(client)" component="dialogWarning"
+                         id="_Al"/>
+        <MouseEventStep clicks="1" client="$(client)" component="buttonOK2"
+                        event="MOUSE_MPRC" id="_Am" modifiers="16"/>
+      </TestStep>
+      <CleanupSequence id="_Ac" name="Back to Dashboard">
+        <MouseEventStep clicks="1" client="$(client)"
+                        component="buttonCancel3" event="MOUSE_MPRC" id="_Ap"
+                        modifiers="16"/>
+        <MouseEventStep clicks="1" client="$(client)"
+                        component="buttonCancel2" event="MOUSE_MPRC" id="_Ad"
+                        modifiers="16"/>
+      </CleanupSequence>
+    </TestCase>
+    <TestCase id="_CT" name="test-9_generate_cancel">
+      <DependencyReference id="_Cc" reference="sutStarted"/>
+      <TestStep id="_CU" name="Open Form">
+        <MouseEventStep clicks="1" client="$(client)"
+                        component="buttonTipAdd_Entry..." event="MOUSE_MPRC"
+                        id="_CV" modifiers="16"/>
+        <ComponentWaiter client="$(client)" component="dialogAdd_New_Entry"
+                         id="_CW"/>
+      </TestStep>
+      <TestStep id="_CX" name="Open Generate Password Prompt">
+        <MouseEventStep clicks="1" client="$(client)"
+                        component="buttonGenerate" event="MOUSE_MPRC" id="_CY"
+                        modifiers="16"/>
+        <ComponentWaiter client="$(client)"
+                         component="dialogGenerate_Password" id="_CZ"/>
+      </TestStep>
+      <TestStep id="_Cf" name="Cancel Generation">
+        <MouseEventStep clicks="1" client="$(client)"
+                        component="buttonCancel3" event="MOUSE_MPRC" id="_Ch"
+                        modifiers="16"/>
+      </TestStep>
+      <TestStep id="_D+" name="Check Password Field">
+        <CheckStringStep client="$(client)"
+                         component="dialogAdd_New_Entry.passwdPassword:"
+                         id="_Dx"/>
+      </TestStep>
+      <CleanupSequence id="_Ca" name="Back to Dashboard">
+        <MouseEventStep clicks="1" client="$(client)"
+                        component="buttonCancel2" event="MOUSE_MPRC" id="_Cb"
+                        modifiers="16"/>
+      </CleanupSequence>
+    </TestCase>
+    <TestCase id="_Cu" name="test-10_sneak_path_gen_window">
+      <DependencyReference id="_DZ" reference="sutStarted"/>
+      <TestStep id="_Cv" name="Open Form">
+        <MouseEventStep clicks="1" client="$(client)"
+                        component="buttonTipAdd_Entry..." event="MOUSE_MPRC"
+                        id="_Cw" modifiers="16"/>
+        <ComponentWaiter client="$(client)" component="dialogAdd_New_Entry"
+                         id="_Cx"/>
+      </TestStep>
+      <TestStep id="_Cy" name="Open Generate Password Prompt">
+        <MouseEventStep clicks="1" client="$(client)"
+                        component="buttonGenerate" event="MOUSE_MPRC" id="_Cz"
+                        modifiers="16"/>
+        <ComponentWaiter client="$(client)"
+                         component="dialogGenerate_Password" id="_C+"/>
+      </TestStep>
+      <TestStep id="_DU" name="Try to Get To New Entry Warning">
+        <TryStep id="_DX" name="Force Click">
+          <MouseEventStep clicks="1" client="$(client)" component="buttonOK"
+                          event="MOUSE_MPRC" id="_DQ" modifiers="16"/>
+          <CatchSequence exception="ModalDialogException" id="_DY"
+                         maxerror="0"/>
+        </TryStep>
+        <ComponentWaiter absence="true" client="$(client)"
+                         component="dialogWarning" id="_DR" timeout="3000"/>
+      </TestStep>
+      <CleanupSequence id="_Dd" name="Back to Dashboard">
+        <MouseEventStep clicks="1" client="$(client)"
+                        component="buttonCancel3" event="MOUSE_MPRC" id="_Df"
+                        modifiers="16"/>
+        <MouseEventStep clicks="1" client="$(client)"
+                        component="buttonCancel2" event="MOUSE_MPRC" id="_Dg"
+                        modifiers="16"/>
+      </CleanupSequence>
+    </TestCase>
+  </TestSet>
+  <PackageRoot id="_3">
+    <Dependency id="_At" name="sutStarted">
+      <SetupSequence id="_6" name="Launch jpass-0.1.24">
+        <SetGlobalStep id="_7" varname="client">
+          <default>jpass-0.1.24</default>
+        </SetGlobalStep>
+        <ClientWaiter client="$(client)" id="_8" local="true" raise="false"
+                      resvarname="isSUTRunning" timeout="1">
+          <comment>This node checks whether the SUT is already running. The result of this check will be stored in the variable isSUTRunning. The variable itself can contain true if SUT is already running or false if SUT is not running. This variable will be used in the following 'If' node.</comment>
+        </ClientWaiter>
+        <IfSequence id="_9" name="Launch SUT if not running"
+                    test="not $(isSUTRunning)">
+          <JavaClientStarter client="$(client)"
+                             directory="{YOUR_PATH_HERE}\jpass"
+                             executable="${qftest:java}" id="_A">
+            <parameter>-jar</parameter>
+            <parameter>{YOUR_PATH_HERE}\jpass\target\jpass-0.1.24-SNAPSHOT.jar</parameter>
+          </JavaClientStarter>
+          <ClientWaiter client="$(client)" id="_B"/>
+        </IfSequence>
+      </SetupSequence>
+      <CleanupSequence id="_Au" name="Close SUT">
+        <BasicSequence id="_BO" name="Closed with prompt">
+          <MouseEventStep clicks="1" client="$(client)"
+                          component="frame*Untitled_-_JPass_Password_Manager.button*Untitled_-_JPass_Password_Manager"
+                          event="MOUSE_MPRC" id="_BP" modifiers="16"/>
+          <ComponentWaiter client="$(client)" component="dialogConfirmation"
+                           id="_BQ" local="true" raise="false"
+                           resvarname="hasPrompt" timeout="2000"/>
+          <IfSequence id="_BS" name="Prompt is alive" test="$(hasPrompt)">
+            <MouseEventStep clicks="1" client="$(client)"
+                            component="buttonNo2" event="MOUSE_MPRC" id="_BR"
+                            modifiers="16"/>
+          </IfSequence>
+        </BasicSequence>
+      </CleanupSequence>
+    </Dependency>
+  </PackageRoot>
+  <ExtraSequence id="_4"/>
+  <WindowList id="_5">
+    <WindowStep class="Window" feature="Untitled - JPass Password Manager"
+                height="400" id="frameUntitled_-_JPass_Password_Manager"
+                uid="_C" width="450" x="735" y="315">
+      <extrafeature name="qfs:class" negate="false" regexp="false" state="0">jpass.ui.JPassFrame</extrafeature>
+      <extrafeature name="qfs:genericclass" negate="false" regexp="false"
+                    state="0">Window</extrafeature>
+      <extrafeature name="qfs:label" negate="false" regexp="false" state="1">Untitled - JPass Password Manager</extrafeature>
+      <extrafeature name="qfs:systemclass" negate="false" regexp="false"
+                    state="0">javax.swing.JFrame</extrafeature>
+      <ComponentStep class="ToolBar" classcount="1" classindex="0" height="28"
+                     id="frameUntitled_-_JPass_Password_Manager.toolbar"
+                     uid="_D" width="448" x="1" y="32">
+        <extrafeature name="qfs:class" negate="false" regexp="false"
+                      state="0">javax.swing.JToolBar</extrafeature>
+        <extrafeature name="qfs:genericclass" negate="false" regexp="false"
+                      state="0">ToolBar</extrafeature>
+        <extrafeature name="qfs:systemclass" negate="false" regexp="false"
+                      state="0">javax.swing.JToolBar</extrafeature>
+        <ComponentStep class="Button" classcount="13" classindex="3"
+                       feature="ToolTip: Add Entry..." height="24"
+                       id="buttonTipAdd_Entry..." uid="_E" width="26" x="87"
+                       y="2">
+          <extrafeature name="imagehash" negate="false" regexp="false"
+                        state="1">-1371591862</extrafeature>
+          <extrafeature name="qfs:class" negate="false" regexp="false"
+                        state="0">javax.swing.JButton</extrafeature>
+          <extrafeature name="qfs:genericclass" negate="false" regexp="false"
+                        state="0">Button</extrafeature>
+          <extrafeature name="qfs:label" negate="false" regexp="false"
+                        state="1">Add Entry...</extrafeature>
+          <extrafeature name="qfs:systemclass" negate="false" regexp="false"
+                        state="0">javax.swing.JButton</extrafeature>
+        </ComponentStep>
+      </ComponentStep>
+    </WindowStep>
+    <WindowStep class="Dialog" feature="Add New Entry" height="400"
+                id="dialogAdd_New_Entry" modal="true" uid="_F" width="450"
+                x="735" y="315">
+      <extrafeature name="qfs:class" negate="false" regexp="false" state="0">jpass.ui.EntryDialog</extrafeature>
+      <extrafeature name="qfs:genericclass" negate="false" regexp="false"
+                    state="0">Dialog</extrafeature>
+      <extrafeature name="qfs:label" negate="false" regexp="false" state="1">Add New Entry</extrafeature>
+      <extrafeature name="qfs:systemclass" negate="false" regexp="false"
+                    state="0">javax.swing.JDialog</extrafeature>
+      <extrafeature name="qfs:type" negate="false" regexp="false" state="0">Window:Dialog</extrafeature>
+      <ComponentStep class="TextField" classcount="5" classindex="0"
+                     height="22" id="dialogAdd_New_Entry.textTitle:" uid="_G"
+                     width="374" x="70" y="36">
+        <extrafeature name="qfs:class" negate="false" regexp="false"
+                      state="0">javax.swing.JTextField</extrafeature>
+        <extrafeature name="qfs:genericclass" negate="false" regexp="false"
+                      state="0">TextField</extrafeature>
+        <extrafeature name="qfs:label" negate="false" regexp="false"
+                      state="1">Title:</extrafeature>
+        <extrafeature name="qfs:systemclass" negate="false" regexp="false"
+                      state="0">javax.swing.JTextField</extrafeature>
+      </ComponentStep>
+      <ComponentStep class="TextField" classcount="5" classindex="1"
+                     height="22" id="dialogAdd_New_Entry.textURL:" uid="_U"
+                     width="374" x="70" y="63">
+        <extrafeature name="qfs:class" negate="false" regexp="false"
+                      state="0">javax.swing.JTextField</extrafeature>
+        <extrafeature name="qfs:genericclass" negate="false" regexp="false"
+                      state="0">TextField</extrafeature>
+        <extrafeature name="qfs:label" negate="false" regexp="false"
+                      state="1">URL:</extrafeature>
+        <extrafeature name="qfs:systemclass" negate="false" regexp="false"
+                      state="0">javax.swing.JTextField</extrafeature>
+      </ComponentStep>
+      <ComponentStep class="TextField" classcount="5" classindex="2"
+                     height="22" id="dialogAdd_New_Entry.textUser_name:"
+                     uid="_V" width="374" x="70" y="90">
+        <extrafeature name="qfs:class" negate="false" regexp="false"
+                      state="0">javax.swing.JTextField</extrafeature>
+        <extrafeature name="qfs:genericclass" negate="false" regexp="false"
+                      state="0">TextField</extrafeature>
+        <extrafeature name="qfs:label" negate="false" regexp="false"
+                      state="1">User name:</extrafeature>
+        <extrafeature name="qfs:systemclass" negate="false" regexp="false"
+                      state="0">javax.swing.JTextField</extrafeature>
+      </ComponentStep>
+      <ComponentStep class="PasswordField" classcount="2" classindex="0"
+                     height="22" id="dialogAdd_New_Entry.passwdPassword:"
+                     uid="_W" width="374" x="70" y="117">
+        <extrafeature name="qfs:class" negate="false" regexp="false"
+                      state="0">jpass.ui.CopiablePasswordField</extrafeature>
+        <extrafeature name="qfs:genericclass" negate="false" regexp="false"
+                      state="0">PasswordField</extrafeature>
+        <extrafeature name="qfs:label" negate="false" regexp="false"
+                      state="1">Password:</extrafeature>
+        <extrafeature name="qfs:systemclass" negate="false" regexp="false"
+                      state="0">javax.swing.JPasswordField</extrafeature>
+        <extrafeature name="qfs:type" negate="false" regexp="false" state="0">TextField:PasswordField</extrafeature>
+      </ComponentStep>
+      <ComponentStep class="PasswordField" classcount="2" classindex="1"
+                     height="22" id="dialogAdd_New_Entry.passwdRepeat:"
+                     uid="_X" width="374" x="70" y="144">
+        <extrafeature name="qfs:class" negate="false" regexp="false"
+                      state="0">jpass.ui.CopiablePasswordField</extrafeature>
+        <extrafeature name="qfs:genericclass" negate="false" regexp="false"
+                      state="0">PasswordField</extrafeature>
+        <extrafeature name="qfs:label" negate="false" regexp="false"
+                      state="1">Repeat:</extrafeature>
+        <extrafeature name="qfs:systemclass" negate="false" regexp="false"
+                      state="0">javax.swing.JPasswordField</extrafeature>
+        <extrafeature name="qfs:type" negate="false" regexp="false" state="0">TextField:PasswordField</extrafeature>
+      </ComponentStep>
+      <ComponentStep class="Panel" classcount="12" classindex="7" height="148"
+                     id="dialogAdd_New_Entry.scroll" uid="_Y" width="438"
+                     x="6" y="219">
+        <extrafeature name="qfs:class" negate="false" regexp="false"
+                      state="0">javax.swing.JScrollPane</extrafeature>
+        <extrafeature name="qfs:genericclass" negate="false" regexp="false"
+                      state="0">Panel</extrafeature>
+        <extrafeature name="qfs:systemclass" negate="false" regexp="false"
+                      state="0">javax.swing.JScrollPane</extrafeature>
+        <extrafeature name="qfs:type" negate="false" regexp="false" state="0">Panel:ScrollPanel</extrafeature>
+        <ComponentStep class="TextArea" classcount="1" classindex="0"
+                       id="dialogAdd_New_Entry.textNotes:" uid="_Z">
+          <extrafeature name="qfs:class" negate="false" regexp="false"
+                        state="0">javax.swing.JTextArea</extrafeature>
+          <extrafeature name="qfs:genericclass" negate="false" regexp="false"
+                        state="0">TextArea</extrafeature>
+          <extrafeature name="qfs:label" negate="false" regexp="false"
+                        state="1">Notes:</extrafeature>
+          <extrafeature name="qfs:systemclass" negate="false" regexp="false"
+                        state="0">javax.swing.JTextArea</extrafeature>
+        </ComponentStep>
+      </ComponentStep>
+      <ComponentStep class="Button" classcount="9" classindex="6" feature="OK"
+                     height="22" id="buttonOK" uid="_a" width="72" x="281"
+                     y="372">
+        <extrafeature name="imagehash" negate="false" regexp="false"
+                      state="1">-1982826877</extrafeature>
+        <extrafeature name="qfs:class" negate="false" regexp="false"
+                      state="0">javax.swing.JButton</extrafeature>
+        <extrafeature name="qfs:genericclass" negate="false" regexp="false"
+                      state="0">Button</extrafeature>
+        <extrafeature name="qfs:label" negate="false" regexp="false"
+                      state="1">OK</extrafeature>
+        <extrafeature name="qfs:systemclass" negate="false" regexp="false"
+                      state="0">javax.swing.JButton</extrafeature>
+      </ComponentStep>
+      <ComponentStep class="Button" classcount="9" classindex="7"
+                     feature="Cancel" height="22" id="buttonCancel2" uid="_6q"
+                     width="86" x="358" y="372">
+        <extrafeature name="imagehash" negate="false" regexp="false"
+                      state="1">1904382565</extrafeature>
+        <extrafeature name="qfs:class" negate="false" regexp="false"
+                      state="0">javax.swing.JButton</extrafeature>
+        <extrafeature name="qfs:genericclass" negate="false" regexp="false"
+                      state="0">Button</extrafeature>
+        <extrafeature name="qfs:label" negate="false" regexp="false"
+                      state="1">Cancel</extrafeature>
+        <extrafeature name="qfs:systemclass" negate="false" regexp="false"
+                      state="0">javax.swing.JButton</extrafeature>
+      </ComponentStep>
+      <ComponentStep class="Button" classcount="9" classindex="1"
+                     feature="Copy" height="22" id="buttonCopy" uid="_7C"
+                     width="78" x="261" y="171">
+        <extrafeature name="imagehash" negate="false" regexp="false"
+                      state="1">2003350656</extrafeature>
+        <extrafeature name="qfs:class" negate="false" regexp="false"
+                      state="0">javax.swing.JButton</extrafeature>
+        <extrafeature name="qfs:genericclass" negate="false" regexp="false"
+                      state="0">Button</extrafeature>
+        <extrafeature name="qfs:label" negate="false" regexp="false"
+                      state="1">Copy</extrafeature>
+        <extrafeature name="qfs:systemclass" negate="false" regexp="false"
+                      state="0">javax.swing.JButton</extrafeature>
+      </ComponentStep>
+      <ComponentStep class="ToggleButton" classcount="1" classindex="0"
+                     feature="Show" height="22" id="toggleShow" uid="_8I"
+                     width="79" x="75" y="171">
+        <extrafeature name="imagehash" negate="false" regexp="false"
+                      state="1">1141972555</extrafeature>
+        <extrafeature name="qfs:class" negate="false" regexp="false"
+                      state="0">javax.swing.JToggleButton</extrafeature>
+        <extrafeature name="qfs:genericclass" negate="false" regexp="false"
+                      state="0">ToggleButton</extrafeature>
+        <extrafeature name="qfs:label" negate="false" regexp="false"
+                      state="1">Show</extrafeature>
+        <extrafeature name="qfs:systemclass" negate="false" regexp="false"
+                      state="0">javax.swing.JToggleButton</extrafeature>
+      </ComponentStep>
+      <ComponentStep class="Button" classcount="9" classindex="0"
+                     feature="Generate" height="22" id="buttonGenerate"
+                     uid="_95" width="97" x="159" y="171">
+        <extrafeature name="imagehash" negate="false" regexp="false"
+                      state="1">1802186209</extrafeature>
+        <extrafeature name="qfs:class" negate="false" regexp="false"
+                      state="0">javax.swing.JButton</extrafeature>
+        <extrafeature name="qfs:genericclass" negate="false" regexp="false"
+                      state="0">Button</extrafeature>
+        <extrafeature name="qfs:label" negate="false" regexp="false"
+                      state="1">Generate</extrafeature>
+        <extrafeature name="qfs:systemclass" negate="false" regexp="false"
+                      state="0">javax.swing.JButton</extrafeature>
+      </ComponentStep>
+    </WindowStep>
+    <WindowStep class="Window" feature="*Untitled - JPass Password Manager"
+                height="400" id="frame*Untitled_-_JPass_Password_Manager"
+                uid="_v" width="450" x="1122" y="319">
+      <extrafeature name="qfs:class" negate="false" regexp="false" state="0">jpass.ui.JPassFrame</extrafeature>
+      <extrafeature name="qfs:genericclass" negate="false" regexp="false"
+                    state="0">Window</extrafeature>
+      <extrafeature name="qfs:label" negate="false" regexp="false" state="1">*Untitled - JPass Password Manager</extrafeature>
+      <extrafeature name="qfs:systemclass" negate="false" regexp="false"
+                    state="0">javax.swing.JFrame</extrafeature>
+      <ComponentStep class="Panel" classcount="12" classindex="6" height="298"
+                     id="frame*Untitled_-_JPass_Password_Manager.scroll"
+                     uid="_w" width="448" x="1" y="76">
+        <extrafeature name="qfs:class" negate="false" regexp="false"
+                      state="0">javax.swing.JScrollPane</extrafeature>
+        <extrafeature name="qfs:genericclass" negate="false" regexp="false"
+                      state="0">Panel</extrafeature>
+        <extrafeature name="qfs:systemclass" negate="false" regexp="false"
+                      state="0">javax.swing.JScrollPane</extrafeature>
+        <extrafeature name="qfs:type" negate="false" regexp="false" state="0">Panel:ScrollPanel</extrafeature>
+        <ComponentStep class="Table" classcount="1" classindex="0"
+                       id="frame*Untitled_-_JPass_Password_Manager.table*Untitled_-_JPass_Password_Manager"
+                       uid="_x">
+          <extrafeature name="qfs:class" negate="false" regexp="false"
+                        state="0">jpass.ui.EntryDetailsTable</extrafeature>
+          <extrafeature name="qfs:genericclass" negate="false" regexp="false"
+                        state="0">Table</extrafeature>
+          <extrafeature name="qfs:label" negate="false" regexp="false"
+                        state="1">*Untitled - JPass Password Manager</extrafeature>
+          <extrafeature name="qfs:systemclass" negate="false" regexp="false"
+                        state="0">javax.swing.JTable</extrafeature>
+        </ComponentStep>
+      </ComponentStep>
+      <ComponentStep class="ToolBar" classcount="1" classindex="0" height="36"
+                     id="frame*Untitled_-_JPass_Password_Manager.toolbar"
+                     uid="_y" width="448" x="1" y="40">
+        <extrafeature name="qfs:class" negate="false" regexp="false"
+                      state="0">javax.swing.JToolBar</extrafeature>
+        <extrafeature name="qfs:genericclass" negate="false" regexp="false"
+                      state="0">ToolBar</extrafeature>
+        <extrafeature name="qfs:systemclass" negate="false" regexp="false"
+                      state="0">javax.swing.JToolBar</extrafeature>
+        <ComponentStep class="Button" classcount="13" classindex="6"
+                       feature="ToolTip: Delete Entry..." height="30"
+                       id="buttonTipDelete_Entry..." uid="_z" width="32"
+                       x="203" y="3">
+          <extrafeature name="imagehash" negate="false" regexp="false"
+                        state="1">1873226942</extrafeature>
+          <extrafeature name="qfs:class" negate="false" regexp="false"
+                        state="0">javax.swing.JButton</extrafeature>
+          <extrafeature name="qfs:genericclass" negate="false" regexp="false"
+                        state="0">Button</extrafeature>
+          <extrafeature name="qfs:label" negate="false" regexp="false"
+                        state="1">Delete Entry...</extrafeature>
+          <extrafeature name="qfs:systemclass" negate="false" regexp="false"
+                        state="0">javax.swing.JButton</extrafeature>
+        </ComponentStep>
+        <ComponentStep class="Button" classcount="13" classindex="6"
+                       feature="ToolTip: Delete Entry..." height="24"
+                       id="buttonTipDelete_Entry...2" uid="_9Y" width="26"
+                       x="165" y="2">
+          <extrafeature name="imagehash" negate="false" regexp="false"
+                        state="1">418341921</extrafeature>
+          <extrafeature name="qfs:class" negate="false" regexp="false"
+                        state="0">javax.swing.JButton</extrafeature>
+          <extrafeature name="qfs:genericclass" negate="false" regexp="false"
+                        state="0">Button</extrafeature>
+          <extrafeature name="qfs:label" negate="false" regexp="false"
+                        state="1">Delete Entry...</extrafeature>
+          <extrafeature name="qfs:systemclass" negate="false" regexp="false"
+                        state="0">javax.swing.JButton</extrafeature>
+        </ComponentStep>
+      </ComponentStep>
+      <ComponentStep class="MenuBar" classcount="1" classindex="0" height="39"
+                     id="frame*Untitled_-_JPass_Password_Manager.menubar"
+                     uid="_15" width="197" x="41" y="1">
+        <extrafeature name="qfs:class" negate="false" regexp="false"
+                      state="0">javax.swing.JMenuBar</extrafeature>
+        <extrafeature name="qfs:genericclass" negate="false" regexp="false"
+                      state="0">MenuBar</extrafeature>
+        <extrafeature name="qfs:systemclass" negate="false" regexp="false"
+                      state="0">javax.swing.JMenuBar</extrafeature>
+        <extrafeature name="qfs:type" negate="false" regexp="false" state="0">Menu:MenuBar</extrafeature>
+        <ComponentStep class="MenuItem" classcount="24" classindex="0"
+                       feature="File" height="38" id="menuFile" uid="_16"
+                       width="43" x="0" y="0">
+          <extrafeature name="qfs:class" negate="false" regexp="false"
+                        state="0">javax.swing.JMenu</extrafeature>
+          <extrafeature name="qfs:genericclass" negate="false" regexp="false"
+                        state="0">MenuItem</extrafeature>
+          <extrafeature name="qfs:label" negate="false" regexp="false"
+                        state="1">File</extrafeature>
+          <extrafeature name="qfs:systemclass" negate="false" regexp="false"
+                        state="0">javax.swing.JMenu</extrafeature>
+          <ComponentStep class="MenuItem" classcount="8" classindex="7"
+                         feature="Exit" height="29" id="menuItemExit"
+                         uid="_17" width="197">
+            <extrafeature name="imagehash" negate="false" regexp="false"
+                          state="1">857293372</extrafeature>
+            <extrafeature name="qfs:class" negate="false" regexp="false"
+                          state="0">javax.swing.JMenuItem</extrafeature>
+            <extrafeature name="qfs:genericclass" negate="false"
+                          regexp="false" state="0">MenuItem</extrafeature>
+            <extrafeature name="qfs:label" negate="false" regexp="false"
+                          state="1">Exit</extrafeature>
+            <extrafeature name="qfs:systemclass" negate="false" regexp="false"
+                          state="0">javax.swing.JMenuItem</extrafeature>
+          </ComponentStep>
+        </ComponentStep>
+      </ComponentStep>
+      <ComponentStep class="Popup" feature="InvokerFeature: File" height="275"
+                     id="popupInvokerFeature:_File" uid="_1J" width="199">
+        <extrafeature name="qfs:class" negate="false" regexp="false"
+                      state="0">javax.swing.JPopupMenu</extrafeature>
+        <extrafeature name="qfs:genericclass" negate="false" regexp="false"
+                      state="0">Popup</extrafeature>
+        <extrafeature name="qfs:systemclass" negate="false" regexp="false"
+                      state="0">javax.swing.JPopupMenu</extrafeature>
+        <ComponentStep class="Separator" classcount="3" classindex="2"
+                       height="11" id="popupInvokerFeature:_File.separator"
+                       uid="_1K" width="197" x="1" y="230">
+          <extrafeature name="qfs:class" negate="false" regexp="false"
+                        state="0">javax.swing.JPopupMenu$$Separator</extrafeature>
+          <extrafeature name="qfs:genericclass" negate="false" regexp="false"
+                        state="0">Separator</extrafeature>
+          <extrafeature name="qfs:systemclass" negate="false" regexp="false"
+                        state="0">javax.swing.JPopupMenu$$Separator</extrafeature>
+        </ComponentStep>
+      </ComponentStep>
+      <ComponentStep class="Button" classcount="22" classindex="21"
+                     height="30"
+                     id="frame*Untitled_-_JPass_Password_Manager.button*Untitled_-_JPass_Password_Manager"
+                     uid="_BM" width="44" x="405" y="1">
+        <extrafeature name="qfs:class" negate="false" regexp="false"
+                      state="0">javax.swing.JButton</extrafeature>
+        <extrafeature name="qfs:genericclass" negate="false" regexp="false"
+                      state="0">Button</extrafeature>
+        <extrafeature name="qfs:label" negate="false" regexp="false"
+                      state="1">*Untitled - JPass Password Manager</extrafeature>
+        <extrafeature name="qfs:systemclass" negate="false" regexp="false"
+                      state="0">javax.swing.JButton</extrafeature>
+      </ComponentStep>
+    </WindowStep>
+    <WindowStep class="Dialog" feature="Confirmation" height="129"
+                id="dialogConfirmation" modal="true" uid="_+" width="336"
+                x="1179" y="454">
+      <extrafeature name="qfs:class" negate="false" regexp="false" state="0">jpass.ui.MessageDialog</extrafeature>
+      <extrafeature name="qfs:genericclass" negate="false" regexp="false"
+                    state="0">Dialog</extrafeature>
+      <extrafeature name="qfs:label" negate="false" regexp="false" state="1">Confirmation</extrafeature>
+      <extrafeature name="qfs:systemclass" negate="false" regexp="false"
+                    state="0">javax.swing.JDialog</extrafeature>
+      <extrafeature name="qfs:type" negate="false" regexp="false" state="0">Window:Dialog</extrafeature>
+      <ComponentStep class="Button" classcount="3" classindex="0"
+                     feature="Yes" height="29" id="buttonYes" uid="_-"
+                     width="90" x="145" y="94">
+        <extrafeature name="imagehash" negate="false" regexp="false"
+                      state="1">1098033763</extrafeature>
+        <extrafeature name="qfs:class" negate="false" regexp="false"
+                      state="0">javax.swing.JButton</extrafeature>
+        <extrafeature name="qfs:genericclass" negate="false" regexp="false"
+                      state="0">Button</extrafeature>
+        <extrafeature name="qfs:label" negate="false" regexp="false"
+                      state="1">Yes</extrafeature>
+        <extrafeature name="qfs:systemclass" negate="false" regexp="false"
+                      state="0">javax.swing.JButton</extrafeature>
+      </ComponentStep>
+      <ComponentStep class="Button" classcount="4" classindex="0"
+                     feature="Yes" height="29" id="buttonYes2" uid="_18"
+                     width="90" x="348" y="94">
+        <extrafeature name="imagehash" negate="false" regexp="false"
+                      state="1">1098033763</extrafeature>
+        <extrafeature name="qfs:class" negate="false" regexp="false"
+                      state="0">javax.swing.JButton</extrafeature>
+        <extrafeature name="qfs:genericclass" negate="false" regexp="false"
+                      state="0">Button</extrafeature>
+        <extrafeature name="qfs:label" negate="false" regexp="false"
+                      state="1">Yes</extrafeature>
+        <extrafeature name="qfs:systemclass" negate="false" regexp="false"
+                      state="0">javax.swing.JButton</extrafeature>
+      </ComponentStep>
+      <ComponentStep class="Button" classcount="4" classindex="1" feature="No"
+                     height="29" id="buttonNo" uid="_1L" width="90" x="443"
+                     y="94">
+        <extrafeature name="imagehash" negate="false" regexp="false"
+                      state="1">1899253121</extrafeature>
+        <extrafeature name="qfs:class" negate="false" regexp="false"
+                      state="0">javax.swing.JButton</extrafeature>
+        <extrafeature name="qfs:genericclass" negate="false" regexp="false"
+                      state="0">Button</extrafeature>
+        <extrafeature name="qfs:label" negate="false" regexp="false"
+                      state="1">No</extrafeature>
+        <extrafeature name="qfs:systemclass" negate="false" regexp="false"
+                      state="0">javax.swing.JButton</extrafeature>
+      </ComponentStep>
+      <ComponentStep class="Button" classcount="3" classindex="0"
+                     feature="Yes" height="22" id="buttonYes3" uid="_9Z"
+                     width="72" x="118" y="78">
+        <extrafeature name="imagehash" negate="false" regexp="false"
+                      state="1">-1982826877</extrafeature>
+        <extrafeature name="qfs:class" negate="false" regexp="false"
+                      state="0">javax.swing.JButton</extrafeature>
+        <extrafeature name="qfs:genericclass" negate="false" regexp="false"
+                      state="0">Button</extrafeature>
+        <extrafeature name="qfs:label" negate="false" regexp="false"
+                      state="1">Yes</extrafeature>
+        <extrafeature name="qfs:systemclass" negate="false" regexp="false"
+                      state="0">javax.swing.JButton</extrafeature>
+      </ComponentStep>
+      <ComponentStep class="Button" classcount="4" classindex="1" feature="No"
+                     height="22" id="buttonNo2" uid="_BN" width="72" x="357"
+                     y="78">
+        <extrafeature name="imagehash" negate="false" regexp="false"
+                      state="1">1904382565</extrafeature>
+        <extrafeature name="qfs:class" negate="false" regexp="false"
+                      state="0">javax.swing.JButton</extrafeature>
+        <extrafeature name="qfs:genericclass" negate="false" regexp="false"
+                      state="0">Button</extrafeature>
+        <extrafeature name="qfs:label" negate="false" regexp="false"
+                      state="1">No</extrafeature>
+        <extrafeature name="qfs:systemclass" negate="false" regexp="false"
+                      state="0">javax.swing.JButton</extrafeature>
+      </ComponentStep>
+    </WindowStep>
+    <WindowStep class="Dialog" feature="Save" height="448" id="dialogSave"
+                modal="true" uid="_19" width="743" x="976" y="295">
+      <extrafeature name="qfs:class" negate="false" regexp="false" state="0">javax.swing.JDialog</extrafeature>
+      <extrafeature name="qfs:genericclass" negate="false" regexp="false"
+                    state="0">Dialog</extrafeature>
+      <extrafeature name="qfs:label" negate="false" regexp="false" state="1">Save</extrafeature>
+      <extrafeature name="qfs:systemclass" negate="false" regexp="false"
+                    state="0">javax.swing.JDialog</extrafeature>
+      <extrafeature name="qfs:type" negate="false" regexp="false" state="0">Window:Dialog</extrafeature>
+      <ComponentStep class="FileChooser" classcount="1" classindex="0"
+                     height="408" id="dialogSave.fileChooser" uid="_1A"
+                     width="741" x="1" y="39">
+        <extrafeature name="qfs:class" negate="false" regexp="false"
+                      state="0">javax.swing.JFileChooser</extrafeature>
+        <extrafeature name="qfs:genericclass" negate="false" regexp="false"
+                      state="0">FileChooser</extrafeature>
+        <extrafeature name="qfs:systemclass" negate="false" regexp="false"
+                      state="0">javax.swing.JFileChooser</extrafeature>
+        <ComponentStep class="Button" classcount="11" classindex="10"
+                       feature="Cancel" height="29" id="buttonCancel"
+                       uid="_1B" width="90" x="640" y="368">
+          <extrafeature name="qfs:class" negate="false" regexp="false"
+                        state="0">javax.swing.JButton</extrafeature>
+          <extrafeature name="qfs:genericclass" negate="false" regexp="false"
+                        state="0">Button</extrafeature>
+          <extrafeature name="qfs:label" negate="false" regexp="false"
+                        state="1">Cancel</extrafeature>
+          <extrafeature name="qfs:systemclass" negate="false" regexp="false"
+                        state="0">javax.swing.JButton</extrafeature>
+        </ComponentStep>
+      </ComponentStep>
+    </WindowStep>
+    <WindowStep class="Dialog" feature="Warning" height="106"
+                id="dialogWarning" modal="true" uid="_6B" width="190" x="865"
+                y="467">
+      <extrafeature name="qfs:class" negate="false" regexp="false" state="0">jpass.ui.MessageDialog</extrafeature>
+      <extrafeature name="qfs:genericclass" negate="false" regexp="false"
+                    state="0">Dialog</extrafeature>
+      <extrafeature name="qfs:label" negate="false" regexp="false" state="1">Warning</extrafeature>
+      <extrafeature name="qfs:systemclass" negate="false" regexp="false"
+                    state="0">javax.swing.JDialog</extrafeature>
+      <extrafeature name="qfs:type" negate="false" regexp="false" state="0">Window:Dialog</extrafeature>
+      <ComponentStep class="Button" classcount="2" classindex="0" feature="OK"
+                     height="22" id="buttonOK2" uid="_6j" width="72" x="112"
+                     y="78">
+        <extrafeature name="imagehash" negate="false" regexp="false"
+                      state="1">-1982826877</extrafeature>
+        <extrafeature name="qfs:class" negate="false" regexp="false"
+                      state="0">javax.swing.JButton</extrafeature>
+        <extrafeature name="qfs:genericclass" negate="false" regexp="false"
+                      state="0">Button</extrafeature>
+        <extrafeature name="qfs:label" negate="false" regexp="false"
+                      state="1">OK</extrafeature>
+        <extrafeature name="qfs:systemclass" negate="false" regexp="false"
+                      state="0">javax.swing.JButton</extrafeature>
+      </ComponentStep>
+    </WindowStep>
+    <WindowStep class="Dialog" feature="Generate Password" height="323"
+                id="dialogGenerate_Password" modal="true" uid="_96"
+                width="312" x="774" y="424">
+      <extrafeature name="qfs:class" negate="false" regexp="false" state="0">jpass.ui.GeneratePasswordDialog</extrafeature>
+      <extrafeature name="qfs:genericclass" negate="false" regexp="false"
+                    state="0">Dialog</extrafeature>
+      <extrafeature name="qfs:label" negate="false" regexp="false" state="1">Generate Password</extrafeature>
+      <extrafeature name="qfs:systemclass" negate="false" regexp="false"
+                    state="0">javax.swing.JDialog</extrafeature>
+      <extrafeature name="qfs:type" negate="false" regexp="false" state="0">Window:Dialog</extrafeature>
+      <ComponentStep class="Panel" classcount="12" classindex="7"
+                     feature="Generated password" height="77"
+                     id="panelGenerated_password" uid="_97" width="310" x="1"
+                     y="213">
+        <extrafeature name="qfs:class" negate="false" regexp="false"
+                      state="0">javax.swing.JPanel</extrafeature>
+        <extrafeature name="qfs:genericclass" negate="false" regexp="false"
+                      state="0">Panel</extrafeature>
+        <extrafeature name="qfs:systemclass" negate="false" regexp="false"
+                      state="0">javax.swing.JPanel</extrafeature>
+        <extrafeature name="qfs:type" negate="false" regexp="false" state="0">Panel:TitledPanel</extrafeature>
+        <ComponentStep class="Button" classcount="1" classindex="0"
+                       feature="Generate" height="22" id="buttonGenerate2"
+                       uid="_98" width="97" x="208" y="45">
+          <extrafeature name="imagehash" negate="false" regexp="false"
+                        state="1">1802186209</extrafeature>
+          <extrafeature name="qfs:class" negate="false" regexp="false"
+                        state="0">javax.swing.JButton</extrafeature>
+          <extrafeature name="qfs:genericclass" negate="false" regexp="false"
+                        state="0">Button</extrafeature>
+          <extrafeature name="qfs:label" negate="false" regexp="false"
+                        state="1">Generate</extrafeature>
+          <extrafeature name="qfs:systemclass" negate="false" regexp="false"
+                        state="0">javax.swing.JButton</extrafeature>
+        </ComponentStep>
+        <ComponentStep class="TextField" classcount="1" classindex="0"
+                       height="22" id="panelGenerated_password.text" uid="_9x"
+                       width="300" x="5" y="18">
+          <extrafeature name="qfs:class" negate="false" regexp="false"
+                        state="0">javax.swing.JTextField</extrafeature>
+          <extrafeature name="qfs:genericclass" negate="false" regexp="false"
+                        state="0">TextField</extrafeature>
+          <extrafeature name="qfs:systemclass" negate="false" regexp="false"
+                        state="0">javax.swing.JTextField</extrafeature>
+        </ComponentStep>
+      </ComponentStep>
+      <ComponentStep class="Button" classcount="6" classindex="3"
+                     feature="Accept" height="22" id="buttonAccept" uid="_99"
+                     width="87" x="128" y="295">
+        <extrafeature name="imagehash" negate="false" regexp="false"
+                      state="1">-1982826877</extrafeature>
+        <extrafeature name="qfs:class" negate="false" regexp="false"
+                      state="0">javax.swing.JButton</extrafeature>
+        <extrafeature name="qfs:genericclass" negate="false" regexp="false"
+                      state="0">Button</extrafeature>
+        <extrafeature name="qfs:label" negate="false" regexp="false"
+                      state="1">Accept</extrafeature>
+        <extrafeature name="qfs:systemclass" negate="false" regexp="false"
+                      state="0">javax.swing.JButton</extrafeature>
+      </ComponentStep>
+      <ComponentStep class="Button" classcount="6" classindex="4"
+                     feature="Cancel" height="22" id="buttonCancel3" uid="_An"
+                     width="86" x="220" y="295">
+        <extrafeature name="imagehash" negate="false" regexp="false"
+                      state="1">1904382565</extrafeature>
+        <extrafeature name="qfs:class" negate="false" regexp="false"
+                      state="0">javax.swing.JButton</extrafeature>
+        <extrafeature name="qfs:genericclass" negate="false" regexp="false"
+                      state="0">Button</extrafeature>
+        <extrafeature name="qfs:label" negate="false" regexp="false"
+                      state="1">Cancel</extrafeature>
+        <extrafeature name="qfs:systemclass" negate="false" regexp="false"
+                      state="0">javax.swing.JButton</extrafeature>
+      </ComponentStep>
+      <ComponentStep class="Label" classcount="3" classindex="2"
+                     feature="Generate Password" height="30"
+                     id="labelGenerate_Password" uid="_C-" width="242" x="25"
+                     y="1">
+        <extrafeature name="qfs:class" negate="false" regexp="false"
+                      state="0">javax.swing.JLabel</extrafeature>
+        <extrafeature name="qfs:genericclass" negate="false" regexp="false"
+                      state="0">Label</extrafeature>
+        <extrafeature name="qfs:label" negate="false" regexp="false"
+                      state="1">Generate Password</extrafeature>
+        <extrafeature name="qfs:systemclass" negate="false" regexp="false"
+                      state="0">javax.swing.JLabel</extrafeature>
+      </ComponentStep>
+    </WindowStep>
+  </WindowList>
+</RootStep>
