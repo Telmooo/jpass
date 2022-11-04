@@ -49,6 +49,9 @@ State Diagram:
 ## Transition Tree
 ![Add New Entry Transition Tree](assets/AddEntryTree.png)
 
+It can be seen paths leading from a parent state to a child state which is the "same" as the parent state, or a parent state leading to two children states that are the "same". This is due to the conditons on the transitions above. For example, the path from `Generate Password 0` to `Generate Password 1` must happen, because it is needed, in order to show the generated password, to be in the in the `Generate Password` window as well (before any other action). Additionally, the state `Add New Entry 0` leads to two "copies" of its own state, `Add New Entry 1` and `Add New Entry 2`, this is to represent the Show button and Copy button, which lead to the same state but have different actions. Similar situations can be seen on other states with this behaviour.
+
+
 ## Transition table
 | **States\Events**                     | **Add New Entry Button** | **Cancel Button**      | **Ok Button [valid form]** | **Ok Button [invalid form]**   | **Automatic Transition** | **Ok Button**     | **Copy Button** | **Show Button** | **Generate Button** | **Accept Button [non-empty generated password]** | **Accept Button [empty generated password]** |
 |---------------------------------------|--------------------------|------------------------|----------------------------|--------------------------------|--------------------------|-------------------|-----------------|-----------------|---------------------|--------------------------------------------------|---------------------------------------------|
@@ -59,11 +62,12 @@ State Diagram:
 | **Generate Password**                 |                          | Add New Entry          |                            |                                |                          |                   |                 |                 | Generate Password   | Add New Entry                                    |                                             |
 | **Generate Password (warning popup)** |                          |                        |                            |                                |                          | Generate Password |                 |                 |                     |                                                  | Generate Password (warning popup)           |
 
-The left column and the first row represent, respectively, the starting states and the possible Events that allow transition of states. Each cell value represents the resulting state after applying the 
+The left column and the first row represent, respectively, the starting states and the possible Events (and inherent conditions/actions) that allow transition of states. Each cell value represents the resulting state after applying to that row's state, the column's event. The empty cells represent the possible sneak transitions (52), being a plausible decision to, in general, simply ignore those events for those states.
+To note the case of the `Cancel Button`, where the real buttons are different in the two cases but it wasn't considered necessary a separate column for each, due to the fact that in neither of them are any conditions or actions associated.
 
 ## Tests Implemented
 
-From the Transition Tree Diagram, is it possible to identify 9 paths, each from the root to every leaf.
+From the Transition Tree Diagram, is it possible to identify 9 paths, each from the root to a different leaf.
 From top to bottom and from the left to the right:
 
 - **Copy Password** - Testing the `Copy`password button (to the clipboard) in the `Add New Entry` window. From the main screen, the test starts by opening the New Entry Form (by pressing the `Add Entry...` button), fills some of the fields (in the implemented test the exact values were `test` for the `Title` and `12345` for both the `Password` and `Repeat` fields), then clicks on the `Copy` button in order to copy the password value to the clipboard and then pastes it in the `Notes` text box, checking if that value is indeed `12345`. The test ends with a cleanup that cancels the entry that was being created and takes JPass back to the initial dashboard (via the existing `Cancel` buttons).
@@ -132,7 +136,7 @@ Each event present in the diagram corresponds to the name of the button to click
 ![Edit Entry State Machine](assets/EditEntryStateMachine.png)
 
 ## Transition Tree
-It can be seen paths leading from a parent state to a child state which is the "same" as the parent state, or a parent state leading to two children states that are the "same". This is due to the conditons on the transitions above. For example, from the path of `JPass Dashboard (idle) 0` to `JPass Dashboard (idle) 2` must happen because it is needed for an entry to be selected in order to proceed to the `Edit Entry` state. Additionally, the state `Edit Entry 0` leads to two "copies" of its own state, `Edit Entry 1` and `Edit Entry 2`, this is to represent the `Show` button and `Copy` button, which lead to the same state but have different actions. Similar situation can be seen on other states with this behaviour.
+It can be seen paths leading from a parent state to a child state which is the "same" as the parent state, or a parent state leading to two children states that are the "same". This is due to the conditons on the transitions above. For example, the path from `JPass Dashboard (idle) 0` to `JPass Dashboard (idle) 2` must happen because it is needed for an entry to be selected in order to proceed to the `Edit Entry` state. Additionally, the state `Edit Entry 0` leads to two "copies" of its own state, `Edit Entry 1` and `Edit Entry 2`, this is to represent the `Show` button and `Copy` button, which lead to the same state but have different actions. Similar situations can be seen on other states with this behaviour.
 
 ![Edit Entry Transition Tree](assets/EditEntryTree.png)
 
