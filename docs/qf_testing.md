@@ -156,13 +156,15 @@ As can be seen on the transition tree above, it will be developed 10 test cases,
 
 Note that some of the tests, such as the one that leads to the `Copy` button, the `Generate` button and its subtrees, and `Show` button are the exact same as the ones developed in the `Add Entry` use case, and therefore will be omitted in this use case. This leads to 4 tests plus the additional sneak path test.
 
-- **Edit Entry No Selected** - From the main screen, and having no entry selected (or no entries at all in the database), click on `Edit Entry` button, and it should trigger a warning popup regarding not having an entry selected.
+- **Edit Entry No Selected** - From the main screen, and having no entry selected (or no entries at all in the database), click on `Edit Entry` button, and it should trigger a warning popup regarding not having an entry selected. To verify if the test executed as expected, it is verified if the warning popup is open.
   - The test developed executes as expected.
-- **Edit Entry Cancel** - From the main screen, select an entry and click on the `Edit Entry` button to open the edit entry form. Afterwards, click on the Cancel button 
+- **Edit Entry Cancel** - From the main screen, select an entry and click on the `Edit Entry` button to open the edit entry form. Afterwards, change a field (i.e. title, password, etc.) and click on the `Cancel` button to cancel operation and return to main screen. To verify if test executed as expected, it is verified if the changed field wasn't changed.
   - The test developed executes as expected.
-- **Change Password Normal** - From the main screen, it is clicked on the `File` button to open the dropdown menu, and then the `Change Password...` button on the dropdown menu. It should open a dialog for changing the password, in which, you should input a password on both fields, matching, and then click on the `Ok` button, which should lead to a information popup saying the password has been changed and saved.
+- **Edit Entry Normal** - From the main screen, select an entry and click on the `Edit Entry` button to open the edit entry form. Afterwards, change a field (i.e. title, password, etc.) and click on the `Ok` button to save the changes made and return to main screen. To verify if test executed as expected, it is verified if the changed field was changed to the expected.
   - The test developed executes as expected.
-- **(Sneak Path) Force Save Password** - From the main screen, attempt to force an event of clicking on the `Ok` button in the change password dialog to force either a successful save or a warning.
+- **Edit Entry Warning** - From the main screen, select an entry and click on the `Edit Entry` button to open the edit entry form. Afterwards, change the title field to empty or the password to a non-matching password with the repeated password field, and finally click on the `Ok` button which should trigger the warning due to invalid form.  To verify if the test executed as expected, it is verified if the warning popup is open.
+  - The test developed executes as expected.
+- **(Sneak Path) Force Generate Password** - From the main screen, it is attempted to force an event of clicking on the `Generate` button in the edit entry form to open the dialog for generating passwords. In order to verify the test, it was built as expecting an exception due to missing component and then verified if the generate password dialog isn't open. 
   - The test developed executes as expected, this is, the event doesn't result in anything, meaning the program behaves as expected.
 
 # Use Case: Change Password
