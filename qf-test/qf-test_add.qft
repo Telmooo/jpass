@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <!DOCTYPE RootStep>
 <RootStep id="_0" name="root"
-          signature="388C3C1BE1502C2430C18618A7D89C462C729A91"
+          signature="2D470EC1C65AE9592714CF4558FEF9D1E7356CC5"
           version="6.0.3">
   <include>qfs.qft</include>
   <TestSet id="_1" name="JPass UI Tests">
@@ -124,11 +124,16 @@
         <ComponentWaiter client="$(client)" component="dialogAdd_New_Entry"
                          id="_Bi"/>
       </TestStep>
-      <CleanupSequence id="_Bj" name="Back to Dashboard">
+      <TestStep id="_Dq" name="Close Form">
         <MouseEventStep clicks="1" client="$(client)"
                         component="buttonCancel2" event="MOUSE_MPRC" id="_Bk"
                         modifiers="16"/>
-      </CleanupSequence>
+      </TestStep>
+      <TestStep id="_Dt" name="Check entry list">
+        <CheckItemsStep checktype="column" client="$(client)"
+                        component="frame*Untitled_-_JPass_Password_Manager.table*Untitled_-_JPass_Password_Manager@Title"
+                        id="_Di"/>
+      </TestStep>
     </TestCase>
     <TestCase id="_6J" name="test-4_create_warning">
       <DependencyReference id="_B1" reference="sutStarted"/>
@@ -425,10 +430,10 @@
         <IfSequence id="_9" name="Launch SUT if not running"
                     test="not $(isSUTRunning)">
           <JavaClientStarter client="$(client)"
-                             directory="{YOUR_PATH_HERE}"
+                             directory="C:\Users\joaos\Documents\GitHub\jpass"
                              executable="${qftest:java}" id="_A">
             <parameter>-jar</parameter>
-            <parameter>{YOUR_PATH_HERE}\target\jpass-0.1.24-SNAPSHOT.jar</parameter>
+            <parameter>C:\Users\joaos\Documents\GitHub\jpass\target\jpass-0.1.24-SNAPSHOT.jar</parameter>
           </JavaClientStarter>
           <ClientWaiter client="$(client)" id="_B"/>
         </IfSequence>
