@@ -19,10 +19,12 @@ Consists of 6 states, of which 3 are "normal" states, 2 can be considered error 
 - **Generate Password**: Screen for generating a random password;
 - **Generate Password (warning poup)**: Error state. Appears a warning popup when it's attempted to `Accept` the generated password while the generated password field is empty;
 
-![AddEntry_v2 drawio](https://user-images.githubusercontent.com/45333685/199986546-ff23e199-9079-4101-8d6c-d76f6b2a9a7f.png)
+Respective State Diagram:
+
+![Add New Entry State Machine](assets/AddEntryStateMachine.png)
 
 ## Transition Tree
-![addEntryTree drawio](https://user-images.githubusercontent.com/45333685/199987362-073746b8-4309-45ef-943b-f210d099bd39.png)
+![Edit Entry Transition Tree](assets/AddEntryTree.png)
 
 ## Transition table
 | **States\Events**                     | **Add New Entry Button** | **Cancel Button**      | **Ok Button [valid form]** | **Ok Button [invalid form]**   | **Automatic Transition** | **Ok Button**     | **Copy Button** | **Show Button** | **Generate Button** | **Accept Button [non-empty generated password]** | **Accept Button [empty generated password]** |
