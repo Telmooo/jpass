@@ -23,7 +23,7 @@ Consists of 7 states: 3 "normal" states, 2 error states and 1 transitional state
   - Title field is empty;
   - Password and repeated password fields do not match (note: can be both empty).
 - **Generate Password**: Screen for generating a random password;
-- **Generate Password (warning poup)**: Error state. Appears a warning popup when it's attempted to `Accept` the generated password while the generated password field is empty;
+- **Generate Password (warning popup)**: Error state. Appears a warning popup when it's attempted to `Accept` the generated password while the generated password field is empty;
 
 ### Events
 Each event present in the diagram corresponds to the name of the button to click while on that state. Some of the events contain conditions or actions, such as:
