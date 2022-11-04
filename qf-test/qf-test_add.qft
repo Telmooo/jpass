@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <!DOCTYPE RootStep>
 <RootStep id="_0" name="root"
-          signature="98174F03021E5E71255E6BEFEB54D9C473E1F8B1"
+          signature="388C3C1BE1502C2430C18618A7D89C462C729A91"
           version="6.0.3">
   <include>qfs.qft</include>
   <TestSet id="_1" name="JPass UI Tests">
@@ -153,7 +153,7 @@
                         modifiers="16"/>
       </CleanupSequence>
     </TestCase>
-    <TestCase id="_2" name="test-5_create_entry-to_fix">
+    <TestCase id="_2" name="test-5_create_entry">
       <DependencyReference id="_B2" reference="sutStarted"/>
       <TestStep id="_Bt" name="Open Form">
         <MouseEventStep clicks="1" client="$(client)"
@@ -377,6 +377,7 @@
       </CleanupSequence>
     </TestCase>
     <TestCase id="_Cu" name="test-10_sneak_path_gen_window">
+      <DependencyReference id="_DZ" reference="sutStarted"/>
       <TestStep id="_Cv" name="Open Form">
         <MouseEventStep clicks="1" client="$(client)"
                         component="buttonTipAdd_Entry..." event="MOUSE_MPRC"
@@ -391,17 +392,24 @@
         <ComponentWaiter client="$(client)"
                          component="dialogGenerate_Password" id="_C+"/>
       </TestStep>
-      <TestStep id="_D6" name="Attempt Click on Another Window">
+      <TestStep id="_DU" name="Try to Get To New Entry Warning">
+        <TryStep id="_DX" name="Force Click">
+          <MouseEventStep clicks="1" client="$(client)" component="buttonOK"
+                          event="MOUSE_MPRC" id="_DQ" modifiers="16"/>
+          <CatchSequence exception="ModalDialogException" id="_DY"
+                         maxerror="0"/>
+        </TryStep>
+        <ComponentWaiter absence="true" client="$(client)"
+                         component="dialogWarning" id="_DR" timeout="3000"/>
+      </TestStep>
+      <CleanupSequence id="_Dd" name="Back to Dashboard">
         <MouseEventStep clicks="1" client="$(client)"
-                        component="buttonCancel2" event="MOUSE_MPRC" id="_DB"
+                        component="buttonCancel3" event="MOUSE_MPRC" id="_Df"
                         modifiers="16"/>
-      </TestStep>
-      <TestStep id="_D9" name="Check Current Window">
-        <CheckStringStep client="$(client)" component="labelGenerate_Password"
-                         id="_D1">
-          <text>Generate Password</text>
-        </CheckStringStep>
-      </TestStep>
+        <MouseEventStep clicks="1" client="$(client)"
+                        component="buttonCancel2" event="MOUSE_MPRC" id="_Dg"
+                        modifiers="16"/>
+      </CleanupSequence>
     </TestCase>
   </TestSet>
   <PackageRoot id="_3">
@@ -442,9 +450,7 @@
       </CleanupSequence>
     </Dependency>
   </PackageRoot>
-  <ExtraSequence id="_4">
-    <BasicSequence id="_DA" name="Recorded 04/11/22 19:28"/>
-  </ExtraSequence>
+  <ExtraSequence id="_4"/>
   <WindowList id="_5">
     <WindowStep class="Window" feature="Untitled - JPass Password Manager"
                 height="400" id="frameUntitled_-_JPass_Password_Manager"
