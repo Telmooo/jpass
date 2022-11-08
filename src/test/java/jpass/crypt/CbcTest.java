@@ -80,7 +80,7 @@ public class CbcTest {
         _decrypt.decrypt(_encrypted.toByteArray());
         _decrypt.finishDecryption();
 
-        Assertions.assertTrue(Arrays.equals(source, _decrypted.toByteArray()));
+        Assertions.assertArrayEquals(source, _decrypted.toByteArray());
     }
 
     /**
@@ -145,12 +145,12 @@ public class CbcTest {
         encrypt.finishEncryption();
 
         Assertions.assertEquals(expected.length, _encrypted.toByteArray().length);
-        Assertions.assertTrue(Arrays.equals(expected, _encrypted.toByteArray()));
+        Assertions.assertArrayEquals(expected, _encrypted.toByteArray());
 
         decrypt.decrypt(_encrypted.toByteArray());
         decrypt.finishDecryption();
 
-        Assertions.assertTrue(Arrays.equals(plain, _decrypted.toByteArray()));
+        Assertions.assertArrayEquals(plain, _decrypted.toByteArray());
     }
 
     /**
@@ -178,4 +178,58 @@ public class CbcTest {
 
         Assertions.assertTrue(Arrays.equals(data, _decrypted.toByteArray()));
     }
+
+    @Test
+    public void testEncryptNull() throws IOException {
+        byte[] data = null;
+        _encrypt.encrypt(data);
+        _encrypt.finishEncryption();
+
+        Assertions.assertNull(data);
+    }
+
+    @Test
+    public void testDecrypt2Null() throws IOException, DecryptException {
+        byte[] data = null;
+        _decrypt.decrypt(data, -1);
+        _decrypt.finishDecryption();
+
+        Assertions.assertNull(data);
+    }
+
+    @Test
+    public void testEncrypt2Null() throws IOException {
+        byte[] data = null;
+        _encrypt.encrypt(data, -1);
+        _encrypt.finishEncryption();
+
+        Assertions.assertNull(data);
+    }
+
+    @Test
+    public void testDecryptNull() throws IOException, DecryptException {
+        byte[] data = null;
+        _decrypt.decrypt(data);
+        _decrypt.finishDecryption();
+
+        Assertions.assertNull(data);
+    }
+    @Test
+    public void testEncryptEmpty() throws IOException {
+        byte[] data = { };
+        _encrypt.encrypt(data);
+        _encrypt.finishEncryption();
+
+        Assertions.assertArrayEquals(new byte[] { }, data);
+    }
+
+    @Test
+    public void testDecryptEmpty() throws IOException, DecryptException {
+        byte[] data = { };
+        _decrypt.decrypt(data);
+        _decrypt.finishDecryption();
+
+        Assertions.assertArrayEquals(new byte[] { }, data);
+    }
+
 }
