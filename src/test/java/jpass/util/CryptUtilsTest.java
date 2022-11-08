@@ -37,4 +37,16 @@ class CryptUtilsTest {
 
         Assertions.assertArrayEquals(expectedHash, CryptUtils.getPKCS5Sha256Hash(new char[0]));
     }
+
+    @Test
+    void testSha256HashIteration0() throws Exception {
+        byte[] expectedHash = {
+                (byte) 0xCA, (byte) 0x97, (byte) 0x81, (byte) 0x12, (byte) 0xCA, (byte) 0x1B, (byte) 0xBD, (byte) 0xCA,
+                (byte) 0xFA, (byte) 0xC2, (byte) 0x31, (byte) 0xB3, (byte) 0x9A, (byte) 0x23, (byte) 0xDC, (byte) 0x4D,
+                (byte) 0xA7, (byte) 0x86, (byte) 0xEF, (byte) 0xF8, (byte) 0x14, (byte) 0x7C, (byte) 0x4E, (byte) 0x72,
+                (byte) 0xB9, (byte) 0x80, (byte) 0x77, (byte) 0x85, (byte) 0xAF, (byte) 0xEE, (byte) 0x48, (byte) 0xBB,
+        };
+
+        Assertions.assertArrayEquals(expectedHash, CryptUtils.getSha256Hash("a".toCharArray()));
+    }
 }
