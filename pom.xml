@@ -227,8 +227,9 @@
                     </execution>
                     <execution>
                         <id>default-check</id>
+                        <phase>test</phase>
                         <goals>
-                            <goal>check</goal>
+                            <goal>report</goal>
                         </goals>
                         <configuration>
                             <haltOnFailure>false</haltOnFailure>

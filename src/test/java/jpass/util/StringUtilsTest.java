@@ -75,6 +75,8 @@ public class StringUtilsTest {
 
         Assertions.assertNotEquals(input, StringUtils.stripNonValidXMLCharacters(input));
     }
+
+    @ParameterizedTest
     @ValueSource(ints = {-1, 0, 1})
     public void testStripStringNull(int length) {
         Assertions.assertNull(StringUtils.stripString(null, length));
@@ -104,5 +106,14 @@ public class StringUtilsTest {
     @Test
     public void testStripStringException() {
         Assertions.assertThrows(IndexOutOfBoundsException.class, () -> StringUtils.stripString("", -1));
+    }
+
+    @Test
+    public void testStripString80() {
+        String input = new String(new char[81]).replace('\0', 'c');
+        String expected = new String(new char[80]).replace('\0', 'c');
+        expected += "...";
+
+        Assertions.assertEquals(expected, StringUtils.stripString(input));
     }
 }
