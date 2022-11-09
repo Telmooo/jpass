@@ -86,4 +86,49 @@ public class ClipboardUtilsTest {
 
         Assertions.assertNull(ClipboardUtils.getClipboardContent());
     }
+
+    @Test
+    public void testClearClipboardContent() throws Exception {
+        StringSelection selection = new StringSelection("a text string");
+        Toolkit.getDefaultToolkit().getSystemClipboard().setContents(selection, selection);
+
+        ClipboardUtils.clearClipboardContent();
+
+        String clipboard = ClipboardUtils.getClipboardContent();
+
+        Assertions.assertNull(clipboard);
+    }
+
+    @Test
+    public void testSetClipboardContentNull() throws Exception {
+        StringSelection selection = new StringSelection("a text string");
+        Toolkit.getDefaultToolkit().getSystemClipboard().setContents(selection, selection);
+
+        ClipboardUtils.setClipboardContent(null);
+
+        String clipboard = ClipboardUtils.getClipboardContent();
+
+        Assertions.assertNull(clipboard);
+    }
+
+    @Test
+    public void testSetClipboardContentEmpty() throws Exception {
+        StringSelection selection = new StringSelection("a text string");
+        Toolkit.getDefaultToolkit().getSystemClipboard().setContents(selection, selection);
+
+        ClipboardUtils.setClipboardContent("");
+
+        String clipboard = ClipboardUtils.getClipboardContent();
+
+        Assertions.assertNull(clipboard);
+    }
+
+    @Test
+    public void testSetClipboardContentNormal() throws Exception {
+        ClipboardUtils.setClipboardContent("a test string");
+
+        String clipboard = ClipboardUtils.getClipboardContent();
+
+        Assertions.assertEquals("a test string", clipboard);
+    }
 }
