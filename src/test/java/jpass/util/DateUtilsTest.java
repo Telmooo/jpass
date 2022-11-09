@@ -101,4 +101,12 @@ class DateUtilsTest {
 
         Assertions.assertEquals("2018-07-14", output);
     }
+
+    @Test
+    public void testFormatIsoDateTimeUnixTimestamp() {
+        DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
+        String input = "1667996411000";
+
+        Assertions.assertEquals("2022-11-09T12:20:11", formatIsoDateTime(input, formatter));
+    }
 }

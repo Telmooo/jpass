@@ -38,8 +38,10 @@ import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class DateUtils {
+public final class DateUtils {
     private static final Logger LOG = Logger.getLogger(DateUtils.class.getName());
+
+    private DateUtils() { }
 
     public static DateTimeFormatter createFormatter(String format) {
         DateTimeFormatter formatter;

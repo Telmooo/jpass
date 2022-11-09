@@ -312,6 +312,12 @@
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
                 <version>${jacoco.plugin.version}</version>
+                <configuration>
+                    <excludes>
+                        <exclude>jpass/ui/**/*</exclude>
+                        <exclude>jpass/util/SpringUtilities.class</exclude>
+                    </excludes>
+                </configuration>
             </plugin>
             <plugin> <!-- JUnit report -->
                 <groupId>org.apache.maven.plugins</groupId>
