@@ -27,6 +27,12 @@ public class DataModelTest {
     }
 
     @Test
+    public void testNotNullGetInstance() {
+        dataModel = DataModel.getInstance(); // "re-pass" through getInstance to skip the if statement
+        Assertions.assertNotNull(dataModel);
+    }
+
+    @Test
     public void testGetEntries() {
         Assertions.assertNotNull(dataModel.getEntries());
     }
