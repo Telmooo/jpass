@@ -71,7 +71,7 @@ public class DataModelTest {
 
     @Test
     public void testGetPassword() {
-        Assertions.assertThrows(NullPointerException.class, () -> dataModel.getPassword());
+        Assertions.assertEquals(null, dataModel.getPassword());
     }
 
     @Test
