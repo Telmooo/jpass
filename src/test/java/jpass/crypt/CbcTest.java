@@ -2,12 +2,14 @@ package jpass.crypt;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.util.Arrays;
 import java.util.Random;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
 /**
  * Unit test for the CBC encryption. The test data will be encrypted and decrypted. The results will
@@ -176,7 +178,7 @@ public class CbcTest {
         _decrypt.decrypt(_encrypted.toByteArray());
         _decrypt.finishDecryption();
 
-        Assertions.assertTrue(Arrays.equals(data, _decrypted.toByteArray()));
+        Assertions.assertArrayEquals(data, _decrypted.toByteArray());
     }
 
     @Test

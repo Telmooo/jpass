@@ -2,10 +2,12 @@ package jpass.crypt.io;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Arrays;
 import java.util.Random;
 
@@ -55,6 +57,16 @@ public class StreamTest {
         decrypter.close();
 
         Assertions.assertEquals(plain.length, decrypted.toByteArray().length);
-        Assertions.assertTrue(Arrays.equals(plain, decrypted.toByteArray()));
+        Assertions.assertArrayEquals(plain, decrypted.toByteArray());
+    }
+
+    @Test
+    public void testCryptInputStreamException() throws IOException {
+        byte[] key = new byte[16];
+        InputStream errorStream = Mockito.mock(InputStream.class);
+
+        Mockito.when(errorStream.read(Mockito.any(byte[].class), Mockito.anyInt(), Mockito.anyInt())).thenReturn(-1);
+
+        Assertions.assertThrows(IOException.class, () -> new CryptInputStream(errorStream, key));
     }
 }

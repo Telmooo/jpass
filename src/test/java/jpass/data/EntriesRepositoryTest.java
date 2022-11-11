@@ -36,13 +36,11 @@ public class EntriesRepositoryTest {
         public void setUp() {
             try {
                 tempFile = File.createTempFile("testFile", ".jpass");
-                System.out.println("Temp file : " + tempFile.getAbsolutePath());
 
                 String absolutePath = tempFile.getAbsolutePath();
                 String tempFilePath = absolutePath
                         .substring(0, absolutePath.lastIndexOf(File.separator));
 
-                System.out.println("Temp file path : " + tempFilePath);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -98,6 +96,16 @@ public class EntriesRepositoryTest {
             Entries entries = new Entries();
 
             Assertions.assertThrows(DocumentProcessException.class, () -> entriesRepository.writeDocument(entries));
+        }
+
+        @Test
+        public void testWriteDocumentReadGZip() throws IOException, DocumentProcessException {
+            EntriesRepository entriesRepository = EntriesRepository.newInstance(tempFile.getAbsolutePath(), password);
+            Entries entries = new Entries();
+
+            Assertions.assertDoesNotThrow(() -> entriesRepository.writeDocument(entries));
+
+            Assertions.assertEquals(0, entriesRepository.readDocument().getEntry().size());
         }
     }
 }
