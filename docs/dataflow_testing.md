@@ -96,3 +96,102 @@
   - To satisfy this testing criteria, path with `id=1` and `id=4` are necessary, other paths are c-uses
 - **all-uses**
   - To satisfy this testing criteria, all paths are necessary
+
+## jpass.util.StringUtils.stripString
+
+![Dataflow](assets/StripStringDataflow.png)
+
+### Variable `text`
+| **var** | **id** | **def** | **use** | **path**  |
+|:-------:|:------:|:-------:|:-------:|:---------:|
+|  text   |   1    |    1    |    2    |   <1,2>   |
+|  text   |   2    |    1    |    4    | <1,2,3,4> |
+|  text   |   3    |    1    |  (3,T)  | <1,2,3,4> |
+|  text   |   4    |    1    |  (3,F)  | <1,2,3,5> |
+
+### Variable `length`
+
+| **var** | **id** | **def** | **use** | **path**  |
+|:-------:|:------:|:-------:|:-------:|:---------:|
+| length  |   1    |    1    |    4    | <1,2,3,4> |
+| length  |   2    |    1    |  (3,T)  | <1,2,3,4> |
+| length  |   3    |    1    |  (3,F)  | <1,2,3,5> |
+
+### Variable `result`
+
+| **var** | **id** | **def** | **use** | **path** |
+|:-------:|:------:|:-------:|:-------:|:--------:|
+| result  |   1    |    2    |    5    | <2,3,5>  |
+| result  |   2    |    4    |    5    |  <4,5>   |
+
+
+--
+
+***DÚVIDAS:***
+
+***1. como fazer na tabela condições (T e F) uma vez que o if junta as 2 variaveis?***
+
+***2. not sure nos all-uses :/***
+
+--
+
+- **All-defs**
+  - All-defs coverage is achieved as there is at least one def-clear path from every definition of `text`, `length`, and `result` to at least one c-use or p-use of each variable is covered: for example, for `text`, the path of pair id 1, for `length`, the path of pair id 1, and for `result`, the path of pair id 1.
+
+- **All-c-uses**
+  - `text`
+    - It is only defined once and is c-used twice.
+    - Pair ids 1 and 2 (one for each of the c-uses) imply the satisfaction of this testing criteria (one def-clear path from every definition to every c-use).
+  - `length`
+    - It is only defined and c-used once.
+    - Pair id 1 implies the satisfaction of this testing criteria (one def-clear path from every definition to every c-use).
+  - `result`
+    - It is defined twice and c-used once.
+    - Pair ids 1 and 2 (one for each of the definitions) imply the satisfaction of this testing criteria (one def-clear path from every definition to every c-use).
+
+- **All-p-uses**
+  - `text`
+    - It is only defined once and is p-used twice.
+    - Pair id 3 (or 4) imply the satisfaction of this testing criteria (one def-clear path from every definition to every p-use).
+  - `length`
+    - It is only defined once and is p-used twice. 
+    - Pair id 2 (or 3) imply the satisfaction of this testing criteria (one def-clear path from every definition to every p-use).
+  - `result`
+    - Does not have any p-uses, therefore, there's no need to cover this criteria.
+
+- **All-uses**
+  - `text`
+    - To satisfy this testing criteria, all paths are necessary.
+  - `length`
+    - To satisfy this testing criteria, paths of pairs `id=1` and `id=3` are necessary, while path of pair `id=2` is redundant. 
+  - `result`
+    - To satisfy this testing criteria, all paths are necessary.
+
+<!--
+all-def -> for every program variable v, at least one def-clear path from every
+definition of v to at least one c-use or one p-use of v must be covered. In
+other words, test cases include a def-clear path from every definition of v to
+some corresponding use (either c-use or p-use).
+
+def-clear -> in respect to a var v, if it has no variable re-definition of v on the path.
+In other words, any path starting from a node at which
+variable v is defined and ending at a node at which v is
+used, without redefining v anywhere else along the path, is
+a def-clear path for v
+
+All-c-uses: for every program variable v, at least
+one def-clear path from every definition of v to
+every c-use of v must be covered.
+
+All-p-uses: for every program variable v, at
+least one def-clear path from every
+definition of v to every p-use of v must be
+covered.
+
+All-uses: for every program variable v, at least
+one def-clear path from every definition of v to
+every c-use and every p-use (including all
+outgoing edges of the predicate statement) of v
+must be covered. Requires that all def-use pairs
+are covered.
+-->
