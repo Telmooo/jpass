@@ -151,7 +151,7 @@ The tests already developed for the two functions above already cover all paths 
 
 
 - **All-defs**
-  - All-defs coverage is achieved as there is at least one def-clear path from every definition of `text`, `length`, and `result` to at least one c-use or p-use of each variable is covered: for example, for `text`, the path of pair id 1, for `length`, the path of pair id 1, and for `result`, the path of pair id 1.
+  - All-defs coverage is achieved as there is at least one def-clear path from every definition of `text`, `length`, and `result` to at least one c-use or p-use of each variable is covered. For `text`, the path of pair id 1, for `length`, the path of pair id 1, and for `result`, needs both path with id 1 and id 2.
 
 - **All-c-uses**
   - `text`
@@ -167,10 +167,10 @@ The tests already developed for the two functions above already cover all paths 
 - **All-p-uses**
   - `text`
     - It is only defined once and is p-used twice.
-    - Pair id 3 (or 4) imply the satisfaction of this testing criteria (one def-clear path from every definition to every p-use).
+    - Pair id 3 and 4 imply the satisfaction of this testing criteria (one def-clear path from every definition to every p-use).
   - `length`
     - It is only defined once and is p-used twice. 
-    - Pair id 2 (or 3) imply the satisfaction of this testing criteria (one def-clear path from every definition to every p-use).
+    - Pair id 2 and 3 imply the satisfaction of this testing criteria (one def-clear path from every definition to every p-use).
   - `result`
     - Does not have any p-uses, therefore, there's no need to cover this criteria.
 
