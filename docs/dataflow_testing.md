@@ -163,7 +163,7 @@
   - `text`
     - To satisfy this testing criteria, all paths are necessary.
   - `length`
-    - To satisfy this testing criteria, paths of pairs `id=1` and `id=3` are necessary, while path of pair `id=2` is redundant. 
+    - To satisfy this testing criteria, all paths are necessary.
   - `result`
     - To satisfy this testing criteria, all paths are necessary.
 
