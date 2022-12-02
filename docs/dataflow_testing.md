@@ -148,16 +148,6 @@ The tests already developed for the two functions above already cover all paths 
 | result  |   2    |    4    |    5    |  <4,5>   |
 
 
---
-
-***DÚVIDAS:***
-
-***1. como fazer na tabela condições (T e F) uma vez que o if junta as 2 variaveis?***
-
-***2. not sure nos all-uses :/***
-
---
-
 - **All-defs**
   - All-defs coverage is achieved as there is at least one def-clear path from every definition of `text`, `length`, and `result` to at least one c-use or p-use of each variable is covered: for example, for `text`, the path of pair id 1, for `length`, the path of pair id 1, and for `result`, the path of pair id 1.
 
