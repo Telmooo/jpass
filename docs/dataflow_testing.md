@@ -180,6 +180,18 @@ The tests already developed for the two functions above already cover all paths 
   - `result`
     - To satisfy this testing criteria, all paths are necessary.
 
+### Implemented Tests
+
+The tests already developed for the function already cover all paths needed to be tested. `testStripStringGreaterLength` and `testStripStringEqualLengths` are examples of two tests that together are sufficient to cover all paths.
+- `testStripStringGreaterLength` tests the following paths for each of the variables:
+  - `text` - All paths covered except the one with `id=4` (`id=1` redundant with the paths that `testStripStringEqualLengths` tests)
+  - `length` - All paths covered except the one with `id=3`
+  - `result` - Covers path with `id=2`
+- `testStripStringEqualLengths` tests the following paths for each of the variables:
+  - `text` - Covers the path `id=1` and `id=4` (`id=1` redundant with the paths that `testStripStringGreaterLength` tests)
+  - `length` - Covers path with `id=3`
+  - `result` - Covers path with `id=1`
+
 <!--
 all-def -> for every program variable v, at least one def-clear path from every
 definition of v to at least one c-use or one p-use of v must be covered. In
