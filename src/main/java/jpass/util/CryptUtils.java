@@ -85,7 +85,7 @@ public final class CryptUtils {
      * @return hash of the password
      * @throws Exception if error occurred
      */
-    public static byte[] getSha256Hash(final char[] text, final int iteration) throws Exception {
+    private static byte[] getSha256Hash(final char[] text, final int iteration) throws Exception {
         MessageDigest md = MessageDigest.getInstance("SHA-256");
         md.reset();
         // md.update(salt);
