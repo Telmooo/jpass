@@ -83,6 +83,14 @@ class DateUtilsTest {
     }
 
     @Test
+    public void testNullFormatterFormatIsoDateTime2() {
+        DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
+        String output = formatIsoDateTime("2018-07-14T17:45:55.9483536", formatter);
+
+        Assertions.assertEquals("2018-07-14T17:45:55", output);
+    }
+
+    @Test
     public void testDateTimeParseExceptionFormatIsoDateTime() {
         DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE;
         String input = "2018-07-14";
@@ -108,5 +116,12 @@ class DateUtilsTest {
         String input = "1667996411000";
 
         Assertions.assertEquals("2022-11-09T12:20:11", formatIsoDateTime(input, formatter));
+    }
+
+    @Test
+    public void testFormatIsoDateTimeUnixTimestamp2() {
+        String input = "1667996411000";
+
+        Assertions.assertEquals("2022-11-09T12:20:11", formatIsoDateTime(input, null));
     }
 }

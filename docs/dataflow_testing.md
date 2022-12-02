@@ -200,64 +200,156 @@ The tests already developed for the function already cover all paths needed to b
 ![Dataflow](assets/FormatIsoDateTimeDataflow.png)
 
 ### Variable `dateString`
-|  **var**   | **id** | **def** | **use** |     **path**      |
-| :--------: | :----: | :-----: | :-----: | :---------------: |
-| dateString |   1    |    1    |    2    |       <1,2>       |
-| dateString |   2    |    1    |    4    |     <1,2,3,4>     |
-| dateString |   3    |    1    |    8    |   <1,2,3,4,5,8>   |
-| dateString |   4    |    1    |    8    | <1,2,3,4,5,6,7,8> |
+|  **var**   | **id** | **def** | **use** |   **path**    |
+| :--------: | :----: | :-----: | :-----: | :-----------: |
+| dateString |   1    |    1    |    2    |     <1,2>     |
+| dateString |   2    |    1    |    4    |   <1,2,3,4>   |
+| dateString |   3    |    1    |    7    | <1,2,3,4,5,7> |
+
+- **all-defs**
+  - The path with `id=3` covers all the criteria needed
+- **all-c-uses**
+  - All paths are necessary to cover this criteria
+- **all-p-uses**
+  - Variable `dataString` doesn't have any p-use, therefore, there's no need to cover this criteria
+- **all-uses**
+  - All paths are necessary to cover this criteria
 
 ### Variable `formatter`
-|  **var**  | **id** | **def** | **use** |         **path**          |
-| :-------: | :----: | :-----: | :-----: | :-----------------------: |
-| formatter |   1    |    1    | (10,F)  |       <1,2,3,10,12>       |
-| formatter |   2    |    1    | (10,F)  |   <1,2,3,4,5,6,7,10,12>   |
-| formatter |   3    |    1    | (10,F)  | <1,2,3,4,5,6,7,8,9,10,12> |
-| formatter |   4    |    1    | (10,F)  |   <1,2,3,4,5,8,9,10,12>   |
-| formatter |   5    |    1    | (10,T)  |       <1,2,3,10,11>       |
-| formatter |   6    |    1    | (10,T)  |   <1,2,3,4,5,6,7,10,11>   |
-| formatter |   7    |    1    | (10,T)  | <1,2,3,4,5,6,7,8,9,10,11> |
-| formatter |   8    |    1    | (10,T)  |   <1,2,3,4,5,8,9,10,11>   |
-| formatter |   9    |    1    |   12    |       <1,2,3,10,12>       |
-| formatter |   10   |    1    |   12    |   <1,2,3,4,5,6,7,10,12>   |
-| formatter |   11   |    1    |   12    | <1,2,3,4,5,6,7,8,9,10,12> |
-| formatter |   12   |    1    |   12    |   <1,2,3,4,5,8,9,10,12>   |
-| formatter |   13   |    1    |   11    |       <1,2,3,10,11>       |
-| formatter |   14   |    1    |   11    |   <1,2,3,4,5,6,7,10,11>   |
-| formatter |   15   |    1    |   11    | <1,2,3,4,5,6,7,8,9,10,11> |
-| formatter |   16   |    1    |   11    |   <1,2,3,4,5,8,9,10,11>   |
+|  **var**  | **id** | **def** | **use** |       **path**       |
+| :-------: | :----: | :-----: | :-----: | :------------------: |
+| formatter |   1    |    1    |  (9,F)  |     <1,2,3,9,11>     |
+| formatter |   2    |    1    |  (9,F)  |  <1,2,3,4,5,6,9,11>  |
+| formatter |   3    |    1    |  (9,F)  | <1,2,3,4,5,7,8,9,11> |
+| formatter |   4    |    1    |  (9,T)  |     <1,2,3,9,10>     |
+| formatter |   5    |    1    |  (9,T)  |  <1,2,3,4,5,6,9,10>  |
+| formatter |   6    |    1    |  (9,T)  | <1,2,3,4,5,7,8,9,10> |
+| formatter |   7    |    1    |   10    |     <1,2,3,9,10>     |
+| formatter |   8    |    1    |   10    |  <1,2,3,4,5,6,9,10>  |
+| formatter |   9    |    1    |   10    | <1,2,3,4,5,7,8,9,10> |
+| formatter |   10   |    1    |   11    |     <1,2,3,9,11>     |
+| formatter |   11   |    1    |   11    |  <1,2,3,4,5,6,9,11>  |
+| formatter |   12   |    1    |   11    | <1,2,3,4,5,7,8,9,11> |
+
+- **all-defs**
+  - The path with `id=3` covers all the criteria needed, rest of the paths is redudant
+- **all-c-uses**
+  - The paths with `id=9`, `id=12` covers all the criteria needed, rest of the paths is redudant or not appliable
+- **all-p-uses**
+  - The paths with `id=3`, `id=6` covers all the criteria needed, rest of the paths is redudant or not appliable
+- **all-uses**
+  - The paths mentioned above cover all the criteria needed, as the other paths are redundant
 
 
 ### Variable `dateTime`
-| **var**  | **id** | **def** | **use** |   **path**    |
-| :------: | :----: | :-----: | :-----: | :-----------: |
-| dateTime |   1    |    2    |   11    | <1,2,3,10,11> |
-| dateTime |   2    |    2    |   12    | <1,2,3,10,12> |
-| dateTime |   3    |    6    |   11    |  <6,7,10,11>  |
-| dateTime |   4    |    6    |   12    |  <6,7,10,12>  |
-| dateTime |   5    |    9    |   11    |   <9,10,11>   |
-| dateTime |   6    |    9    |   11    |   <9,10,12>   |
+| **var**  | **id** | **def** | **use** |   **path**   |
+| :------: | :----: | :-----: | :-----: | :----------: |
+| dateTime |   1    |    2    |   10    | <1,2,3,9,10> |
+| dateTime |   2    |    2    |   11    | <1,2,3,9,11> |
+| dateTime |   3    |    6    |   10    |   <6,9,10>   |
+| dateTime |   4    |    6    |   11    |   <6,9,11>   |
+| dateTime |   5    |    8    |   10    |   <8,9,10>   |
+| dateTime |   6    |    8    |   11    |   <8,9,11>   |
+
+- **all-defs**
+  - The paths with `id=1`, `id=3` and `id=5` covers all the criteria needed, rest of the paths is redudant
+- **all-c-uses**
+  - All paths are necessary to cover this criteria
+- **all-p-uses**
+  - Variable `dateTime` doesn't have any p-use, therefore, there's no need to cover this criteria
+- **all-uses**
+  - All paths are necessary to cover this criteria
 
 
 ### Variable `e`
 | **var** | **id** | **def** | **use** | **path** |
 | :-----: | :----: | :-----: | :-----: | :------: |
-|    e    |   1    |    3    |  (3,F)  |  <3,10>  |
+|    e    |   1    |    3    |  (3,F)  |  <3,9>   |
 |    e    |   2    |    3    |  (3,T)  |  <3,4>   |
 
 Variable `e` refers to an exception. To represent these paths, we opted to represent following closer to how it works in practice (Java), e.g. the variable is first defined and then used in the same line.
+
+- **all-defs**
+  - The paths with `id=1` covers all the criteria needed
+- **all-c-uses**
+  - Variable `e` doesn't have any c-use, therefore, there's no need to cover this criteria
+- **all-p-uses**
+  - All paths are necessary to cover this criteria
+- **all-uses**
+  - All paths are necessary to cover this criteria
 
 ### Variable `date`
 | **var** | **id** | **def** | **use** | **path** |
 | :-----: | :----: | :-----: | :-----: | :------: |
 |  date   |   1    |    4    |    6    | <4,5,6>  |
 
+- **all-defs**
+  - All paths are necessary to cover this criteria
+- **all-c-uses**
+  - All paths are necessary to cover this criteria
+- **all-p-uses**
+  - Variable `date` doesn't have any c-use, therefore, there's no need to cover this criteria
+- **all-uses**
+  - All paths are necessary to cover this criteria
+
 ### Variable `ex`
 | **var** | **id** | **def** | **use** | **path** |
 | :-----: | :----: | :-----: | :-----: | :------: |
 |   ex    |   1    |    5    |  (5,F)  |  <5,6>   |
-|   ex    |   1    |    5    |  (5,T)  |  <5,8>   |
-|   ex    |   1    |    7    |  (7,F)  |  <7,10>  |
-|   ex    |   1    |    7    |  (7,T)  |  <7,8>   |
+|   ex    |   2    |    5    |  (5,T)  |  <5,7>   |
 
-Variable `ex` refers to an exception. To represent these paths, we opted to represent following closer to how it works in practice (Java), e.g. the variable is first defined and then used in the same line. Therefore, a path from def in `5` to use in `7` doesn't exist.
+Variable `ex` refers to an exception. To represent these paths, we opted to represent following closer to how it works in practice (Java), e.g. the variable is first defined and then used in the same line.
+
+- **all-defs**
+  - The paths with `id=1` covers all the criteria needed
+- **all-c-uses**
+  - Variable `ex` doesn't have any c-use, therefore, there's no need to cover this criteria
+- **all-p-uses**
+  - All paths are necessary to cover this criteria
+- **all-uses**
+  - All paths are necessary to cover this criteria
+
+### Implemented Tests
+The implemented tests in previous assignments already covered all paths that are possible to test
+- `testNullFormatterFormatIsoDateTime` test:
+  - `dateString` - Covers path `id=1`
+  - `formatter` - Path with `id=6` and `id=9`
+  - `dateTime` - Path wtih `id=1`
+  - `e` - Path with `id=1`
+  - `date` - Does not cover
+  - `ex` - Does not cover
+- `testValidArgumentsFormatIsoDateTime` test:
+  - `dateString` - Covers path `id=1`
+  - `formatter` - Path with `id=3` and `id=12`
+  - `dateTime` - Path with `id=2`
+  - `e` - Path with `id=1`
+  - `date` - Does not cover
+  - `ex` - Does not cover
+- `testNullDateStringFormatIsoDateTime` test:
+  - `dateString` - Covers path `id=1`, `id=2` and `id=3`
+  - `formatter` - Path with `id=3` and `id=12`
+  - `dateTime` - Covers path with `id=6`
+  - `e` - Covers path with `id=2`
+  - `date` - Covers path with `id=1`
+  - `ex` - Covers path with `id=2`
+- `testNullDateStringFormatIsoDateTime2` test:
+  - `dateString` - Covers path `id=1`, `id=2` and `id=3`
+  - `formatter` - Path with `id=3` and `id=12`
+  - `dateTime` - Covers path with `id=5`
+  - `e` - Covers path with `id=2`
+  - `date` - Covers path with `id=1`
+  - `ex` - Covers path with `id=2`
+- `testFormatIsoDateTimeUnixTimestamp` test:
+  - `dateString` - Covers path `id=1` and `id=2`
+  - `formatter` - Path with `id=3` and `id=12`
+  - `dateTime` - Covers path with `id=4`
+  - `e` - Covers path with `id=2`
+  - `date` - Covers path with `id=1`  
+  - `ex` - Covers path with `id=1`
+- `testFormatIsoDateTimeUnixTimestamp2` test:
+  - `dateString` - Covers path `id=1` and `id=2`
+  - `formatter` - Path with `id=3` and `id=12`
+  - `dateTime` - Covers path with `id=3`
+  - `e` - Covers path with `id=2`
+  - `date` - Covers path with `id=1`  
+  - `ex` - Covers path with `id=1`
