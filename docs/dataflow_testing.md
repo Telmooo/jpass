@@ -90,6 +90,8 @@
 |    i    |   5    |   10    |  (7,F)  |   <10,7,11>   |
 |    i    |   6    |   10    |  (7,T)  |   <10,7,8>    |
 
+In path with `id=4` we opted to represent based on how it works in practice (Java) opposed to following literature, therefore, variable `i` is used before being defined.
+
 - **all-defs**
   - The paths with `id=2` and `id=4` are enough to satisfy this testing criteria, with other paths being redundant
 - **all-c-uses**
@@ -126,7 +128,7 @@ The tests already developed for the two functions above already cover all paths 
 
 ### Variable `text`
 | **var** | **id** | **def** | **use** | **path**  |
-|:-------:|:------:|:-------:|:-------:|:---------:|
+| :-----: | :----: | :-----: | :-----: | :-------: |
 |  text   |   1    |    1    |    2    |   <1,2>   |
 |  text   |   2    |    1    |    4    | <1,2,3,4> |
 |  text   |   3    |    1    |  (3,T)  | <1,2,3,4> |
@@ -135,7 +137,7 @@ The tests already developed for the two functions above already cover all paths 
 ### Variable `length`
 
 | **var** | **id** | **def** | **use** | **path**  |
-|:-------:|:------:|:-------:|:-------:|:---------:|
+| :-----: | :----: | :-----: | :-----: | :-------: |
 | length  |   1    |    1    |    4    | <1,2,3,4> |
 | length  |   2    |    1    |  (3,T)  | <1,2,3,4> |
 | length  |   3    |    1    |  (3,F)  | <1,2,3,5> |
@@ -143,7 +145,7 @@ The tests already developed for the two functions above already cover all paths 
 ### Variable `result`
 
 | **var** | **id** | **def** | **use** | **path** |
-|:-------:|:------:|:-------:|:-------:|:--------:|
+| :-----: | :----: | :-----: | :-----: | :------: |
 | result  |   1    |    2    |    5    | <2,3,5>  |
 | result  |   2    |    4    |    5    |  <4,5>   |
 
@@ -192,67 +194,70 @@ The tests already developed for the function already cover all paths needed to b
   - `length` - Covers path with `id=3`
   - `result` - Covers path with `id=1`
 
-<!--
-all-def -> for every program variable v, at least one def-clear path from every
-definition of v to at least one c-use or one p-use of v must be covered. In
-other words, test cases include a def-clear path from every definition of v to
-some corresponding use (either c-use or p-use).
-
-def-clear -> in respect to a var v, if it has no variable re-definition of v on the path.
-In other words, any path starting from a node at which
-variable v is defined and ending at a node at which v is
-used, without redefining v anywhere else along the path, is
-a def-clear path for v
-
-All-c-uses: for every program variable v, at least
-one def-clear path from every definition of v to
-every c-use of v must be covered.
-
-All-p-uses: for every program variable v, at
-least one def-clear path from every
-definition of v to every p-use of v must be
-covered.
-
-All-uses: for every program variable v, at least
-one def-clear path from every definition of v to
-every c-use and every p-use (including all
-outgoing edges of the predicate statement) of v
-must be covered. Requires that all def-use pairs
-are covered.
--->
 
 ## jpass.util.DateUtils.formatIsoDateTime
 
 ![Dataflow](assets/FormatIsoDateTimeDataflow.png)
 
 ### Variable `dateString`
-| **var** | **id** | **def** | **use** |   **path**    |
-| :-----: | :----: | :-----: | :-----: | :-----------: |
-|    i    |   1    |    1    |  3  |   <6,7,11>    |
-|    i    |   1    |    1    |  5  |   <6,7,11>    |
-|    i    |   1    |    1    |  9  |   <6,7,11>    |
+|  **var**   | **id** | **def** | **use** |     **path**      |
+| :--------: | :----: | :-----: | :-----: | :---------------: |
+| dateString |   1    |    1    |    2    |       <1,2>       |
+| dateString |   2    |    1    |    4    |     <1,2,3,4>     |
+| dateString |   3    |    1    |    8    |   <1,2,3,4,5,8>   |
+| dateString |   4    |    1    |    8    | <1,2,3,4,5,6,7,8> |
 
 ### Variable `formatter`
-| **var** | **id** | **def** | **use** |   **path**    |
-| :-----: | :----: | :-----: | :-----: | :-----------: |
-|    i    |   1    |    6    |  (7,F)  |   <6,7,11>    |
+|  **var**  | **id** | **def** | **use** |         **path**          |
+| :-------: | :----: | :-----: | :-----: | :-----------------------: |
+| formatter |   1    |    1    | (10,F)  |       <1,2,3,10,12>       |
+| formatter |   2    |    1    | (10,F)  |   <1,2,3,4,5,6,7,10,12>   |
+| formatter |   3    |    1    | (10,F)  | <1,2,3,4,5,6,7,8,9,10,12> |
+| formatter |   4    |    1    | (10,F)  |   <1,2,3,4,5,8,9,10,12>   |
+| formatter |   5    |    1    | (10,T)  |       <1,2,3,10,11>       |
+| formatter |   6    |    1    | (10,T)  |   <1,2,3,4,5,6,7,10,11>   |
+| formatter |   7    |    1    | (10,T)  | <1,2,3,4,5,6,7,8,9,10,11> |
+| formatter |   8    |    1    | (10,T)  |   <1,2,3,4,5,8,9,10,11>   |
+| formatter |   9    |    1    |   12    |       <1,2,3,10,12>       |
+| formatter |   10   |    1    |   12    |   <1,2,3,4,5,6,7,10,12>   |
+| formatter |   11   |    1    |   12    | <1,2,3,4,5,6,7,8,9,10,12> |
+| formatter |   12   |    1    |   12    |   <1,2,3,4,5,8,9,10,12>   |
+| formatter |   13   |    1    |   11    |       <1,2,3,10,11>       |
+| formatter |   14   |    1    |   11    |   <1,2,3,4,5,6,7,10,11>   |
+| formatter |   15   |    1    |   11    | <1,2,3,4,5,6,7,8,9,10,11> |
+| formatter |   16   |    1    |   11    |   <1,2,3,4,5,8,9,10,11>   |
+
 
 ### Variable `dateTime`
-| **var** | **id** | **def** | **use** |   **path**    |
-| :-----: | :----: | :-----: | :-----: | :-----------: |
-|    i    |   1    |    6    |  (7,F)  |   <6,7,11>    |
+| **var**  | **id** | **def** | **use** |   **path**    |
+| :------: | :----: | :-----: | :-----: | :-----------: |
+| dateTime |   1    |    2    |   11    | <1,2,3,10,11> |
+| dateTime |   2    |    2    |   12    | <1,2,3,10,12> |
+| dateTime |   3    |    6    |   11    |  <6,7,10,11>  |
+| dateTime |   4    |    6    |   12    |  <6,7,10,12>  |
+| dateTime |   5    |    9    |   11    |   <9,10,11>   |
+| dateTime |   6    |    9    |   11    |   <9,10,12>   |
+
 
 ### Variable `e`
-| **var** | **id** | **def** | **use** |   **path**    |
-| :-----: | :----: | :-----: | :-----: | :-----------: |
-|    i    |   1    |    6    |  (7,F)  |   <6,7,11>    |
+| **var** | **id** | **def** | **use** | **path** |
+| :-----: | :----: | :-----: | :-----: | :------: |
+|    e    |   1    |    3    |  (3,F)  |  <3,10>  |
+|    e    |   2    |    3    |  (3,T)  |  <3,4>   |
+
+Variable `e` refers to an exception. To represent these paths, we opted to represent following closer to how it works in practice (Java), e.g. the variable is first defined and then used in the same line.
 
 ### Variable `date`
-| **var** | **id** | **def** | **use** |   **path**    |
-| :-----: | :----: | :-----: | :-----: | :-----------: |
-|    i    |   1    |    6    |  (7,F)  |   <6,7,11>    |
+| **var** | **id** | **def** | **use** | **path** |
+| :-----: | :----: | :-----: | :-----: | :------: |
+|  date   |   1    |    4    |    6    | <4,5,6>  |
 
 ### Variable `ex`
-| **var** | **id** | **def** | **use** |   **path**    |
-| :-----: | :----: | :-----: | :-----: | :-----------: |
-|    i    |   1    |    6    |  (7,F)  |   <6,7,11>    |
+| **var** | **id** | **def** | **use** | **path** |
+| :-----: | :----: | :-----: | :-----: | :------: |
+|   ex    |   1    |    5    |  (5,F)  |  <5,6>   |
+|   ex    |   1    |    5    |  (5,T)  |  <5,8>   |
+|   ex    |   1    |    7    |  (7,F)  |  <7,10>  |
+|   ex    |   1    |    7    |  (7,T)  |  <7,8>   |
+
+Variable `ex` refers to an exception. To represent these paths, we opted to represent following closer to how it works in practice (Java), e.g. the variable is first defined and then used in the same line. Therefore, a path from def in `5` to use in `7` doesn't exist.
