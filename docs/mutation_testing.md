@@ -6,7 +6,7 @@
 
 ## jpass.util.ClipboardUtils
 
-Despite the tests passing when running `mvn test`, Pitest outputs failures. This lead to the class being ignored from mutation testing.
+Despite the tests passing when running `mvn test`, Pitest outputs failures. This led to the class being ignored from mutation testing.
 
 However, the inner class within `ClipboardUtils`, `EmptyClipboardContent`, had surviving mutants due to no coverage. To fix this, the following tests were implemented:
 ```diff
@@ -21,11 +21,11 @@ However, the inner class within `ClipboardUtils`, `EmptyClipboardContent`, had s
 +    Assertions.assertThrows(UnsupportedFlavorException.class, () -> emptyClipboardContent.getTransferData(dataFlavor));
 + }
 ```
-Due to the simplicity of the code to be tested, just a simple test to cover the lines were enough to kill the mutants.
+Due to the simplicity of the code to be tested, just a simple test to cover the lines was enough to kill the mutants.
 
 ## jpass.util.Configuration
 
-This class had 4 mutants that survived, however, only two of these was a valid mutant survival. The image below showcases the four mutants that survived not by lack of testing, but rather due to Pitest fault. The mutants are, in order:
+This class had 4 mutants that survived, however, only two of these were valid mutant survival. The image below showcases the four mutants that survived not by lack of testing, but rather due to Pitest fault. The mutants are, in order:
 1. Negated Conditional on `filePath.exists()`
 2. Negated Conditional on `filePath.isFile()`
 3. Removed call on `properties.load(is)`
@@ -33,7 +33,7 @@ This class had 4 mutants that survived, however, only two of these was a valid m
 
 ![Survived Mutants](assets/ConfigurationSurvivedMutants.png)
 
-The tests developed should cover these mutations, since, for example, by negating the conditional, the properties would not be loaded, and therefore tests checking if the properties are correctly loaded would fail. However, Pitest has an issue when isolating test cases and mutations with Singleton-type classes, like `Configuration`, and falsely reports this mutants due to previous state being kept between tests/mutations.
+The tests developed should cover these mutations, since, for example, by negating the conditional, the properties would not be loaded, and therefore tests checking if the properties are correctly loaded would fail. However, Pitest has an issue when isolating test cases and mutations with Singleton-type classes, like `Configuration`, and falsely reports these mutants due to the previous state being kept between tests/mutations.
 
 As a workaround to address this issue, we used Reflections at the setup method of this class to clear the Configuration instance:
 ```diff
@@ -54,7 +54,7 @@ To address this mutant, we added a test that attempted to delete the file after 
 
 - Negate conditional on `if (INSTANCE == null)` in method `getInstance`
 
-To address this mutant, we added a test to verify if the singleton is working correctly, since this if checks if the instance already exists, and if so, return the previously created instance.
+To address this mutant, we added a test to verify if the singleton is working correctly, since this if checks if the instance already exists, and if so, returns the previously created instance.
 ```java
 @Test
 public void testConfigurationSingleton() throws IOException {
@@ -80,7 +80,7 @@ It is an equivalent mutant, as the behaviour of the function does not change whe
 
 2. Negate Conditional on ``for (int i = 0; i < iteration; i++)`` - ``TIMED_OUT``
 
-In this case, the negation of the conditional results in ``for (int i = 0; i >= iteration; i++)``. When `iteration` is a value greater than `0`, this loop does not execute and when `iteration` is a value equal to `0`, the loop becomes infinite (as every number and its increment by one is higher than or equal to zero), getting eventually timed out by pitest.
+In this case, the negation of the conditional results in ``for (int i = 0; i >= iteration; i++)``. When `iteration` is a value greater than `0`, this loop does not execute and when `iteration` is a value equal to `0`, the loop becomes infinite (as every number and its increment by one is higher than or equal to zero), getting eventually timed out by Pitest.
 To prevent such behaviour a timeout of 1 second was added to one of the tests (where `iteration` has the value `0`), dealing with the described situation.
 
 ````diff
@@ -135,7 +135,7 @@ Due to the complexity of the algorithm and it involving encryption, we opted to 
 
 3. Remove call on `this._output.close()` in method `finishDecryption`
 
-Since we can initialize the Cbc with a custom OutputStream, we addressed the mutant by creating a FileOutputStream to output the decryption result. Invoking `close` on a FileOutputStream that is already closed results on an exception, therefore, if the method `finishDecryption` is called twice, it should result on an exception. This way, we can kill the mutant, as removing this call has the consequence of the second call to `finishDecryption` not resulting in exception. The following test was implemented:
+Since we can initialize the Cbc with a custom OutputStream, we addressed the mutant by creating a FileOutputStream to output the decryption result. Invoking `close` on a FileOutputStream that is already closed results in an exception, therefore, if the method `finishDecryption` is called twice, it should result in an exception. This way, we can kill the mutant, as removing this call has the consequence of the second call to `finishDecryption` not resulting in an exception. The following test was implemented:
 
 ```java
 @Test
@@ -175,7 +175,7 @@ In this class, 2 mutants survived the existing test suite:
 1. Negated Conditional on ``INSTANCE == null``
 2. Removed call on ``this.entries.getEntry().clear()``
 
-To address the first mutant, an extra test was developed to verify if the `DataModel` singleton is working as intended, checking if the object instance already exists, and if so, return the previously created one.
+To address the first mutant, an extra test was developed to verify if the `DataModel` singleton is working as intended, checking if the object instance already exists, and if so, returning the previously created one.
 
 ````diff
 +       @Test
@@ -189,7 +189,7 @@ To address the first mutant, an extra test was developed to verify if the `DataM
 +       }
 ````
 
-For the second mutant, an already existing test (`testClear`) was modified to check the value of ``this.entries`` after the `clear` method being called.
+For the second mutant, an already existing test (`testClear`) was modified to check the value of ``this.entries`` after the `clear` method was called.
 
 ````diff
     @Test
@@ -258,7 +258,7 @@ After these changes, the class ``XMLConverter`` and, by extension, the `jpass.xm
 
 A total of four mutants survived on `Aes256`. Eight mutants on `CryptInputStream` and one on `CryptOutputStream`.
 
-However, they weren't explored for the smae reason as two of the mutants in `Cbc`. This class involves a lot of private methods and is the implementation of encryption methods, thus input manipulation in order to kill the mutants can be complicated to discover.
+However, they weren't explored for the same reason as two of the mutants in `Cbc`. This class involves a lot of private methods and is the implementation of encryption methods, thus input manipulation in order to kill the mutants can be complicated to discover.
 
 ## jpass.data.EntriesRepository
 
