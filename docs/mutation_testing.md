@@ -1,5 +1,9 @@
 # Mutation Testing
 
+## Pitest Results (Before)
+
+![MutationScoreBefore](assets/MutationScoreBefore.png)
+
 ## jpass.util.ClipboardUtils
 
 Despite the tests passing when running `mvn test`, Pitest outputs failures. This lead to the class being ignored from mutation testing.
@@ -257,3 +261,11 @@ A total of four mutants survived on `Aes256`. Eight mutants on `CryptInputStream
 However, they weren't explored for the smae reason as two of the mutants in `Cbc`. This class involves a lot of private methods and is the implementation of encryption methods, thus input manipulation in order to kill the mutants can be complicated to discover.
 
 ## jpass.data.EntriesRepository
+
+Two mutants survived, one the method `readDocument` and the other on `writeDocument`. Both mutants are related to a line calling the `close` method on an Input/Output stream.
+
+Despite, trying the same method explored above, by trying to delete the file after the method. However, in this situation, the mutation still survives. Since we didn't find a way to eliminate this mutant, we consider it an equivalent mutant since the garbage collector handles the input stream after exiting method.
+
+## Pitest Results (After)
+
+![MutationScoreAfter](assets/MutationScoreAfter.png)
