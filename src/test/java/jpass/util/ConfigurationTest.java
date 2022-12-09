@@ -108,4 +108,18 @@ public class ConfigurationTest {
     public void testConfigurationGet() {
         Assertions.assertEquals("jojo", configuration.get("test.pass", "dio"));
     }
+
+    @Test
+    public void testConfigurationSingleton() throws IOException {
+        Properties properties = new Properties();
+        properties.setProperty("test.pass", "notjojo");
+
+        OutputStream outputStream = Files.newOutputStream(filePath.toPath(), new StandardOpenOption[]{TRUNCATE_EXISTING});
+
+        properties.store(outputStream, "Testing Property File");
+
+        Configuration configuration_singleton = Configuration.getInstance();
+
+        Assertions.assertEquals(configuration.get("test.pass", "undefined"), configuration_singleton.get("test.pass", "undefined2"));
+    }
 }

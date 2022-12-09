@@ -1,8 +1,8 @@
 package jpass.crypt;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.StandardOpenOption;
 import java.util.Arrays;
 import java.util.Random;
 
@@ -10,6 +10,8 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
+
+import static java.nio.file.StandardOpenOption.TRUNCATE_EXISTING;
 
 /**
  * Unit test for the CBC encryption. The test data will be encrypted and decrypted. The results will
@@ -232,6 +234,36 @@ public class CbcTest {
         _decrypt.finishDecryption();
 
         Assertions.assertArrayEquals(new byte[] { }, data);
+    }
+
+    @Test
+    public void testWriteToFileTwice() throws DecryptException, IOException {
+        byte[] iv = {(byte) 0x51, (byte) 0xA0, (byte) 0xC6, (byte) 0x19, (byte) 0x67, (byte) 0xB0, (byte) 0xE0,
+                (byte) 0xE5, (byte) 0xCF, (byte) 0x46, (byte) 0xB4, (byte) 0xD1, (byte) 0x4C, (byte) 0x83, (byte) 0x4C,
+                (byte) 0x38};
+
+        byte[] key = {(byte) 0x97, (byte) 0x6D, (byte) 0x71, (byte) 0x64, (byte) 0xE6, (byte) 0xE3, (byte) 0xB7,
+                (byte) 0xAA, (byte) 0xB5, (byte) 0x30, (byte) 0xDD, (byte) 0x52, (byte) 0xE7, (byte) 0x29, (byte) 0x19,
+                (byte) 0x3A, (byte) 0xD7, (byte) 0xE7, (byte) 0xDF, (byte) 0xD7, (byte) 0x61, (byte) 0xF1, (byte) 0x86,
+                (byte) 0xA4, (byte) 0x4B, (byte) 0xB7, (byte) 0xFA, (byte) 0xDF, (byte) 0x15, (byte) 0x44, (byte) 0x14,
+                (byte) 0x31};
+
+        File file = File.createTempFile("cbctest-", Long.toString(System.nanoTime()));
+
+        byte[] expected = {(byte) 0x33, (byte) 0xd7, (byte) 0x0a, (byte) 0x5a, (byte) 0xb7, (byte) 0xfe, (byte) 0xcf,
+                (byte) 0x92, (byte) 0x4f, (byte) 0x39, (byte) 0x70, (byte) 0x83, (byte) 0xd0, (byte) 0xfc, (byte) 0xfe,
+                (byte) 0x3a};
+
+        OutputStream decryptStream
+                = Files.newOutputStream(file.toPath(), new StandardOpenOption[]{TRUNCATE_EXISTING});
+
+        Cbc decrypt = new Cbc(iv, key, decryptStream);
+        decrypt.decrypt(expected);
+        decrypt.finishDecryption();
+
+        Assertions.assertThrows(Exception.class, () -> decrypt.finishDecryption());
+
+        file.deleteOnExit();
     }
 
 }
