@@ -99,7 +99,6 @@ public class ConfigurationTest {
 
     @Test
     public void testConfigurationGetArrayDefault() {
-        String[] expected = new String[] { "2", "3" };
         String[] defaultValue = new String[] { "default", "array" };
 
         Assertions.assertArrayEquals(defaultValue, configuration.getArray("test.error", defaultValue));
@@ -109,5 +108,4 @@ public class ConfigurationTest {
     public void testConfigurationGet() {
         Assertions.assertEquals("jojo", configuration.get("test.pass", "dio"));
     }
-
 }
