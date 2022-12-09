@@ -6,6 +6,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.*;
+import java.lang.reflect.Field;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.StandardOpenOption;
@@ -21,7 +22,7 @@ public class ConfigurationTest {
     private Configuration configuration;
 
     @BeforeEach
-    public void setUp() throws URISyntaxException, IOException {
+    public void setUp() throws URISyntaxException, IOException, NoSuchFieldException, IllegalAccessException {
         File configurationFolderPath = new File(Configuration.class
                 .getProtectionDomain()
                 .getCodeSource()
@@ -50,6 +51,11 @@ public class ConfigurationTest {
 
         properties.store(outputStream, "Testing Property File");
 
+        // TODO: Reflection required because Pitest is not correctly handling instance isolation
+        Field instanceField = Configuration.class.getDeclaredField("INSTANCE");
+        instanceField.setAccessible(true);
+        instanceField.set(configuration, null);
+
         configuration = Configuration.getInstance();
     }
 
@@ -58,6 +64,9 @@ public class ConfigurationTest {
         if (prevProperties == null) {
             filePath.delete();
         } else {
+            if (!filePath.exists()) {
+                filePath.createNewFile();
+            }
             OutputStream outputStream = Files.newOutputStream(filePath.toPath(), new StandardOpenOption[]{TRUNCATE_EXISTING});
 
             prevProperties.store(outputStream, "");
@@ -121,5 +130,10 @@ public class ConfigurationTest {
         Configuration configuration_singleton = Configuration.getInstance();
 
         Assertions.assertEquals(configuration.get("test.pass", "undefined"), configuration_singleton.get("test.pass", "undefined2"));
+    }
+
+    @Test
+    public void testConfigurationClosesStream() {
+        Assertions.assertTrue(filePath.delete());
     }
 }

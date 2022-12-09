@@ -36,11 +36,6 @@ public class EntriesRepositoryTest {
         public void setUp() {
             try {
                 tempFile = File.createTempFile("testFile", ".jpass");
-
-                String absolutePath = tempFile.getAbsolutePath();
-                String tempFilePath = absolutePath
-                        .substring(0, absolutePath.lastIndexOf(File.separator));
-
             } catch (IOException e) {
                 e.printStackTrace();
             }
