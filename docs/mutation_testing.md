@@ -67,11 +67,52 @@ To address this mutant, we added a test to verify if the singleton is working co
 +}
 ```
 
-## jpass.data.EntriesRepository
+## jpass.util.CryptUtils
 
 
+## jpass.data.DataModel
 
-## jpass.xml.converter (`XMLConverter.java`)
+In this class, 2 mutants survived the existing test suite:
+1. Negated Conditional on ``INSTANCE == null``
+2. Removed call on ``this.entries.getEntry().clear()``
+
+To address the first mutant, an extra test was developed to verify if the `DataModel` singleton is working as intended, checking if the object instance already exists, and if so, return the previously created one.
+
+````diff
++       @Test
++       public void testSingleton() {
++           dataModel.setFileName("TestingModel");
+
++           DataModel singleton = DataModel.getInstance();
+
++           Assertions.assertEquals("TestingModel", dataModel.getFileName());
++           Assertions.assertEquals("TestingModel", singleton.getFileName());
++       }
+````
+
+For the second mutant, an already existing test (`testClear`) was modified to check the value of ``this.entries`` after the `clear` method being called.
+
+````diff
+    @Test
+    public void testClear() {
+        dataModel.setFileName("new File");
++        Entries entries = new Entries();                    // create Entries object
++        Entry entry1 = new Entry(), entry2 = new Entry();   // create Entry objects
++        entry1.setTitle("Title 1");                         // change Entry properties
++        entry2.setTitle("Title 2");
++        entries.getEntry().add(entry1);                     // add Entry objects to Entries
++        entries.getEntry().add(entry2);
++        dataModel.setEntries(entries);
+
+        Assertions.assertNotNull(dataModel.getFileName());
++       Assertions.assertEquals(2, dataModel.getEntries().getEntry().size());
+        dataModel.clear();
+        Assertions.assertNull(dataModel.getFileName());
++       Assertions.assertEquals(0, dataModel.getEntries().getEntry().size());
+    }
+````
+
+## jpass.xml.converter.XMLConverter
 
 This class had a single mutant surviving: removed call to ``module.setDefaultUseWrapper(false)``.
 To fix this, the auxiliary class `PasswordManagerUtil` that was created for testing purposes was modified to include an extra property - an `ArrayList` -, to properly take into account the wrapper used by the `JacksonXmlModule` object. According to the [documentation](https://micronaut-projects.github.io/micronaut-jackson-xml/latest/api/io/micronaut/xml/jackson/JacksonXmlConfiguration.html), the method call in question affects properties that are Lists or arrays possibilities which were not considered in testing previously.
@@ -113,3 +154,7 @@ By consequence, the `setUp` method in the `XmlConverterTest` class was modified 
 ```
 
 After these changes, the class ``XMLConverter`` and, by extension, the `jpass.xml.converter` had a line and mutation coverage, and test strength of 100%.
+
+
+
+## jpass.data.EntriesRepository
