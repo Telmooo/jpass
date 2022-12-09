@@ -176,4 +176,10 @@ By consequence, the `setUp` method in the `XmlConverterTest` class was modified 
 
 After these changes, the class ``XMLConverter`` and, by extension, the `jpass.xml.converter` had a line and mutation coverage, and test strength of 100%.
 
+## jpass.crypt.Aes256 | jpass.crypt.io.CryptInputStream | jpass.crypt.io.CryptOutputStream
+
+A total of four mutants survived on `Aes256`. Eight mutants on `CryptInputStream` and one on `CryptOutputStream`.
+
+However, they weren't explored for the smae reason as two of the mutants in `Cbc`. This class involves a lot of private methods and is the implementation of encryption methods, thus input manipulation in order to kill the mutants can be complicated to discover.
+
 ## jpass.data.EntriesRepository
