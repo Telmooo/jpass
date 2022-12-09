@@ -2,6 +2,7 @@ package jpass.util;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Timeout;
 
 import java.util.Arrays;
 
@@ -39,6 +40,7 @@ class CryptUtilsTest {
     }
 
     @Test
+    @Timeout(1)
     void testSha256HashIteration0() throws Exception {
         byte[] expectedHash = {
                 (byte) 0xCA, (byte) 0x97, (byte) 0x81, (byte) 0x12, (byte) 0xCA, (byte) 0x1B, (byte) 0xBD, (byte) 0xCA,
