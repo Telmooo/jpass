@@ -85,9 +85,19 @@ public class DataModelTest {
     @Test
     public void testClear() {
         dataModel.setFileName("new File");
+        Entries entries = new Entries();                    // create Entries object
+        Entry entry1 = new Entry(), entry2 = new Entry();   // create Entry objects
+        entry1.setTitle("Title 1");                         // change Entry properties
+        entry2.setTitle("Title 2");
+        entries.getEntry().add(entry1);                     // add Entry objects to Entries
+        entries.getEntry().add(entry2);
+        dataModel.setEntries(entries);
+
         Assertions.assertNotNull(dataModel.getFileName());
+        Assertions.assertEquals(2, dataModel.getEntries().getEntry().size());
         dataModel.clear();
         Assertions.assertNull(dataModel.getFileName());
+        Assertions.assertEquals(0, dataModel.getEntries().getEntry().size());
     }
 
     @Nested
@@ -125,6 +135,16 @@ public class DataModelTest {
         @Test
         public void testGetEntryByTitleNotFound() {
             Assertions.assertNull(dataModel.getEntryByTitle("Title 3"));
+        }
+
+        @Test
+        public void testSingleton() {
+            dataModel.setFileName("TestingModel");
+
+            DataModel singleton = DataModel.getInstance();
+
+            Assertions.assertEquals("TestingModel", dataModel.getFileName());
+            Assertions.assertEquals("TestingModel", singleton.getFileName());
         }
     }
 
