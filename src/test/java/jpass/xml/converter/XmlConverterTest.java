@@ -11,6 +11,8 @@ import org.junit.jupiter.api.Test;
 
 import java.io.*;
 import java.nio.file.Files;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class XmlConverterTest {
 
@@ -22,7 +24,8 @@ public class XmlConverterTest {
 
     @BeforeEach
     public void setUp() throws IOException {
-        manager = new PasswordManagerUtil("master");
+        ArrayList<String> passList = new ArrayList<>(Arrays.asList("pass1", "pass2"));
+        manager = new PasswordManagerUtil("master", passList);
 
         xmlFile = File.createTempFile("xml-", Long.toString(System.nanoTime()));
 
