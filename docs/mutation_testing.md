@@ -68,10 +68,37 @@ public void testConfigurationSingleton() throws IOException {
 ```
 ## jpass.util.CryptUtils
 
-The number of surviving mutants in this class was 3:
-1. Removed call on ``md.reset()``
-2. Negate Conditional on ``for (int i = 0; i < iteration; i++)``
-3. Removed call on ``md.reset()``
+The number of surviving mutants in this class was 3.
+
+1. Removed call on ``md.reset()`` - line 90
+
+It is an equivalent mutant, as the behaviour of the function does not change when that method call is not present. The ``reset`` changes the ``MessageDigest`` object `state` property to the value `INITIAL` and afterwards, ``digest`` is called, assigning to the `state` property the value `IN PROGRESS`, i.e., the value of the property is always the result of the ``digest`` call in the possible execution outcomes.
+
+2. Negate Conditional on ``for (int i = 0; i < iteration; i++)`` - ``TIMED_OUT``
+
+In this case, the negation of the conditional results in ``for (int i = 0; i >= iteration; i++)``. When `iteration` is a value greater than `0`, this loop does not execute and when `iteration` is a value equal to `0`, the loop becomes infinite (as every number and its increment by one is higher than or equal to zero), getting eventually timed out by pitest.
+To prevent such behaviour a timeout of 1 second was added to one of the tests (where `iteration` has the value `0`), dealing with the described situation.
+
+````diff
+    @Test
++   @Timeout(1)
+    void testSha256HashIteration0() throws Exception {
+        byte[] expectedHash = {
+                (byte) 0xCA, (byte) 0x97, (byte) 0x81, (byte) 0x12, (byte) 0xCA, (byte) 0x1B, (byte) 0xBD, (byte) 0xCA,
+                (byte) 0xFA, (byte) 0xC2, (byte) 0x31, (byte) 0xB3, (byte) 0x9A, (byte) 0x23, (byte) 0xDC, (byte) 0x4D,
+                (byte) 0xA7, (byte) 0x86, (byte) 0xEF, (byte) 0xF8, (byte) 0x14, (byte) 0x7C, (byte) 0x4E, (byte) 0x72,
+                (byte) 0xB9, (byte) 0x80, (byte) 0x77, (byte) 0x85, (byte) 0xAF, (byte) 0xEE, (byte) 0x48, (byte) 0xBB,
+        };
+
+        Assertions.assertArrayEquals(expectedHash, CryptUtils.getSha256Hash("a".toCharArray()));
+    }
+````
+
+3. Removed call on ``md.reset()``- line 95
+
+Identical to number 1 (equivalent mutant) as it is located right before a ``digest`` call as well.
+
+
 
 ## jpass.crypt.Cbc
 
