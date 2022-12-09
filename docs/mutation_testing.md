@@ -66,7 +66,12 @@ public void testConfigurationSingleton() throws IOException {
     Assertions.assertEquals(configuration.get("test.pass", "undefined"), configuration_singleton.get("test.pass", "undefined2"));
 }
 ```
+## jpass.util.CryptUtils
 
+The number of surviving mutants in this class was 3:
+1. Removed call on ``md.reset()``
+2. Negate Conditional on ``for (int i = 0; i < iteration; i++)``
+3. Removed call on ``md.reset()``
 
 ## jpass.crypt.Cbc
 
